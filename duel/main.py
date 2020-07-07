@@ -67,11 +67,16 @@ class Duel:
             log.error('Invalid room%s can not start a game right now', self.view())
             self._gamblers.clear()
             self._status = duelcore.WAITING
-            fut.set_exception(duelcore.DuelRuntimeError('File "main.py", line 65, in game_start'))
+            fut.set_exception(duelcore.DuelRuntimeError(duelcore.generate_traceback()))
         else:
             self._chain.start_over()
-            await self._chain.duel_start()
-            fut.set_result(self.game_over())
+            try:
+                await self._chain.duel_start()
+                fut.set_result(self.game_over())
+            except duelcore.ChainRuntimeError as e:
+                self._gamblers.clear()
+                self._status = duelcore.WAITING
+                fut.set_exception(duelcore.DuelRuntimeError(repr(e)))
 
     async def game_over(self):
         pass

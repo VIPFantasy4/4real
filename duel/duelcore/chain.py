@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from .exceptions import *
 from .phase import DrawPhase
 import weakref
 
@@ -21,5 +22,8 @@ class Chain:
 
     async def duel_start(self):
         while self._phase:
-            with self._phase as phase:
-                await
+            try:
+                with self._phase as phase:
+                    await
+            except (DrawPhaseRuntimeError,):
+                raise

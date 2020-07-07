@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
-from .deck import Deck
+from .exceptions import *
+import log
 import weakref
 import random
 import math
@@ -39,4 +40,8 @@ class DrawPhase(Phase):
                         triple[i].setdefault(card[0], []).append(card[1])
             for addr, gambler in random.sample(gamblers.items(), 3):
                 gambler.deal(triple.pop())
+            self._three = self.DECK[-3:]
+        else:
+            log.error('Invalid room%s can not enter DrawPhase', self._chain.duel.view())
+            raise DrawPhaseRuntimeError(generate_traceback())
         return self
