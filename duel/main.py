@@ -4,6 +4,7 @@ import log
 import duelcore
 import cfg
 import asyncio
+import pickle
 import kafka
 
 
@@ -11,6 +12,9 @@ class Duel:
     def __init__(self, _id):
         self._id = _id
         self._status = duelcore.WAITING
+        self._writer = None  # type: asyncio.StreamWriter
+        self._reader = None  # type: asyncio.StreamReader
+        self._retry = 0
         self._consumer = kafka.KafkaConsumer(
             *cfg.KAFKA_TOPICS,
             bootstrap_servers=cfg.KAFKA_SERVERS,
@@ -19,7 +23,7 @@ class Duel:
         self._producer = kafka.KafkaProducer(bootstrap_servers=cfg.KAFKA_SERVERS)
         self._gamblers = {}
         self._chain = duelcore.chain.Chain(self)
-        self._queue = asyncio.Queue()
+        self._queue = asyncio.PriorityQueue()
 
     @property
     def queue(self):
@@ -35,17 +39,17 @@ class Duel:
 
     async def waiter(self, fut: asyncio.Future):
         try:
-            await self.queue.put(await fut)
+            await self.queue.put((duelcore.PRIORITY_LEVEL_LOW, await fut))
         except duelcore.DuelRuntimeError as e:
             log.error('%s: %s', e.__class__.__name__, e)
 
     async def worker(self):
         while True:
-            coro = await self.queue.get()
+            priority_number, coro = await self.queue.get()
+            self.queue.task_done()
             if self._status == duelcore.SERVING:
                 try:
                     await coro
-                    self.queue.task_done()
                 except:
                     pass
 
@@ -80,3 +84,45 @@ class Duel:
 
     async def game_over(self):
         pass
+
+    async def send(self, data):
+        if self._writer:
+            try:
+                self._writer.write(pickle.dumps(data))
+                await self._writer.drain()
+            except Exception as e:
+                log.error('Exception occurred in send')
+                log.error('%s: %s', e.__class__.__name__, e)
+        else:
+            pass
+
+    async def recv(self):
+        if self._reader:
+            try:
+                data = pickle.loads(await self._reader.readuntil(b'.'))
+            except Exception as e:
+                log.error('Exception occurred in recv')
+                log.error('%s: %s', e.__class__.__name__, e)
+        else:
+            pass
+
+    async def establish(self):
+        if self._retry > 4:
+            log.error('Establish failed over 3 times')
+            log.error('Destroy the room%s right now', self.view())
+            return
+        try:
+            log.info('Connecting addr: %s', (cfg.DUEL_PROXY_HOST, cfg.DUEL_PROXY_PORT))
+            self._reader, self._writer = await asyncio.open_connection(cfg.DUEL_PROXY_HOST, cfg.DUEL_PROXY_PORT)
+            log.info('Established addr: %s', (cfg.DUEL_PROXY_HOST, cfg.DUEL_PROXY_PORT))
+            self._retry = 0
+        except Exception as e:
+            log.error('Exception occurred in establish')
+            log.error('%s: %s', e.__class__.__name__, e)
+            log.error('Retry after 2 seconds')
+            await asyncio.sleep(2)
+            self._retry += 1
+            await self.queue.put((duelcore.PRIORITY_LEVEL_HIGH, self.establish()))
+
+    async def main(self):
+        reader, writer = await asyncio.open_connection('127.0.0.1', 8888)

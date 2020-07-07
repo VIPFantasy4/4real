@@ -44,4 +44,7 @@ class DrawPhase(Phase):
         else:
             log.error('Invalid room%s can not enter DrawPhase', self._chain.duel.view())
             raise DrawPhaseRuntimeError(generate_traceback())
-        return self
+        return self.till_i_die()
+    
+    async def till_i_die(self):
+        await self._chain.duel.send()
