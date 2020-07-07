@@ -1,0 +1,10 @@
+REDIS_HOST = '122.51.140.131'
+REDIS_PORT = 6379
+REDIS_PASSWD = '2real'
+
+KAFKA_TOPICS = [
+    'cli',
+]
+KAFKA_SERVERS = [
+    '122.51.140.131:9092',
+]
