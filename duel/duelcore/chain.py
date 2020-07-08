@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 
 from .exceptions import *
-from .phase import DrawPhase
 import weakref
 
 
@@ -15,6 +14,7 @@ class Chain:
         return self._duel
 
     def start_over(self):
+        from .phase import DrawPhase
         self._phase = DrawPhase(self)
 
     def shift(self, phase):
