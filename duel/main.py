@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from collections import OrderedDict
 import log
 import duelcore
 import cfg
@@ -21,7 +22,7 @@ class Duel:
             consumer_timeout_ms=1000
         )
         self._producer = kafka.KafkaProducer(bootstrap_servers=cfg.KAFKA_SERVERS)
-        self._gamblers = {}
+        self._gamblers = OrderedDict()
         self._chain = duelcore.chain.Chain(self)
         self._queue = asyncio.PriorityQueue()
 
