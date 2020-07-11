@@ -74,7 +74,7 @@ class GangPhase(Phase):
         super().__init__(chain)
         self._three = three
         self._turn = turn
-        self._od = od
+        self._od: OrderedDict = od
 
     def __enter__(self):
         return self.till_i_die()
@@ -92,5 +92,55 @@ class GangPhase(Phase):
         if isinstance(choice, int):
             task.cancel()
         self._fut = None
+        args = (self.turn, choice)
         if choice:
-            pass
+            gambler = self._od[self.turn]
+            gambler.role += 1
+            if len(self._od) == 1 or gambler.role > 1:
+                og = gambler
+            else:
+                self._od.move_to_end(self.turn)
+                self._turn = list(self._od.keys())[0]
+                self._next = GangPhase(self._chain, self._three, self._od, self.turn)
+        else:
+            gambler = self._od.pop(self.turn)
+            key_list = list(self._od.keys())
+            if gambler.role:
+                og = self._od[key_list[-1]]
+            elif not key_list:
+                _id, status, gamblers = self._chain.duel.view()
+                og = random.choice(gamblers.items())[1]
+            else:
+                self._turn = key_list[0]
+                self._next = GangPhase(self._chain, self._three, self._od, self.turn)
+        if isinstance(self._next, GangPhase):
+            data = {
+                'name': '',
+                'args': args,
+                'kwargs': None
+            }
+        else:
+            og.deal(self._three)
+            self._next = MainPhase(self._chain, og)
+            data = {
+                'name': '',
+                'args': (),
+                'kwargs': None
+            }
+        await self._chain.duel.send(data)
+
+
+class MainPhase(Phase):
+    def __init__(self, chain, od, turn=None):
+        super().__init__(chain)
+        if not isinstance(od, OrderedDict):
+            turn = od.addr
+            _id, status, gamblers = self._chain.duel.view()
+            key_list = list(gamblers.keys())
+            order = key_list.index(turn)
+            key_list = key_list[order:] + key_list[:order]
+            od = OrderedDict()
+            for key in key_list:
+                od[key] = gamblers[key]
+        self._turn = turn
+        self._od: OrderedDict = od

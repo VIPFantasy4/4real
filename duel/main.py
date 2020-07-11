@@ -9,12 +9,19 @@ import pickle
 import kafka
 
 
+class DuelInfo:
+    def __init__(self):
+        self._times = None
+        self._og = None
+        self._track = None
+
+
 class Duel:
     def __init__(self, _id):
         self._id = _id
         self._status = duelcore.WAITING
-        self._writer = None  # type: asyncio.StreamWriter
-        self._reader = None  # type: asyncio.StreamReader
+        self._writer: asyncio.StreamWriter = None
+        self._reader: asyncio.StreamReader = None
         self._retry = 0
         self._consumer = kafka.KafkaConsumer(
             *cfg.KAFKA_TOPICS,

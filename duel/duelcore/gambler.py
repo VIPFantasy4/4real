@@ -8,15 +8,11 @@ class Gambler:
         self.addr = addr
         self._duel = weakref.proxy(duel)
         self._cards = None
-        self._role = 0
+        self.role = 0
 
     def deal(self, cards):
-        self._cards = cards
-
-    @property
-    def role(self):
-        return self._role
-
-    @role.setter
-    def role(self, role):
-        self._role = role
+        if self._cards is None:
+            self._cards = cards
+        else:
+            for card in cards:
+                self._cards.setdefault(card[0], []).append(card[1])
