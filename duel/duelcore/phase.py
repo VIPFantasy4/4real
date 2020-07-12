@@ -3,6 +3,7 @@
 from collections import OrderedDict
 from .exceptions import *
 import log
+import duelcore
 import asyncio
 import weakref
 import random
@@ -38,7 +39,7 @@ class DrawPhase(Phase):
         if self._chain.duel.validate():
             _id, status, gamblers = self._chain.duel.view()
             random.shuffle(self.DECK)
-            once = random.randint(4, 17)
+            once = random.randint(*duelcore.DP_CLOSED_INTERVAL)
             t = int(math.ceil(17 / once))
             triple = [{} for _ in range(3)]
             for i in range(t):
@@ -80,7 +81,7 @@ class GangPhase(Phase):
         return self.till_i_die()
 
     async def run_out(self, fut):
-        await asyncio.sleep(10)
+        await asyncio.sleep(duelcore.GP_TIMEOUT)
         if not fut.done():
             fut.set_result(None)
 
@@ -131,7 +132,7 @@ class GangPhase(Phase):
 
 
 class MainPhase(Phase):
-    def __init__(self, chain, od, turn=None):
+    def __init__(self, chain, od, turn=None, track=None):
         super().__init__(chain)
         if not isinstance(od, OrderedDict):
             turn = od.addr
@@ -144,3 +145,21 @@ class MainPhase(Phase):
                 od[key] = gamblers[key]
         self._turn = turn
         self._od: OrderedDict = od
+        self.track: list = track or []
+
+    def __enter__(self):
+        return self.till_i_die()
+
+    async def run_out(self, fut):
+        await asyncio.sleep(duelcore.MP_TIMEOUT)
+        if not fut.done():
+            fut.set_result(None)
+
+    async def till_i_die(self):
+        fut = asyncio.get_event_loop().create_future()
+        self._fut = fut
+        task = asyncio.create_task(self.run_out(fut))
+        cards = await fut
+        self._od[self.turn]
+        if not cards:
+            pass
