@@ -145,21 +145,28 @@ class MainPhase(Phase):
                 od[key] = gamblers[key]
         self._turn = turn
         self._od: OrderedDict = od
-        self.track: list = track or []
+        self.track = track or []
 
     def __enter__(self):
         return self.till_i_die()
 
     async def run_out(self, fut):
-        await asyncio.sleep(duelcore.MP_TIMEOUT)
+        await asyncio.sleep(self._od[self.turn].bot > 0 and duelcore.BOT_DELAY or duelcore.MP_TIMEOUT)
         if not fut.done():
+            self._od[self.turn].bot += 1
             fut.set_result(None)
 
     async def till_i_die(self):
+        gambler = self._od[self.turn]
         fut = asyncio.get_event_loop().create_future()
         self._fut = fut
         task = asyncio.create_task(self.run_out(fut))
         cards = await fut
-        self._od[self.turn]
+        if isinstance(cards, dict):
+            task.cancel()
+            gambler.bot = False
+        self._fut = None
+
         if not cards:
-            pass
+            if self.track[-2:] + [None for _ in range(2 - len(self.track))] == [None, None]:
+                gambler.auto()

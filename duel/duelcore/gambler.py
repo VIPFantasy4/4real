@@ -9,6 +9,7 @@ class Gambler:
         self._duel = weakref.proxy(duel)
         self._cards = None
         self.role = 0
+        self.bot = -1
 
     def deal(self, cards):
         if self._cards is None:
