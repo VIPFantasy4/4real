@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 
 from collections import OrderedDict
-from .exceptions import *
 import log
 import duelcore
 import asyncio
+import time
 import weakref
 import random
 import math
@@ -59,7 +59,7 @@ class DrawPhase(Phase):
             self._next = GangPhase(self._chain, self.DECK[-3:], od, addr)
         else:
             log.error('Invalid room%s can not enter DrawPhase', self._chain.duel.view())
-            raise DrawPhaseRuntimeError(generate_traceback())
+            raise duelcore.DrawPhaseRuntimeError(duelcore.generate_traceback())
         return self.till_i_die()
 
     async def till_i_die(self):
@@ -150,23 +150,27 @@ class MainPhase(Phase):
     def __enter__(self):
         return self.till_i_die()
 
-    async def run_out(self, fut):
-        await asyncio.sleep(self._od[self.turn].bot > 0 and duelcore.BOT_DELAY or duelcore.MP_TIMEOUT)
+    async def run_out(self, fut, delay):
+        await asyncio.sleep(self._od[self.turn].bot > 0 and duelcore.BOT_DELAY or duelcore.MP_TIMEOUT - delay)
         if not fut.done():
             self._od[self.turn].bot += 1
             fut.set_result(None)
 
-    async def till_i_die(self):
+    async def till_i_die(self, started_at=0):
         gambler = self._od[self.turn]
         fut = asyncio.get_event_loop().create_future()
         self._fut = fut
-        task = asyncio.create_task(self.run_out(fut))
-        cards = await fut
+        resumed_at = int(time.monotonic())
+        task = asyncio.create_task(self.run_out(fut, started_at and resumed_at - started_at))
+        try:
+            cards = await fut
+        except duelcore.HumanOperationResume:
+            task.cancel()
+            await self.till_i_die(resumed_at)
+            return
         if isinstance(cards, dict):
             task.cancel()
-            gambler.bot = False
         self._fut = None
-
         if not cards:
             if self.track[-2:] + [None for _ in range(2 - len(self.track))] == [None, None]:
                 gambler.auto()

@@ -17,3 +17,7 @@ class ChainRuntimeError(RuntimeError):
 
 class DrawPhaseRuntimeError(RuntimeError):
     pass
+
+
+class HumanOperationResume(RuntimeError):
+    pass
