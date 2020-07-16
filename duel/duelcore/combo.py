@@ -46,5 +46,5 @@ class JokerBomb:
 
 class Combo:
     @staticmethod
-    def fromcards():
+    def fromcards(cards: dict):
         return

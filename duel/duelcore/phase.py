@@ -47,7 +47,7 @@ class DrawPhase(Phase):
                 for j in range(n, n + (17 - once * i if t - 1 == i else once)):
                     for i in range(3):
                         card = self.DECK[j + once * i]
-                        triple[i].setdefault(card[0], []).append(card[1])
+                        triple[i].setdefault(card[0], set()).add(card)
             for addr, gambler in random.sample(gamblers.items(), 3):
                 gambler.deal(triple.pop())
             key_list = list(gamblers.keys())
