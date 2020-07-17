@@ -1,5 +1,48 @@
-$def with (login, )
-<form action="/" method="post">
-    <input type="text" name="username" title="求求你告诉我你是谁"/>
-    <input type="hidden" name="csrf_token" value="$csrf_token()">
-</form>
+$def with (rows)
+<head>
+    <title>史蒂夫嗦牛肉粉</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+</head>
+$if rows is None:
+    <form action="/" method="post">
+        <label for="username">求求你告诉我你是谁：</label><input type="text" id="username" name="username"><br>
+        <input type="hidden" name="csrf_token" value="$csrf_token()">
+        <input type="submit" value="淦">
+    </form>
+$else:
+    <p>下单（请勿浪费，下单后我也退不了）</p>
+    <form action="/" method="post">
+        <input type="radio" id="wd1" name="_wday" value="0" checked><label for="wd1">周一</label>
+        <input type="radio" id="wd2" name="_wday" value="1"><label for="wd2">周二</label>
+        <input type="radio" id="wd3" name="_wday" value="2"><label for="wd3">周三</label>
+        <input type="radio" id="wd4" name="_wday" value="3"><label for="wd4">周四</label>
+        <input type="radio" id="wd5" name="_wday" value="4"><label for="wd5">周五</label>
+        <input type="radio" id="wd6" name="_wday" value="5"><label for="wd6">周六</label><br>
+        <label for="order">求求你告诉我你吃啥：</label><input type="text" id="order" name="_order" size="35" placeholder="无论你打什么都是去年免费今年¥18的高贵牛肉粉"><br>
+        <input type="radio" id="lunch" name="_lunch" value="1" checked><label for="lunch">午</label>
+        <input type="radio" id="supper" name="_lunch" value="2"><label for="supper">晚</label><br>
+        <input type="submit" value="立即下单">
+        <input type="hidden" name="order">
+        <input type="hidden" name="csrf_token" value="$csrf_token()">
+    </form>
+    <hr>
+    <p>订单</p>
+    $if rows:
+        $ enum = ('周一', '周二', '周三', '周四', '周五', '周六')
+        $ pair = {1: '午', 2: '晚'}
+        <table border="1" cellpadding="4">
+        $for _order, _wday, _lunch, _href in rows:
+            <tr>
+                <td>$enum[_wday]</td>
+                <td>$pair[_lunch]</td>
+                <td>$_order</td>
+                <td>
+                    $if _href:
+                        <a href="$_href">立即领取</a>
+                    $else:
+                        <i>发货中</i>
+                </td>
+            </tr>
+        </table>
+    $else:
+        <h5><u>大佬先去点个单呗</u></h5>

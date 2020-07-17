@@ -5,6 +5,7 @@ from uuid import uuid4
 import web
 import db
 
+web.config.debug = False
 URLS = (
     '/', 'Index',
 )
@@ -13,14 +14,10 @@ RENDER = render = web.template.render(
 
 
 class Index:
-    def login(self, rows):
-        output
-        return render.index('All Eyez On Me')
-
     def GET(self):
         if 'username' in web.config._session:
-            return self.login(db.select_all(web.config._session.username))
-        return render.index('All Eyez On Me')
+            return render.index(db.select_all(web.config._session.username))
+        return render.index(None)
 
     def POST(self):
         _input = web.input()
@@ -29,11 +26,27 @@ class Index:
                 "400 Bad request",
                 {'Content-Type': 'text/html'},
                 'Cross-site request forgery (CSRF) attempt (or stale browser form).')
-        username = _input.username.strip()
-        if not username:
-            return render.index()
-        web.config._session.username = username
-        db.select_all(username)
+        if 'order' in _input:
+            try:
+                username = web.config._session.username
+            except:
+                return render.index(None)
+            try:
+                db.insert_one({
+                    'username': username,
+                    '_order': '牛肉粉',
+                    '_wday': int(_input._wday),
+                    '_lunch': int(_input._lunch)
+                })
+            except:
+                pass
+            return render.index(db.select_all(username))
+        else:
+            username = _input.username.strip()
+            if not username:
+                return render.index(None)
+            web.config._session.username = username
+            return render.index(db.select_all(username))
 
 
 if __name__ == "__main__":

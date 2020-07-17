@@ -2,34 +2,39 @@
 # -*- coding: utf-8 -*-
 
 import os
-import time
+import hashlib
 import sqlite3
 
 
-def select_all(username):
-    path = os.path.join(os.path.dirname(__file__), 'db', f'{username}.db')
+def select_all(username: str):
+    path = os.path.join(os.path.dirname(__file__), 'db', f'{hashlib.md5(username.encode()).hexdigest()}.db')
     if os.path.exists(path):
         conn = sqlite3.connect(path)
         c = conn.cursor()
-        c.execute("""SELECT * FROM gangsta""")
-        return c.fetchall()
+        c.execute("""SELECT * FROM gangsta ORDER BY _wday, _lunch""")
+        rows = c.fetchall()
+        conn.close()
+        return rows
+    return ()
 
 
-# conn = sqlite3.connect('gang.db')
-# c = conn.cursor()
-# c.execute("""
-#     CREATE TABLE IF NOT EXISTS gang (
-#         _gangsta TEXT,
-#         _order TEXT,
-#         _date TEXT,
-#         _noon INTEGER,
-#         _href TEXT DEFAULT NULL,
-#         PRIMARY KEY (_gangsta, _date, _noon)
-#     )
-# """)
-#
-# c.executemany('INSERT INTO gang (_gangsta, _order, _date, _noon) VALUES (?, ?, ?, ?)', [
-#     (3, '背景', 'asdas', 1), (3, '背景', 'asdas', 2)])
-# sqlite3.IntegrityError
-# conn.commit()
-# conn.close()
+def insert_one(mapping: dict):
+    username = mapping.pop('username')
+    path = os.path.join(os.path.dirname(__file__), 'db', f'{hashlib.md5(username.encode()).hexdigest()}.db')
+    conn = sqlite3.connect(path)
+    c = conn.cursor()
+    c.execute("""
+        CREATE TABLE IF NOT EXISTS gangsta (
+            _order TEXT,
+            _wday INTEGER,
+            _lunch INTEGER,
+            _href TEXT DEFAULT NULL,
+            PRIMARY KEY (_wday, _lunch)
+        )
+    """)
+    try:
+        c.execute("""INSERT INTO gangsta (_order, _wday, _lunch) VALUES (:_order, :_wday, :_lunch)""", mapping)
+        conn.commit()
+    except:
+        conn.rollback()
+    conn.close()
