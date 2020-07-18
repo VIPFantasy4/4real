@@ -6,6 +6,16 @@ import hashlib
 import sqlite3
 
 
+def no_balance():
+    path = os.path.join(os.path.dirname(__file__), 'db', 'real.db')
+    conn = sqlite3.connect(path)
+    c = conn.cursor()
+    c.execute('SELECT * FROM real')
+    row = c.fetchone()
+    conn.close()
+    return row[0]
+
+
 def select_all(username: str):
     path = os.path.join(os.path.dirname(__file__), 'db', f'{hashlib.md5(username.encode()).hexdigest()}.db')
     if os.path.exists(path):
@@ -19,12 +29,13 @@ def select_all(username: str):
 
 
 def insert_one(mapping: dict):
-    username = mapping.pop('username')
+    username = mapping['_lame']
     path = os.path.join(os.path.dirname(__file__), 'db', f'{hashlib.md5(username.encode()).hexdigest()}.db')
     conn = sqlite3.connect(path)
     c = conn.cursor()
     c.execute("""
         CREATE TABLE IF NOT EXISTS gangsta (
+            _lame TEXT,
             _order TEXT,
             _wday INTEGER,
             _lunch INTEGER,
@@ -33,7 +44,8 @@ def insert_one(mapping: dict):
         )
     """)
     try:
-        c.execute("""INSERT INTO gangsta (_order, _wday, _lunch) VALUES (:_order, :_wday, :_lunch)""", mapping)
+        c.execute(
+            """INSERT INTO gangsta (_lame, _order, _wday, _lunch) VALUES (:_lame, :_order, :_wday, :_lunch)""", mapping)
         conn.commit()
     except:
         conn.rollback()

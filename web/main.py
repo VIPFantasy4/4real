@@ -10,7 +10,9 @@ URLS = (
     '/favicon.ico', 'Icon'
 )
 RENDER = render = web.template.render(
-    'templates/', globals={'csrf_token': lambda: web.config._session.setdefault('csrf_token', uuid4().hex)})
+    'templates/', globals={
+        'csrf_token': lambda: web.config._session.setdefault('csrf_token', uuid4().hex),
+        'balance': db.no_balance})
 
 
 class Icon:
@@ -39,7 +41,7 @@ class Index:
                 return render.index(None)
             try:
                 db.insert_one({
-                    'username': username,
+                    '_lame': username,
                     '_order': '牛肉粉',
                     '_wday': int(_input._wday),
                     '_lunch': int(_input._lunch)

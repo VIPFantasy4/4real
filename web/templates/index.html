@@ -14,7 +14,7 @@ $if rows is None:
         <input type="submit" value="淦">
     </form>
 $else:
-    <p>下单（请勿浪费，下单后我也退不了）</p>
+    <p>下单（请勿浪费，发货后我也退不了！小弟还剩¥$balance()，大佬随便点）</p>
     <form action="/" method="post">
         <input type="radio" id="wd1" name="_wday" value="0" checked><label for="wd1">周一</label>
         <input type="radio" id="wd2" name="_wday" value="1"><label for="wd2">周二</label>
@@ -35,7 +35,7 @@ $else:
         $ enum = ('周一', '周二', '周三', '周四', '周五', '周六')
         $ pair = {1: '午', 2: '晚'}
         <table border="1" cellpadding="4">
-        $for _order, _wday, _lunch, _href in rows:
+        $for _, _order, _wday, _lunch, _href in rows:
             <tr>
                 <td>$enum[_wday]</td>
                 <td>$pair[_lunch]</td>
