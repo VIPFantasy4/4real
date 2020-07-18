@@ -1,8 +1,12 @@
 $def with (rows)
+<!DOCTYPE html>
+<html>
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>史蒂夫嗦牛肉粉</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
+<body>
 $if rows is None:
     <form action="/" method="post">
         <label for="username">求求你告诉我你是谁：</label><input type="text" id="username" name="username"><br>
@@ -18,7 +22,7 @@ $else:
         <input type="radio" id="wd4" name="_wday" value="3"><label for="wd4">周四</label>
         <input type="radio" id="wd5" name="_wday" value="4"><label for="wd5">周五</label>
         <input type="radio" id="wd6" name="_wday" value="5"><label for="wd6">周六</label><br>
-        <label for="order">求求你告诉我你吃啥：</label><input type="text" id="order" name="_order" size="35" placeholder="无论你打什么都是去年免费今年¥18的高贵牛肉粉"><br>
+        <label for="order">求求你告诉我你吃啥：</label><input type="text" id="order" name="_order" size="44" placeholder="无论你打什么都是去年免费今年¥18的高贵牛肉粉"><br>
         <input type="radio" id="lunch" name="_lunch" value="1" checked><label for="lunch">午</label>
         <input type="radio" id="supper" name="_lunch" value="2"><label for="supper">晚</label><br>
         <input type="submit" value="立即下单">
@@ -46,3 +50,5 @@ $else:
         </table>
     $else:
         <h5><u>大佬先去点个单呗</u></h5>
+</body>
+</html>
