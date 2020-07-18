@@ -7,9 +7,16 @@ import db
 
 URLS = (
     '/', 'Index',
+    '/favicon.ico', 'Icon'
 )
 RENDER = render = web.template.render(
     'templates/', globals={'csrf_token': lambda: web.config._session.setdefault('csrf_token', uuid4().hex)})
+
+
+class Icon:
+    def GET(self):
+        with open('favicon.ico', 'rb') as f:
+            return f.read()
 
 
 class Index:
