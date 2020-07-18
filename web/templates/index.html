@@ -20,8 +20,7 @@ $else:
         <input type="radio" id="wd2" name="_wday" value="1"><label for="wd2">周二</label>
         <input type="radio" id="wd3" name="_wday" value="2"><label for="wd3">周三</label>
         <input type="radio" id="wd4" name="_wday" value="3"><label for="wd4">周四</label>
-        <input type="radio" id="wd5" name="_wday" value="4"><label for="wd5">周五</label>
-        <input type="radio" id="wd6" name="_wday" value="5"><label for="wd6">周六</label><br>
+        <input type="radio" id="wd5" name="_wday" value="4"><label for="wd5">周五</label><br>
         <label for="order">求求你告诉我你吃啥：</label><input type="text" id="order" name="_order" size="44" placeholder="无论你打什么都是去年免费今年¥18的高贵牛肉粉"><br>
         <input type="radio" id="lunch" name="_lunch" value="1" checked><label for="lunch">午</label>
         <input type="radio" id="supper" name="_lunch" value="2"><label for="supper">晚</label><br>
@@ -32,7 +31,7 @@ $else:
     <hr>
     <p>订单</p>
     $if rows:
-        $ enum = ('周一', '周二', '周三', '周四', '周五', '周六')
+        $ enum = ('周一', '周二', '周三', '周四', '周五')
         $ pair = {1: '午', 2: '晚'}
         <table border="1" cellpadding="4">
         $for _, _order, _wday, _lunch, _href in rows:
