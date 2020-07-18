@@ -5,7 +5,6 @@ from uuid import uuid4
 import web
 import db
 
-web.config.debug = False
 URLS = (
     '/', 'Index',
 )
@@ -50,7 +49,8 @@ class Index:
 
 
 if __name__ == "__main__":
-    # web.wsgi.runwsgi = lambda func, addr=None: web.wsgi.runfcgi(func, addr)
+    web.wsgi.runwsgi = lambda func, addr=None: web.wsgi.runfcgi(func, addr)
+    web.config.session_parameters['cookie_path'] = '/'
     web.config.session_parameters['ignore_change_ip'] = False
     app = web.application(URLS, globals())
     web.config._session = web.session.Session(app, web.session.DiskStore('sessions'))
