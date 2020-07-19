@@ -26,7 +26,7 @@ for filename in os.listdir('.'):
     if filename != 'real.db' and filename.endswith('.db'):
         db = sqlite3.connect(filename)
         c = db.cursor()
-        c.execute("""SELECT * FROM gangsta WHERE _href = NULL ORDER BY _wday, _lunch""")
+        c.execute("""SELECT * FROM gangsta WHERE _href ISNULL ORDER BY _wday, _lunch""")
         rows = c.fetchall()
         db.close()
         for _lame, _order, _wday, _lunch, _ in rows:
@@ -65,7 +65,7 @@ for order in order_list:
     c = db.cursor()
     try:
         c.execute(
-            """UPDATE gangsta SET _href = ? WHERE _lame = ? AND _wday = ? AND _lunch = ? AND _href = NULL""",
+            """UPDATE gangsta SET _href = ? WHERE _lame = ? AND _wday = ? AND _lunch = ? AND _href ISNULL""",
             (_href, order['_lame'], order['_wday'], order['_lunch'])
         )
         if c.rowcount:
