@@ -3,9 +3,9 @@
 
 from collections import Counter
 from email.mime.text import MIMEText
-import smtplib
 import os
 import sqlite3
+import smtplib
 
 enum = ('周一', '周二', '周三', '周四', '周五')
 pair = {1: '午', 2: '晚'}
