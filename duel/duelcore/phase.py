@@ -121,6 +121,7 @@ class GangPhase(Phase):
                 'kwargs': None
             }
         else:
+            og.og = True
             og.deal(self._three)
             self._next = MainPhase(self._chain, og)
             data = {

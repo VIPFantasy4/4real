@@ -1,9 +1,20 @@
 # -*- coding: utf-8 -*-
 
 class Combo:
+    @classmethod
+    def whoami(cls):
+        return cls
+
     @staticmethod
-    def fromcards(cards: dict):
+    def fromcards(cards: dict, owner):
         return
+
+    def __init__(self, owner):
+        self._owner = owner
+
+    @property
+    def owner(self):
+        return self._owner
 
 
 class Single(Combo):

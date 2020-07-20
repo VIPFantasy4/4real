@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from .combo import Combo
 import weakref
 
 
@@ -9,6 +10,7 @@ class Gambler:
         self._duel = weakref.proxy(duel)
         self._cards = None
         self.role = 0
+        self.og = False
         self.bot = -1
 
     @property
@@ -35,7 +37,21 @@ class Gambler:
     def auto(self, track):
         first, second = track[-2:] + [None for _ in range(2 - len(track))]
         last = second if second else first
+        cards = self._cards
+        combo = Combo.fromcards(cards, self)
         if last:
-            pass
+            if combo is not None and combo > last:
+                pass
+            elif self.og or last.owner.og:
+                pass
+            else:
+                cards = {}
+                combo = last.fromcards(cards, self)
         else:
-            pass
+            if combo is not None:
+                pass
+            else:
+                pass
+        if combo:
+            self.play(cards)
+        track.append(combo)
