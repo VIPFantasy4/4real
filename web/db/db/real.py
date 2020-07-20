@@ -40,17 +40,21 @@ for filename in os.listdir('.'):
             demand_mapping[_wday][_lunch][0] += 1
             demand_mapping[_wday][_lunch][1].update({_order: 1})
 
+demand_text = ''
+for i in range(5):
+    for j in (1, 2):
+        demand_text += f'{enum[i]} —— {pair[j]} —— {demand_mapping[i][j][0]}份：详情{dict(demand_mapping[i][j][0])}\n'
 y = input('是否发送邮件？')
 if y.lower() == 'y':
-    demand_text = ''
-    for i in range(5):
-        for j in (1, 2):
-            demand_text += f'{enum[i]} —— {pair[j]} —— {demand_mapping[i][j][0]}份：详情{dict(demand_mapping[i][j][0])}\n'
     server = smtplib.SMTP('smtp.163.com', 25)
     server.set_debuglevel(1)
     server.login('www.lkjlkj@163.com', '12345678961028')
     server.sendmail('www.lkjlkj@163.com', ['www.lkjlkj@163.com'], MIMEText(demand_text, _charset='utf-8').as_string())
     server.quit()
+else:
+    print(demand_text)
+    with open('demand.txt', 'w', encoding='utf-8') as f:
+        f.write(demand_text)
 
 used_href_list = []
 for order in order_list:
@@ -84,11 +88,11 @@ for order in order_list:
     db.close()
 print(f'本次发货{len(used_href_list)}单')
 if used_href_list:
+    result_text = ''
+    for used_href in used_href_list:
+        result_text += f'{used_href}\n'
     y = input('是否发送邮件？')
     if y.lower() == 'y':
-        result_text = ''
-        for used_href in used_href_list:
-            result_text += f'{used_href}\n'
         server = smtplib.SMTP('smtp.163.com', 25)
         server.set_debuglevel(1)
         server.login('www.lkjlkj@163.com', '12345678961028')
@@ -96,6 +100,10 @@ if used_href_list:
             'www.lkjlkj@163.com',
             ['www.lkjlkj@163.com'], MIMEText(result_text, _charset='utf-8').as_string())
         server.quit()
+    else:
+        print(result_text)
+        with open('result.txt', 'w', encoding='utf-8') as f:
+            f.write(result_text)
 
 conn.close()
 print('Process finished with exit code 0')
