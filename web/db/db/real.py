@@ -43,7 +43,7 @@ for filename in os.listdir('.'):
 demand_text = ''
 for i in range(5):
     for j in (1, 2):
-        demand_text += f'{enum[i]} —— {pair[j]} —— {demand_mapping[i][j][0]}份：详情{dict(demand_mapping[i][j][0])}\n'
+        demand_text += f'{enum[i]} —— {pair[j]} —— {demand_mapping[i][j][0]}份：详情{dict(demand_mapping[i][j][1])}\n'
 y = input('是否发送邮件？')
 if y.lower() == 'y':
     server = smtplib.SMTP('smtp.163.com', 25)
