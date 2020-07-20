@@ -93,7 +93,7 @@ if used_href_list:
         result_text += f'{used_href}\n'
     y = input('是否发送邮件？')
     if y.lower() == 'y':
-        server = smtplib.SMTP('smtp.163.com', 25)
+        server = smtplib.SMTP_SSL('smtp.163.com', smtplib.SMTP_SSL_PORT)
         server.set_debuglevel(1)
         server.login('www.lkjlkj@163.com', '12345678961028')
         server.sendmail(
