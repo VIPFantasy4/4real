@@ -58,7 +58,7 @@ for order in order_list:
         print(f'只剩下¥{balance}')
         break
     y = input(
-        f"是否跳过 “{order['_lame']}” —— {enum[order['_wday']]} —— {pair[order['_lunch']]} —— {pair[order['_order']]} ？")
+        f"是否跳过 “{order['_lame']}” —— {enum[order['_wday']]} —— {pair[order['_lunch']]} —— {order['_order']} ？")
     if y.lower() == 'y':
         continue
     print('复制链接到此处')
