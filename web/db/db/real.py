@@ -10,7 +10,7 @@ import smtplib
 enum = ('周一', '周二', '周三', '周四', '周五')
 pair = {1: '午', 2: '晚'}
 order_list = []
-demand_mapping = {i: Counter() for i in range(5)}
+demand_mapping = {i: {1: [0, Counter()], 2: [0, Counter()]} for i in range(5)}
 
 conn = sqlite3.connect('real.db')
 c = conn.cursor()
@@ -37,14 +37,15 @@ for filename in os.listdir('.'):
                 '_lunch': _lunch,
                 'db_name': filename
             })
-            demand_mapping[_wday].update({_lunch: 1})
+            demand_mapping[_wday][_lunch][0] += 1
+            demand_mapping[_wday][_lunch][1].update({_order: 1})
 
 y = input('是否发送邮件？')
 if y.lower() == 'y':
     demand_text = ''
     for i in range(5):
         for j in (1, 2):
-            demand_text += f'{enum[i]} —— {pair[j]} —— {demand_mapping[i].get(j, 0)}份\n'
+            demand_text += f'{enum[i]} —— {pair[j]} —— {demand_mapping[i][j][0]}份：详情{dict(demand_mapping[i][j][0])}\n'
     server = smtplib.SMTP('smtp.163.com', 25)
     server.set_debuglevel(1)
     server.login('www.lkjlkj@163.com', '12345678961028')
@@ -56,7 +57,8 @@ for order in order_list:
     if balance < 18:
         print(f'只剩下¥{balance}')
         break
-    y = input(f"是否跳过 “{order['_lame']}” —— {enum[order['_wday']]} —— {pair[order['_lunch']]} ？")
+    y = input(
+        f"是否跳过 “{order['_lame']}” —— {enum[order['_wday']]} —— {pair[order['_lunch']]} —— {pair[order['_order']]} ？")
     if y.lower() == 'y':
         continue
     print('复制链接到此处')

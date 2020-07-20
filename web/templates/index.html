@@ -21,7 +21,7 @@ $else:
         <input type="radio" id="wd3" name="_wday" value="2"><label for="wd3">周三</label>
         <input type="radio" id="wd4" name="_wday" value="3"><label for="wd4">周四</label>
         <input type="radio" id="wd5" name="_wday" value="4"><label for="wd5">周五</label><br>
-        <label for="order">求求你告诉我你吃啥：</label><input type="text" id="order" name="_order" size="44" placeholder="无论你打什么都是去年免费今年¥18的高贵牛肉粉"><br>
+        <label for="order">求求你告诉我你吃啥：</label><input type="text" id="order" name="_order" maxlength="44" size="44" placeholder="无论你打什么都是去年免费今年¥18的高贵牛肉粉"><br>
         <input type="radio" id="lunch" name="_lunch" value="1" checked><label for="lunch">午</label>
         <input type="radio" id="supper" name="_lunch" value="2"><label for="supper">晚</label><br>
         <input type="submit" value="立即下单">
@@ -38,7 +38,7 @@ $else:
             <tr>
                 <td>$enum[_wday]</td>
                 <td>$pair[_lunch]</td>
-                <td>$_order</td>
+                <td>$_order（或牛肉粉）</td>
                 <td>
                     $if _href:
                         <a href="$_href">立即领取</a>

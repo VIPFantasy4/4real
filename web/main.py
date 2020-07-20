@@ -42,7 +42,7 @@ class Index:
             try:
                 db.insert_one({
                     '_lame': username,
-                    '_order': '牛肉粉',
+                    '_order': _input._order or '牛肉粉',
                     '_wday': int(_input._wday),
                     '_lunch': int(_input._lunch)
                 })
