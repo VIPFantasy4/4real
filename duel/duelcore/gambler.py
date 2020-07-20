@@ -32,5 +32,10 @@ class Gambler:
             if not self._cards[k]:
                 del self._cards[k]
 
-    def auto(self):
-        return None
+    def auto(self, track):
+        first, second = track[-2:] + [None for _ in range(2 - len(track))]
+        last = second if second else first
+        if last:
+            pass
+        else:
+            pass

@@ -101,7 +101,7 @@ class GangPhase(Phase):
                 og = gambler
             else:
                 self._od.move_to_end(self.turn)
-                self._turn = list(self._od.keys())[0]
+                self._turn = next(iter(self._od.keys()))
                 self._next = GangPhase(self._chain, self._three, self._od, self.turn)
         else:
             gambler = self._od.pop(self.turn)
@@ -157,20 +157,25 @@ class MainPhase(Phase):
             fut.set_result(None)
 
     async def till_i_die(self, started_at=0):
-        gambler = self._od[self.turn]
         fut = asyncio.get_event_loop().create_future()
         self._fut = fut
         resumed_at = int(time.monotonic())
         task = asyncio.create_task(self.run_out(fut, started_at and resumed_at - started_at))
         try:
-            cards = await fut
+            combo = await fut
         except duelcore.HumanOperationResume:
             task.cancel()
             await self.till_i_die(resumed_at)
             return
-        if isinstance(cards, dict):
-            task.cancel()
         self._fut = None
-        if not cards:
-            if self.track[-2:] + [None for _ in range(2 - len(self.track))] == [None, None]:
-                gambler.auto()
+        gambler = self._od[self.turn]
+        if isinstance(combo, duelcore.Combo):
+            task.cancel()
+            self.track.append(combo)
+        else:
+            gambler.auto(self.track)
+        if gambler.gg:
+            pass
+        else:
+            self._od.move_to_end(self.turn)
+            self._turn = next(iter(self._od.keys()))

@@ -3,6 +3,7 @@
 from .chain import *
 from .gambler import *
 from .exceptions import *
+from .combo import Combo
 
 WAITING = 1
 INITING = 3

@@ -1,22 +1,28 @@
 # -*- coding: utf-8 -*-
 
-class Single:
+class Combo:
+    @staticmethod
+    def fromcards(cards: dict):
+        return
+
+
+class Single(Combo):
     pass
 
 
-class Pair:
+class Pair(Combo):
     pass
 
 
-class Seq:
+class Seq(Combo):
     pass
 
 
-class PairSeq:
+class PairSeq(Combo):
     pass
 
 
-class Triple:
+class Triple(Combo):
     pass
 
 
@@ -28,23 +34,25 @@ class TripleWithPair(Triple):
     pass
 
 
-class Plane:
+class Plane(Combo):
     pass
 
 
-class FakeBomb:
+class FakeBomb(Combo):
     pass
 
 
-class RealBomb:
+class RealBomb(Combo):
     pass
 
 
-class JokerBomb:
+class JokerBomb(Combo):
     pass
 
 
-class Combo:
-    @staticmethod
-    def fromcards(cards: dict):
-        return
+class Pass(Combo):
+    def __bool__(self):
+        return False
+
+    def __eq__(self, o: object) -> bool:
+        return o is None
