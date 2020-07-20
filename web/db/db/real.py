@@ -46,7 +46,7 @@ for i in range(5):
         demand_text += f'{enum[i]} —— {pair[j]} —— {demand_mapping[i][j][0]}份：详情{dict(demand_mapping[i][j][1])}\n'
 y = input('是否发送邮件？')
 if y.lower() == 'y':
-    server = smtplib.SMTP('smtp.163.com', 25)
+    server = smtplib.SMTP_SSL('smtp.163.com', smtplib.SMTP_SSL_PORT)
     server.set_debuglevel(1)
     server.login('www.lkjlkj@163.com', '12345678961028')
     server.sendmail('www.lkjlkj@163.com', ['www.lkjlkj@163.com'], MIMEText(demand_text, _charset='utf-8').as_string())
