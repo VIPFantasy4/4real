@@ -7,7 +7,7 @@ class Combo:
 
     @staticmethod
     def fromcards(cards: dict, owner):
-        return
+        return MAPPING
 
     def __init__(self, owner):
         self._owner = owner
@@ -67,3 +67,29 @@ class Pass(Combo):
 
     def __eq__(self, o: object) -> bool:
         return o is None
+
+
+MAPPING = {
+    1: (Single,),
+    2: (Pair, JokerBomb),
+    3: (Triple,),
+    4: (TripleWithSingle, RealBomb),
+    5: (TripleWithPair, Seq),
+    6: (FakeBomb, PairSeq, Seq, Plane),
+    7: (Seq,),
+    8: (FakeBomb, PairSeq, Plane, Seq),
+    9: (Seq, Plane),
+    10: (PairSeq, Plane, Seq),
+    11: (Seq,),
+    12: (PairSeq, Plane, Seq,),
+    13: (),
+    14: (PairSeq,),
+    15: (Plane,),
+    16: (PairSeq, Plane),
+    17: (),
+    18: (PairSeq, Plane),
+    19: (),
+    20: (PairSeq, Plane)
+}
+
+hierarchy
