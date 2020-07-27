@@ -147,17 +147,30 @@ class TripleWithPair(Combo):
 class Plane(Combo):
     @staticmethod
     def validate(overview: dict, cards: dict) -> tuple:
-        overview['qty'] > 5
-        3 in overview['map']
-        seq = sorted(overview['map'][3])
-        len(seq) > 1 and seq[0] > 1
-        list(range(seq[0], seq[-1] + 1)) == seq
+        if 3 in overview['map']:
+            if 4 in overview['map']:
+            else:
+                seq = sorted(overview['map'][3])
+                count = len(seq)
+                if count > 1:
+                    if 1 in seq:
+                        if count > 3 and list(range(seq[0] + 1, seq[-1] + 1)) == seq[1:]:
+                            if count == 4:
+                                specified
+                                pass
+                            elif count == 4 + len(overview['map'].get(1, ())) + 2 * len(overview['map'].get(2, ())):
+                                return count - 1, overview['qty'], seq[1]
+                    elif count == 2:
+                        if 1 in overview['map']:
+                            if len(overview['map'][1]) == 2:
+                                return count, overview['qty'], seq[0]
+                        elif 2 * len(overview['map'].get(2, ())) in (0, 2, 4):
+                            return count, overview['qty'], seq[0]
+        elif 4 in overview['map']:
 
-        if overview['qty'] == 4 and 4 in overview['map']:
-            return overview['max'],
-
-    def __init__(self, owner, qty, v):
+    def __init__(self, owner, count, qty, v):
         super().__init__(owner)
+        self.count: int = count
         self.qty: int = qty
         self.v: int = v
 
@@ -170,8 +183,19 @@ class Plane(Combo):
 class FakeBomb(Combo):
     @staticmethod
     def validate(overview: dict, cards: dict) -> tuple:
-        if overview['qty'] in (6, 8) and 4 in overview['map'] and len(overview['map']) == 2 and ((1 in overview['map'] and len(overview['map'][1]) == 2) or (2 in overview['map'] and len(overview['map'][2]) < 3 and 0 not in overview['map'][2])):
-            return overview['qty'], overview['map'][4][0],
+        if 4 in overview['map']:
+            if overview['qty'] == 6:
+                if 1 in overview['map']:
+                    if len(overview['map'][1]) == 2:
+                        return overview['qty'], overview['map'][4][0]
+                elif 2 in overview['map'] and len(overview['map'][2]) == 1:
+                    return overview['qty'], overview['map'][4][0]
+            elif overview['qty'] == 8:
+                if 2 in overview['map']:
+                    if len(overview['map'][2]) == 2:
+                        return overview['qty'], overview['map'][4][0]
+                elif len(overview['map'][4]) == 2:
+                    return overview['qty'], overview['max']
 
     def __init__(self, owner, qty, v):
         super().__init__(owner)
