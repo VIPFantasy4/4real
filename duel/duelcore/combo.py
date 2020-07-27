@@ -154,18 +154,29 @@ class Plane(Combo):
                 count = len(seq)
                 if count > 1:
                     if 1 in seq:
-                        if count > 3 and list(range(seq[0] + 1, seq[-1] + 1)) == seq[1:]:
+                        if count > 3 and list(range(seq[1], seq[-1] + 1)) == seq[1:]:
                             if count == 4:
-                                specified
-                                pass
+                                return count - 1, overview['qty'], seq[1]
                             elif count == 4 + len(overview['map'].get(1, ())) + 2 * len(overview['map'].get(2, ())):
                                 return count - 1, overview['qty'], seq[1]
-                    elif count == 2:
-                        if 1 in overview['map']:
-                            if len(overview['map'][1]) == 2:
+                    elif count in (2, 3):
+                        if list(range(seq[0], seq[-1] + 1)) == seq:
+                            if 1 in overview['map']:
+                                if len(overview['map'][1]) + 2 * len(overview['map'].get(2, ())) == count:
+                                    return count, overview['qty'], seq[0]
+                            elif 2 * len(overview['map'].get(2, ())) in (0, count, 2 * count):
                                 return count, overview['qty'], seq[0]
-                        elif 2 * len(overview['map'].get(2, ())) in (0, 2, 4):
-                            return count, overview['qty'], seq[0]
+                    elif 1 in overview['map']:
+                        least = len(overview['map'][1]) + 2 * len(overview['map'].get(2, ()))
+                        if count == least:
+                            if list(range(seq[0], seq[-1] + 1)) == seq:
+                                return count, overview['qty'], seq[0]
+                        elif least < 3 and count == least + 4:
+                            if list(range(seq[1], seq[-1] + 1)) == seq[1:]:
+                                return count - 1, overview['qty'], seq[1]
+                            elif list(range(seq[0], seq[-2] + 1)) == seq[:-1]:
+                                return count - 1, overview['qty'], seq[0]
+                    el
         elif 4 in overview['map']:
 
     def __init__(self, owner, count, qty, v):
