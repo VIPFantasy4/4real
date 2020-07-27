@@ -176,7 +176,18 @@ class Plane(Combo):
                                 return count - 1, overview['qty'], seq[1]
                             elif list(range(seq[0], seq[-2] + 1)) == seq[:-1]:
                                 return count - 1, overview['qty'], seq[0]
-                    el
+                    elif 2 in overview['map']:
+                        pass
+                    elif list(range(seq[1], seq[-2] + 1)) == seq[1:-1]:
+                        if seq[0] + 1 == seq[1]:
+                            if seq[-1] - 1 == seq[-2]:
+                                if count == 4:
+                                    specified
+                                return
+                            elif count == 4:
+                                return count - 1, overview['qty'], seq[0]
+                        elif count == 4 and seq[-1] - 1 == seq[-2]:
+                            return count - 1, overview['qty'], seq[1]
         elif 4 in overview['map']:
 
     def __init__(self, owner, count, qty, v):
