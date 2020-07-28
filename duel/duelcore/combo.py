@@ -193,6 +193,37 @@ class Plane(Combo):
                         elif seq[-1] - 1 == seq[-2]:
                             return 4, 16, seq[1]
                 elif overview['qty'] == 20:
+                    seq = sorted(overview['map'][3] + overview['map'][4])
+                    count = len(seq)
+                    if count == 5:
+                        if list(range(seq[1], seq[-2] + 1)) == seq[1:-1]:
+                            if seq[0] > 1 and seq[0] + 1 == seq[1]:
+                                if seq[-1] - 1 == seq[-2]:
+                                    return 5, 20, seq[0]
+                                elif 1 not in overview['map'] and seq[:-1] == sorted(overview['map'][3]):
+                                    return 4, 20, seq[0]
+                            elif 1 not in overview['map'] and seq[-1] - 1 == seq[-2] and seq[1:] == sorted(overview['map'][3]):
+                                return 4, 20, seq[0]
+                    elif count == 6 and seq[2] + 1 == seq[3]:
+                        left = 2
+                        right = 4
+                        while right < count:
+                            if seq[right - 1] + 1 == seq[right]:
+                                right += 1
+                                continue
+                            break
+                        while left:
+                            if seq[left - 1] + 1 == seq[left]:
+                                left -= 1
+                                continue
+                            break
+                        if not left and seq[0] == 1:
+                            left = 1
+                        count = right - left
+                        if count > 4:
+                            return 5, 20, seq[1]
+                        elif count == 4 and 1 not in overview['map'] and seq[left:right] == sorted(overview['map'][3]):
+                            return 4, 20, seq[left]
             else:
                 seq = sorted(overview['map'][3])
                 count = len(seq)
