@@ -36,11 +36,6 @@ class Combo:
     def __init__(self, owner):
         self._owner = owner
 
-    def __gt__(self, other):
-        if isinstance(other, self.whoami()) and self.v < other.v:
-            return True
-        return False
-
     @property
     def owner(self):
         return self._owner
@@ -75,6 +70,11 @@ class Pair(Combo):
     def __init__(self, owner, v):
         super().__init__(owner)
         self.v: int = v
+
+    def __gt__(self, other):
+        if isinstance(other, self.whoami()) and self.v < other.v:
+            return True
+        return False
 
 
 class Seq(Combo):
@@ -121,6 +121,11 @@ class Triple(Combo):
         super().__init__(owner)
         self.v: int = v
 
+    def __gt__(self, other):
+        if isinstance(other, self.whoami()) and self.v < other.v:
+            return True
+        return False
+
 
 class TripleWithSingle(Combo):
     @staticmethod
@@ -131,6 +136,11 @@ class TripleWithSingle(Combo):
     def __init__(self, owner, v):
         super().__init__(owner)
         self.v: int = v
+
+    def __gt__(self, other):
+        if isinstance(other, self.whoami()) and self.v < other.v:
+            return True
+        return False
 
 
 class TripleWithPair(Combo):
@@ -143,12 +153,46 @@ class TripleWithPair(Combo):
         super().__init__(owner)
         self.v: int = v
 
+    def __gt__(self, other):
+        if isinstance(other, self.whoami()) and self.v < other.v:
+            return True
+        return False
+
 
 class Plane(Combo):
     @staticmethod
     def validate(overview: dict, cards: dict) -> tuple:
         if 3 in overview['map']:
             if 4 in overview['map']:
+                if overview['qty'] == 8:
+                    if abs(overview['map'][3][0] - overview['map'][4][0]) == 1:
+                        v = min(overview['map'][3][0], overview['map'][4][0])
+                        if v > 1:
+                            return 2, 8, v
+                elif overview['qty'] == 10:
+                    seq = sorted(overview['map'][3])
+                    if len(seq) == 2 and seq[0] > 1 and seq[0] + 1 == seq[1]:
+                        return 2, 10, seq[0]
+                elif overview['qty'] == 12:
+                    seq = sorted(overview['map'][3] + overview['map'][4])
+                    if seq[0] > 1 and len(seq) == 3 and list(range(seq[0], seq[-1] + 1)) == seq:
+                        return 3, 12, seq[0]
+                elif overview['qty'] == 15:
+                    seq = sorted(overview['map'][3])
+                    if seq[0] > 1 and len(seq) == 3 and list(range(seq[0], seq[-1] + 1)) == seq and 2 in overview['map']:
+                        return 3, 15, seq[0]
+                elif overview['qty'] == 16:
+                    seq = sorted(overview['map'][3] + overview['map'][4])
+                    count = len(seq)
+                    if count == 4:
+                        if seq[0] > 1 and list(range(seq[0], seq[-1] + 1)) == seq:
+                            return 4, 16, seq[0]
+                    elif count == 5 and list(range(seq[1], seq[-2] + 1)) == seq[1:-1]:
+                        if seq[0] > 1 and seq[0] + 1 == seq[1]:
+                            return 4, 16, seq[0]
+                        elif seq[-1] - 1 == seq[-2]:
+                            return 4, 16, seq[1]
+                elif overview['qty'] == 20:
             else:
                 seq = sorted(overview['map'][3])
                 count = len(seq)
@@ -171,13 +215,21 @@ class Plane(Combo):
                         if count == least:
                             if list(range(seq[0], seq[-1] + 1)) == seq:
                                 return count, overview['qty'], seq[0]
-                        elif least < 3 and count == least + 4:
-                            if list(range(seq[1], seq[-1] + 1)) == seq[1:]:
-                                return count - 1, overview['qty'], seq[1]
-                            elif list(range(seq[0], seq[-2] + 1)) == seq[:-1]:
+                        elif least < 3 and count == least + 4 and list(range(seq[1], seq[-2] + 1)) == seq[1:-1]:
+                            if seq[0] + 1 == seq[1]:
                                 return count - 1, overview['qty'], seq[0]
+                            elif seq[-1] - 1 == seq[-2]:
+                                return count - 1, overview['qty'], seq[1]
                     elif 2 in overview['map']:
-                        pass
+                        least = len(overview['map'][2])
+                        if least > 1:
+                            if count == least and list(range(seq[0], seq[-1] + 1)) == seq:
+                                return count, overview['qty'], seq[0]
+                        elif count == 6 and list(range(seq[1], seq[-2] + 1)) == seq[1:-1]:
+                            if seq[0] + 1 == seq[1]:
+                                return count - 1, overview['qty'], seq[0]
+                            elif seq[-1] - 1 == seq[-2]:
+                                return count - 1, overview['qty'], seq[1]
                     elif list(range(seq[1], seq[-2] + 1)) == seq[1:-1]:
                         if seq[0] + 1 == seq[1]:
                             if seq[-1] - 1 == seq[-2]:
@@ -188,7 +240,10 @@ class Plane(Combo):
                                 return count - 1, overview['qty'], seq[0]
                         elif count == 4 and seq[-1] - 1 == seq[-2]:
                             return count - 1, overview['qty'], seq[1]
-        elif 4 in overview['map']:
+        elif 4 in overview['map'] and len(overview['map']) == 1 and 1 not in overview['map'][4]:
+            seq = sorted(overview['map'][4])
+            if list(range(seq[0], seq[-1] + 1)) == seq:
+                return len(seq), overview['qty'], seq[0]
 
     def __init__(self, owner, count, qty, v):
         super().__init__(owner)
@@ -197,7 +252,7 @@ class Plane(Combo):
         self.v: int = v
 
     def __gt__(self, other):
-        if isinstance(other, self.whoami()) and self.qty == other.qty and self.v < other.v:
+        if isinstance(other, self.whoami()) and self.count == other.count and self.qty == other.qty and self.v < other.v:
             return True
         return False
 
