@@ -177,36 +177,38 @@ class TripleWithPair(Combo):
 class Plane(Combo):
     @staticmethod
     def validate(overview: dict, cards: dict) -> tuple:
+        args = None
+
         if 3 in overview['map']:
             if 4 in overview['map']:
                 if overview['qty'] == 8:
                     if abs(overview['map'][3][0] - overview['map'][4][0]) == 1:
                         v = min(overview['map'][3][0], overview['map'][4][0])
                         if v > 1:
-                            return 2, 8, v
+                            args = 2, 8, v
                 elif overview['qty'] == 10:
                     seq = sorted(overview['map'][3])
                     if len(seq) == 2 and seq[0] > 1 and seq[0] + 1 == seq[1]:
-                        return 2, 10, seq[0]
+                        args = 2, 10, seq[0]
                 elif overview['qty'] == 12:
                     seq = sorted(overview['map'][3] + overview['map'][4])
                     if seq[0] > 1 and len(seq) == 3 and list(range(seq[0], seq[-1] + 1)) == seq:
-                        return 3, 12, seq[0]
+                        args = 3, 12, seq[0]
                 elif overview['qty'] == 15:
                     seq = sorted(overview['map'][3])
                     if seq[0] > 1 and len(seq) == 3 and list(range(seq[0], seq[-1] + 1)) == seq and 2 in overview['map']:
-                        return 3, 15, seq[0]
+                        args = 3, 15, seq[0]
                 elif overview['qty'] == 16:
                     seq = sorted(overview['map'][3] + overview['map'][4])
                     count = len(seq)
                     if count == 4:
                         if seq[0] > 1 and list(range(seq[0], seq[-1] + 1)) == seq:
-                            return 4, 16, seq[0]
+                            args = 4, 16, seq[0]
                     elif count == 5 and list(range(seq[1], seq[-2] + 1)) == seq[1:-1]:
                         if seq[0] > 1 and seq[0] + 1 == seq[1]:
-                            return 4, 16, seq[0]
+                            args = 4, 16, seq[0]
                         elif seq[-1] - 1 == seq[-2]:
-                            return 4, 16, seq[1]
+                            args = 4, 16, seq[1]
                 elif overview['qty'] == 20:
                     seq = sorted(overview['map'][3] + overview['map'][4])
                     count = len(seq)
@@ -214,11 +216,11 @@ class Plane(Combo):
                         if list(range(seq[1], seq[-2] + 1)) == seq[1:-1]:
                             if seq[0] > 1 and seq[0] + 1 == seq[1]:
                                 if seq[-1] - 1 == seq[-2]:
-                                    return 5, 20, seq[0]
+                                    args = 5, 20, seq[0]
                                 elif 1 not in overview['map'] and seq[:-1] == sorted(overview['map'][3]):
-                                    return 4, 20, seq[0]
+                                    args = 4, 20, seq[0]
                             elif 1 not in overview['map'] and seq[-1] - 1 == seq[-2] and seq[1:] == sorted(overview['map'][3]):
-                                return 4, 20, seq[0]
+                                args = 4, 20, seq[0]
                     elif count == 6 and seq[2] + 1 == seq[3]:
                         left = 2
                         right = 4
@@ -236,9 +238,9 @@ class Plane(Combo):
                             left = 1
                         count = right - left
                         if count > 4:
-                            return 5, 20, seq[1]
+                            args = 5, 20, seq[1]
                         elif count == 4 and 1 not in overview['map'] and seq[left:right] == sorted(overview['map'][3]):
-                            return 4, 20, seq[left]
+                            args = 4, 20, seq[left]
             else:
                 seq = sorted(overview['map'][3])
                 count = len(seq)
@@ -246,52 +248,59 @@ class Plane(Combo):
                     if seq[0] == 1:
                         if count > 3 and list(range(seq[1], seq[-1] + 1)) == seq[1:]:
                             if count == 4:
-                                return count - 1, overview['qty'], seq[1]
+                                args = count - 1, overview['qty'], seq[1]
                             elif count == 4 + len(overview['map'].get(1, ())) + 2 * len(overview['map'].get(2, ())):
-                                return count - 1, overview['qty'], seq[1]
+                                args = count - 1, overview['qty'], seq[1]
                     elif count in (2, 3):
                         if list(range(seq[0], seq[-1] + 1)) == seq:
                             if 1 in overview['map']:
                                 if len(overview['map'][1]) + 2 * len(overview['map'].get(2, ())) == count:
-                                    return count, overview['qty'], seq[0]
+                                    args = count, overview['qty'], seq[0]
                             elif 2 * len(overview['map'].get(2, ())) in (0, count, 2 * count):
-                                return count, overview['qty'], seq[0]
+                                args = count, overview['qty'], seq[0]
                     elif 1 in overview['map']:
                         least = len(overview['map'][1]) + 2 * len(overview['map'].get(2, ()))
                         if count == least:
                             if list(range(seq[0], seq[-1] + 1)) == seq:
-                                return count, overview['qty'], seq[0]
+                                args = count, overview['qty'], seq[0]
                         elif least < 3 and count == least + 4 and list(range(seq[1], seq[-2] + 1)) == seq[1:-1]:
                             if seq[0] + 1 == seq[1]:
-                                return count - 1, overview['qty'], seq[0]
+                                args = count - 1, overview['qty'], seq[0]
                             elif seq[-1] - 1 == seq[-2]:
-                                return count - 1, overview['qty'], seq[1]
+                                args = count - 1, overview['qty'], seq[1]
                     elif 2 in overview['map']:
                         least = len(overview['map'][2])
                         if least > 1:
                             if list(range(seq[0], seq[-1] + 1)) == seq:
                                 if count in (least, 2 * least):
-                                    return count, overview['qty'], seq[0]
+                                    args = count, overview['qty'], seq[0]
                         elif count == 6 and list(range(seq[1], seq[-2] + 1)) == seq[1:-1]:
                             if seq[0] + 1 == seq[1]:
-                                return count - 1, overview['qty'], seq[0]
+                                args = count - 1, overview['qty'], seq[0]
                             elif seq[-1] - 1 == seq[-2]:
-                                return count - 1, overview['qty'], seq[1]
+                                args = count - 1, overview['qty'], seq[1]
                     elif list(range(seq[1], seq[-2] + 1)) == seq[1:-1]:
                         if seq[0] + 1 == seq[1]:
                             if seq[-1] - 1 == seq[-2]:
                                 if count == 4:
                                     # can be specified
                                     pass
-                                return count, overview['qty'], seq[0]
+                                args = count, overview['qty'], seq[0]
                             elif count == 4:
-                                return count - 1, overview['qty'], seq[0]
+                                args = count - 1, overview['qty'], seq[0]
                         elif count == 4 and seq[-1] - 1 == seq[-2]:
-                            return count - 1, overview['qty'], seq[1]
+                            args = count - 1, overview['qty'], seq[1]
         elif 4 in overview['map'] and len(overview['map']) == 1 and 1 not in overview['map'][4]:
             seq = sorted(overview['map'][4])
             if list(range(seq[0], seq[-1] + 1)) == seq:
-                return len(seq), overview['qty'], seq[0]
+                args = len(seq), overview['qty'], seq[0]
+
+        if args:
+            view = []
+            for s in cards.values():
+                view.extend(s)
+            count, qty, v = args
+            return view, count, qty, v
 
     def __init__(self, owner, view, count, qty, v):
         super().__init__(owner, view)
@@ -312,25 +321,30 @@ class FakeBomb(Combo):
             if overview['qty'] == 6:
                 if 1 in overview['map']:
                     if len(overview['map'][1]) == 2:
-                        view = sorted(cards[overview['map'][4][0]])
+                        v = overview['map'][4][0]
+                        view = [(v, j) for j in range(4)]
                         view.extend(sorted(next(iter(cards[k])) for k in overview['map'][1]))
-                        return view, overview['qty'], overview['map'][4][0]
+                        return view, overview['qty'], v
                 elif 2 in overview['map'] and len(overview['map'][2]) == 1:
-                    view = sorted(cards[overview['map'][4][0]])
+                    v = overview['map'][4][0]
+                    view = [(v, j) for j in range(4)]
                     view.extend(sorted(cards[overview['map'][2][0]]))
-                    return view, overview['qty'], overview['map'][4][0]
+                    return view, overview['qty'], v
             elif overview['qty'] == 8:
                 if 2 in overview['map']:
                     if len(overview['map'][2]) == 2:
-                        view = sorted(cards[overview['map'][4][0]])
+                        v = overview['map'][4][0]
+                        view = [(v, j) for j in range(4)]
                         for k in sorted(overview['map'][2]):
                             view.extend(sorted(cards[k]))
-                        return view, overview['qty'], overview['map'][4][0]
+                        return view, overview['qty'], v
                 elif len(overview['map'][4]) == 2:
                     # can be specified
-                    view = sorted(cards[overview['max']])
-                    view.extend(sorted(cards[overview['min']]))
-                    return view, overview['qty'], overview['max']
+                    v = overview['max']
+                    i = overview['min']
+                    view = [(v, j) for j in range(4)]
+                    view.extend((i, j) for j in range(4))
+                    return view, overview['qty'], v
 
     def __init__(self, owner, view, qty, v):
         super().__init__(owner, view)
@@ -347,7 +361,8 @@ class RealBomb(Combo):
     @staticmethod
     def validate(overview: dict, cards: dict) -> tuple:
         if overview['qty'] == 4 and 4 in overview['map']:
-            return sorted(cards[overview['max']]), overview['max']
+            v = overview['max']
+            return [(v, j) for j in range(4)], v
 
     def __init__(self, owner, view, v):
         super().__init__(owner, view)
