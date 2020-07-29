@@ -8,7 +8,7 @@ class Combo:
     @staticmethod
     def fromcards(cards: dict, owner):
         if not cards:
-            return Pass(owner)
+            return Pass(owner, None)
         overview = {
             'qty': 0,
             'max': None,
@@ -33,22 +33,28 @@ class Combo:
             if args is not None:
                 return adaptor(owner, *args)
 
-    def __init__(self, owner):
+    def __init__(self, owner, view):
         self._owner = owner
+        self._view = view
 
     @property
     def owner(self):
         return self._owner
+
+    @property
+    def view(self):
+        return self._view
 
 
 class Single(Combo):
     @staticmethod
     def validate(overview: dict, cards: dict) -> tuple:
         if overview['qty'] == 1:
-            return (overview['max'], cards[overview['min']][0]),
+            card = next(iter(cards[overview['max']]))
+            return [card], card
 
-    def __init__(self, owner, card):
-        super().__init__(owner)
+    def __init__(self, owner, view, card):
+        super().__init__(owner, view)
         self.card: tuple = card
 
     def __gt__(self, other):
@@ -65,10 +71,10 @@ class Pair(Combo):
     @staticmethod
     def validate(overview: dict, cards: dict) -> tuple:
         if overview['qty'] == 2 and 2 in overview['map'] and overview['map'][2][0]:
-            return overview['max'],
+            return sorted(cards[overview['max']]), overview['max']
 
-    def __init__(self, owner, v):
-        super().__init__(owner)
+    def __init__(self, owner, view, v):
+        super().__init__(owner, view)
         self.v: int = v
 
     def __gt__(self, other):
@@ -80,11 +86,12 @@ class Pair(Combo):
 class Seq(Combo):
     @staticmethod
     def validate(overview: dict, cards: dict) -> tuple:
-        if overview['qty'] > 4 and overview['max'] > 1 and 1 in overview['map'] and len(overview['map']) == 1 and list(range(overview['max'], overview['min'] + 1)) == sorted(overview['map'][1]):
-            return overview['qty'], overview['max']
+        seq = sorted(overview['map'][1])
+        if overview['qty'] > 4 and overview['max'] > 1 and 1 in overview['map'] and len(overview['map']) == 1 and list(range(overview['max'], overview['min'] + 1)) == seq:
+            return [next(iter(cards[k])) for k in seq], overview['qty'], overview['max']
 
-    def __init__(self, owner, qty, v):
-        super().__init__(owner)
+    def __init__(self, owner, view, qty, v):
+        super().__init__(owner, view)
         self.qty: int = qty
         self.v: int = v
 
@@ -97,11 +104,15 @@ class Seq(Combo):
 class PairSeq(Combo):
     @staticmethod
     def validate(overview: dict, cards: dict) -> tuple:
-        if overview['qty'] > 5 and overview['max'] > 1 and 2 in overview['map'] and len(overview['map']) == 1 and list(range(overview['max'], overview['min'] + 1)) == sorted(overview['map'][2]):
-            return overview['qty'], overview['max']
+        seq = sorted(overview['map'][2])
+        if overview['qty'] > 5 and overview['max'] > 1 and 2 in overview['map'] and len(overview['map']) == 1 and list(range(overview['max'], overview['min'] + 1)) == seq:
+            view = []
+            for k in seq:
+                view.extend(sorted(cards[k]))
+            return view, overview['qty'], overview['max']
 
-    def __init__(self, owner, qty, v):
-        super().__init__(owner)
+    def __init__(self, owner, view, qty, v):
+        super().__init__(owner, view)
         self.qty: int = qty
         self.v: int = v
 
@@ -115,10 +126,10 @@ class Triple(Combo):
     @staticmethod
     def validate(overview: dict, cards: dict) -> tuple:
         if overview['qty'] == 3 and 3 in overview['map']:
-            return overview['max'],
+            return sorted(cards[overview['max']]), overview['max']
 
-    def __init__(self, owner, v):
-        super().__init__(owner)
+    def __init__(self, owner, view, v):
+        super().__init__(owner, view)
         self.v: int = v
 
     def __gt__(self, other):
@@ -131,10 +142,12 @@ class TripleWithSingle(Combo):
     @staticmethod
     def validate(overview: dict, cards: dict) -> tuple:
         if overview['qty'] == 4 and 3 in overview['map']:
-            return overview['map'][3][0],
+            view = sorted(cards[overview['map'][3][0]])
+            view.extend([next(iter(cards[overview['map'][1][0]]))])
+            return view, overview['map'][3][0]
 
-    def __init__(self, owner, v):
-        super().__init__(owner)
+    def __init__(self, owner, view, v):
+        super().__init__(owner, view)
         self.v: int = v
 
     def __gt__(self, other):
@@ -147,10 +160,12 @@ class TripleWithPair(Combo):
     @staticmethod
     def validate(overview: dict, cards: dict) -> tuple:
         if overview['qty'] == 5 and 3 in overview['map'] and 2 in overview['map']:
-            return overview['map'][3][0],
+            view = sorted(cards[overview['map'][3][0]])
+            view.extend(sorted(cards[overview['map'][2][0]]))
+            return view, overview['map'][3][0]
 
-    def __init__(self, owner, v):
-        super().__init__(owner)
+    def __init__(self, owner, view, v):
+        super().__init__(owner, view)
         self.v: int = v
 
     def __gt__(self, other):
@@ -228,7 +243,7 @@ class Plane(Combo):
                 seq = sorted(overview['map'][3])
                 count = len(seq)
                 if count > 1:
-                    if 1 in seq:
+                    if seq[0] == 1:
                         if count > 3 and list(range(seq[1], seq[-1] + 1)) == seq[1:]:
                             if count == 4:
                                 return count - 1, overview['qty'], seq[1]
@@ -254,8 +269,9 @@ class Plane(Combo):
                     elif 2 in overview['map']:
                         least = len(overview['map'][2])
                         if least > 1:
-                            if count == least and list(range(seq[0], seq[-1] + 1)) == seq:
-                                return count, overview['qty'], seq[0]
+                            if list(range(seq[0], seq[-1] + 1)) == seq:
+                                if count in (least, 2 * least):
+                                    return count, overview['qty'], seq[0]
                         elif count == 6 and list(range(seq[1], seq[-2] + 1)) == seq[1:-1]:
                             if seq[0] + 1 == seq[1]:
                                 return count - 1, overview['qty'], seq[0]
@@ -265,8 +281,9 @@ class Plane(Combo):
                         if seq[0] + 1 == seq[1]:
                             if seq[-1] - 1 == seq[-2]:
                                 if count == 4:
-                                    specified
-                                return
+                                    # can be specified
+                                    pass
+                                return count, overview['qty'], seq[0]
                             elif count == 4:
                                 return count - 1, overview['qty'], seq[0]
                         elif count == 4 and seq[-1] - 1 == seq[-2]:
@@ -276,8 +293,8 @@ class Plane(Combo):
             if list(range(seq[0], seq[-1] + 1)) == seq:
                 return len(seq), overview['qty'], seq[0]
 
-    def __init__(self, owner, count, qty, v):
-        super().__init__(owner)
+    def __init__(self, owner, view, count, qty, v):
+        super().__init__(owner, view)
         self.count: int = count
         self.qty: int = qty
         self.v: int = v
@@ -295,18 +312,28 @@ class FakeBomb(Combo):
             if overview['qty'] == 6:
                 if 1 in overview['map']:
                     if len(overview['map'][1]) == 2:
-                        return overview['qty'], overview['map'][4][0]
+                        view = sorted(cards[overview['map'][4][0]])
+                        view.extend(sorted(next(iter(cards[k])) for k in overview['map'][1]))
+                        return view, overview['qty'], overview['map'][4][0]
                 elif 2 in overview['map'] and len(overview['map'][2]) == 1:
-                    return overview['qty'], overview['map'][4][0]
+                    view = sorted(cards[overview['map'][4][0]])
+                    view.extend(sorted(cards[overview['map'][2][0]]))
+                    return view, overview['qty'], overview['map'][4][0]
             elif overview['qty'] == 8:
                 if 2 in overview['map']:
                     if len(overview['map'][2]) == 2:
-                        return overview['qty'], overview['map'][4][0]
+                        view = sorted(cards[overview['map'][4][0]])
+                        for k in sorted(overview['map'][2]):
+                            view.extend(sorted(cards[k]))
+                        return view, overview['qty'], overview['map'][4][0]
                 elif len(overview['map'][4]) == 2:
-                    return overview['qty'], overview['max']
+                    # can be specified
+                    view = sorted(cards[overview['max']])
+                    view.extend(sorted(cards[overview['min']]))
+                    return view, overview['qty'], overview['max']
 
-    def __init__(self, owner, qty, v):
-        super().__init__(owner)
+    def __init__(self, owner, view, qty, v):
+        super().__init__(owner, view)
         self.qty: int = qty
         self.v: int = v
 
@@ -320,10 +347,10 @@ class RealBomb(Combo):
     @staticmethod
     def validate(overview: dict, cards: dict) -> tuple:
         if overview['qty'] == 4 and 4 in overview['map']:
-            return overview['max'],
+            return sorted(cards[overview['max']]), overview['max']
 
-    def __init__(self, owner, v):
-        super().__init__(owner)
+    def __init__(self, owner, view, v):
+        super().__init__(owner, view)
         self.v: int = v
 
     def __gt__(self, other):
@@ -338,7 +365,7 @@ class JokerBomb(Combo):
     @staticmethod
     def validate(overview: dict, cards: dict) -> tuple:
         if overview['qty'] == 2 and 2 in overview['map'] and not overview['map'][2][0]:
-            return ()
+            return [(0, 0), (0, 1)],
 
     def __gt__(self, other):
         return True
