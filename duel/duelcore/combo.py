@@ -532,6 +532,70 @@ class FakeBomb(Combo):
             return True
         return False
 
+    def detect(self, cards: dict, owner) -> tuple:
+        right = self.v - 1
+        left = min(cards)
+        for v in range(right, max(left - 1, 0), -1):
+            if v in cards and len(cards[v]) == 4:
+                if self.qty == 6:
+                    fallback = {1: []}
+                    prime = 1
+                else:
+                    fallback = {2: []}
+                    prime = 2
+                for k in range(max(cards), left - 1, -1):
+                    if k != v and k in cards:
+                        qty = len(cards[k])
+                        if qty == prime:
+                            fallback[qty].append(k)
+                            if len(fallback[qty]) == 2:
+                                break
+                        elif qty not in fallback and qty > prime:
+                            fallback[qty] = k
+                count = len(fallback[prime])
+                if count == 2:
+                    view = sorted(cards[v])
+                    for i in range(2):
+                        view.extend(cards[fallback[prime][i]])
+                    fallback[prime].append(v)
+                    return self.whoami()(owner, view, v), {k: cards[k] for k in fallback[prime]}
+                if self.qty == 6:
+                    if 2 in fallback:
+                        if not count or fallback[1][0] < fallback[2]:
+                            view = sorted(cards[v])
+                            k = fallback[2]
+                            view.extend(cards[k])
+                            return self.whoami()(owner, view, v), {v: cards[v], k: cards[k]}
+                    if count:
+                        k = fallback[1][0]
+                        card = None
+                        if 2 in fallback:
+                            card = next(iter(cards[fallback[2]]))
+                        elif 3 in fallback:
+                            card = next(iter(cards[fallback[3]]))
+                        if card:
+                            view = sorted(cards[v])
+                            view.append(card)
+                            view.extend(cards[k])
+                            return self.whoami()(owner, view, v), {v: cards[v], k: cards[k], card[0]: {card}}
+                elif count and 3 in fallback:
+                    k = fallback[2][0]
+                    view = sorted(cards[v])
+                    view.extend(cards[k])
+                    iterator = iter(cards[fallback[3]])
+                    s = {next(iterator) for _ in range(2)}
+                    view.extend(s)
+                    return self.whoami()(owner, view, v), {v: cards[v], k: cards[k], fallback[3]: s}
+                if 4 in fallback:
+                    v = max(fallback[4], v)
+                return RealBomb(owner, [(v, j) for j in range(4)], v), {v: cards[v]}
+        for v in range(max(cards), right, -1):
+            if v in cards and len(cards) == 4:
+                return RealBomb(owner, [(v, j) for j in range(4)], v), {v: cards[v]}
+        if 0 in cards and len(cards[0]) == 2:
+            return JokerBomb(owner, [(0, 0), (0, 1)]), {0: cards[0]}
+        return Pass(owner, None), None
+
 
 class RealBomb(Combo):
     @staticmethod
@@ -552,6 +616,13 @@ class RealBomb(Combo):
         return True
 
     def detect(self, cards: dict, owner) -> tuple:
+        right = self.v - 1
+        left = min(cards)
+        for v in range(right, max(left - 1, 0), -1):
+            if v in cards and len(cards[v]) == 4:
+                return self.whoami()(owner, [(v, j) for j in range(4)], v), {v: cards[v]}
+        if 0 in cards and len(cards[0]) == 2:
+            return JokerBomb(owner, [(0, 0), (0, 1)]), {0: cards[0]}
         return Pass(owner, None), None
 
 
