@@ -164,6 +164,25 @@ class Seq(Combo):
             return True
         return False
 
+    def detect(self, cards: dict, owner) -> tuple:
+        v = self.v - 1
+        while v > 1:
+            view = []
+            for i in range(v, v + self.qty):
+                if i in cards:
+                    view.append(next(iter(cards[i])))
+                    continue
+                break
+            else:
+                return self.whoami()(owner, view, v), {card[0]: {card} for card in view}
+            v -= self.qty - len(view)
+        for v in range(max(cards), max(min(cards) - 1, 0), -1):
+            if v in cards and len(cards) == 4:
+                return RealBomb(owner, [(v, j) for j in range(4)], v), {v: cards[v]}
+        if 0 in cards and len(cards[0]) == 2:
+            return JokerBomb(owner, [(0, 0), (0, 1)]), {0: cards[0]}
+        return Pass(owner, None), None
+
 
 class PairSeq(Combo):
     @staticmethod
@@ -184,6 +203,27 @@ class PairSeq(Combo):
         if isinstance(other, self.whoami()) and self.qty == other.qty and self.v < other.v:
             return True
         return False
+
+    def detect(self, cards: dict, owner) -> tuple:
+        count = self.qty // 2
+        v = self.v - 1
+        while v > 1:
+            view = []
+            for i in range(v, v + count):
+                if i in cards and len(cards[i]) > 1:
+                    iterator = iter(cards[i])
+                    view.extend(next(iterator) for _ in range(2))
+                    continue
+                break
+            else:
+                return self.whoami()(owner, view, v), {view[i][0]: {view[i], view[i + 1]} for i in range(0, self.qty, 2)}
+            v -= count - len(view)
+        for v in range(max(cards), max(min(cards) - 1, 0), -1):
+            if v in cards and len(cards) == 4:
+                return RealBomb(owner, [(v, j) for j in range(4)], v), {v: cards[v]}
+        if 0 in cards and len(cards[0]) == 2:
+            return JokerBomb(owner, [(0, 0), (0, 1)]), {0: cards[0]}
+        return Pass(owner, None), None
 
 
 class Triple(Combo):
