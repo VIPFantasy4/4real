@@ -43,8 +43,9 @@ class Gambler:
             if combo is not None and combo > last:
                 pass
             elif self.og or last.owner.og:
-                pass
+                combo, cards = Combo.autodetect(cards, last)
             else:
+                # AI
                 cards = {}
                 combo = last.fromcards(cards, self)
         else:

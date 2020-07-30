@@ -33,6 +33,14 @@ class Combo:
             if args is not None:
                 return adaptor(owner, *args)
 
+    @staticmethod
+    def autodetect(cards, owner, combo=None):
+        if not cards:
+            return Pass(owner, None), None
+        if combo is None:
+            return
+        return combo.detect(cards, owner)
+
     def __init__(self, owner, view):
         self._owner = owner
         self._view = view
@@ -66,6 +74,30 @@ class Single(Combo):
                 return True
         return False
 
+    def detect(self, cards: dict, owner) -> tuple:
+        real = None
+        right = self.card[0] - 1
+        if self.card[0]:
+            left = min(cards)
+            for v in range(right, left - 1, -1):
+                if v in cards:
+                    if len(cards[v]) == 4:
+                        if not real:
+                            real = v
+                        continue
+                    card = next(iter(cards[v]))
+                    return self.whoami()(owner, [card], card), {v: {card}}
+        elif self.card[1] and 0 in cards:
+            card = (0, 0)
+            return self.whoami()(owner, [card], card), {0: {card}}
+        for v in range(max(cards), right, -1):
+            if v in cards and len(cards) == 4:
+                real = v
+                break
+        if real:
+            return RealBomb(owner, [(real, j) for j in range(4)], real), {real: cards[real]}
+        return Pass(owner, None), None
+
 
 class Pair(Combo):
     @staticmethod
@@ -81,6 +113,38 @@ class Pair(Combo):
         if isinstance(other, self.whoami()) and self.v < other.v:
             return True
         return False
+
+    def detect(self, cards: dict, owner) -> tuple:
+        real = None
+        right = self.v - 1
+        left = min(cards)
+        fallback = {}
+        for v in range(right, max(left - 1, 0), -1):
+            if v in cards:
+                qty = len(cards[v])
+                if qty == 4:
+                    if not real:
+                        real = v
+                    continue
+                if qty > 1:
+                    if qty == 2:
+                        return self.whoami()(owner, sorted(cards[v]), v), {v: cards[v]}
+                    if qty not in fallback:
+                        fallback[qty] = v
+        if 3 in fallback:
+            v = fallback[3]
+            iterator = iter(cards[v])
+            s = {next(iterator) for _ in range(2)}
+            return self.whoami()(owner, sorted(s), v), {v: s}
+        for v in range(max(cards), right, -1):
+            if v in cards and len(cards) == 4:
+                real = v
+                break
+        if real:
+            return RealBomb(owner, [(real, j) for j in range(4)], real), {real: cards[real]}
+        if 0 in cards and len(cards[0]) == 2:
+            return JokerBomb(owner, [(0, 0), (0, 1)]), {0: cards[0]}
+        return Pass(owner, None), None
 
 
 class Seq(Combo):
@@ -137,6 +201,29 @@ class Triple(Combo):
             return True
         return False
 
+    def detect(self, cards: dict, owner) -> tuple:
+        real = None
+        right = self.v - 1
+        left = min(cards)
+        for v in range(right, max(left - 1, 0), -1):
+            if v in cards:
+                qty = len(cards[v])
+                if qty == 4:
+                    if not real:
+                        real = v
+                    continue
+                if qty == 3:
+                    return self.whoami()(owner, sorted(cards[v]), v), {v: cards[v]}
+        for v in range(max(cards), right, -1):
+            if v in cards and len(cards) == 4:
+                real = v
+                break
+        if real:
+            return RealBomb(owner, [(real, j) for j in range(4)], real), {real: cards[real]}
+        if 0 in cards and len(cards[0]) == 2:
+            return JokerBomb(owner, [(0, 0), (0, 1)]), {0: cards[0]}
+        return Pass(owner, None), None
+
 
 class TripleWithSingle(Combo):
     @staticmethod
@@ -155,6 +242,51 @@ class TripleWithSingle(Combo):
             return True
         return False
 
+    def detect(self, cards: dict, owner) -> tuple:
+        real = None
+        right = self.v - 1
+        left = min(cards)
+        for v in range(right, max(left - 1, 0), -1):
+            if v in cards:
+                qty = len(cards[v])
+                if qty == 4:
+                    if not real:
+                        real = v
+                    continue
+                if qty == 3:
+                    view = sorted(cards[v])
+                    fallback = {}
+                    for k in range(max(cards), left - 1, -1):
+                        if k != v and k in cards:
+                            qty = len(cards[k])
+                            if qty == 1:
+                                view.extend(cards[k])
+                                return self.whoami()(owner, view, v), {v: cards[v], k: cards[k]}
+                            if qty not in fallback:
+                                fallback[qty] = k
+                    k = None
+                    if 2 in fallback and fallback[2]:
+                        k = fallback[2]
+                    elif 3 in fallback:
+                        k = fallback[3]
+                    if k:
+                        card = next(iter(cards[k]))
+                        view.append(card)
+                        return self.whoami()(owner, view, v), {v: cards[v], k: {card}}
+                    if 4 in fallback:
+                        k = fallback[4]
+                        return RealBomb(owner, [(k, j) for j in range(4)], k), {k: cards[k]}
+                    return JokerBomb(owner, [(0, 0), (0, 1)]), {0: cards[0]}
+        for v in range(max(cards), right, -1):
+            if v in cards and len(cards) == 4:
+                real = v
+                break
+        if real:
+            return RealBomb(owner, [(real, j) for j in range(4)], real), {real: cards[real]}
+        if 0 in cards and len(cards[0]) == 2:
+            return JokerBomb(owner, [(0, 0), (0, 1)]), {0: cards[0]}
+        return Pass(owner, None), None
+
 
 class TripleWithPair(Combo):
     @staticmethod
@@ -172,6 +304,50 @@ class TripleWithPair(Combo):
         if isinstance(other, self.whoami()) and self.v < other.v:
             return True
         return False
+
+    def detect(self, cards: dict, owner) -> tuple:
+        real = None
+        right = self.v - 1
+        left = min(cards)
+        for v in range(right, max(left - 1, 0), -1):
+            if v in cards:
+                qty = len(cards[v])
+                if qty == 4:
+                    if not real:
+                        real = v
+                    continue
+                if qty == 3:
+                    view = sorted(cards[v])
+                    fallback = {}
+                    for k in range(max(cards), left - 1, -1):
+                        if k != v and k in cards:
+                            qty = len(cards[k])
+                            if qty > 1:
+                                if qty == 2:
+                                    if k:
+                                        view.extend(cards[k])
+                                        return self.whoami()(owner, view, v), {v: cards[v], k: cards[k]}
+                                elif qty not in fallback:
+                                    fallback[qty] = k
+                    if 3 in fallback:
+                        k = fallback[3]
+                        iterator = iter(cards[k])
+                        s = {next(iterator) for _ in range(2)}
+                        view.append(s)
+                        return self.whoami()(owner, view, v), {v: cards[v], k: s}
+                    if 4 in fallback:
+                        k = fallback[4]
+                        return RealBomb(owner, [(k, j) for j in range(4)], k), {k: cards[k]}
+                    return JokerBomb(owner, [(0, 0), (0, 1)]), {0: cards[0]}
+        for v in range(max(cards), right, -1):
+            if v in cards and len(cards) == 4:
+                real = v
+                break
+        if real:
+            return RealBomb(owner, [(real, j) for j in range(4)], real), {real: cards[real]}
+        if 0 in cards and len(cards[0]) == 2:
+            return JokerBomb(owner, [(0, 0), (0, 1)]), {0: cards[0]}
+        return Pass(owner, None), None
 
 
 class Plane(Combo):
@@ -375,6 +551,9 @@ class RealBomb(Combo):
             return False
         return True
 
+    def detect(self, cards: dict, owner) -> tuple:
+        return Pass(owner, None), None
+
 
 class JokerBomb(Combo):
     @staticmethod
@@ -384,6 +563,9 @@ class JokerBomb(Combo):
 
     def __gt__(self, other):
         return True
+
+    def detect(self, cards: dict, owner) -> tuple:
+        return Pass(owner, None), None
 
 
 class Pass(Combo):
