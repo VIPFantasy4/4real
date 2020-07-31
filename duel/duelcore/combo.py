@@ -529,6 +529,75 @@ class Plane(Combo):
             return True
         return False
 
+    def detect(self, cards: dict, owner) -> tuple:
+        v = self.v - 1
+        while v > 1:
+            view = []
+            right = v + self.count
+            for i in range(v, right):
+                if i in cards and len(cards[i]) == 3:
+                    view.extend(cards[i])
+                    continue
+                break
+            else:
+                count = self.qty - 3 * self.count
+                if not count:
+                    return self.whoami()(owner, view, v), {k: cards[k] for k in range(v, right)}
+                else:
+                    fallback = {}
+                    for k in range(max(cards), right - 1, -1):
+                        if k in cards and len(cards[k]) < 3:
+                            fallback.setdefault(len(cards[k]), []).append(k)
+                    for k in range(v - 1, min(cards) - 1, -1):
+                        if k in cards and len(cards[k]) < 3:
+                            if not k and len(cards[k]) == 2:
+                                continue
+                            fallback.setdefault(len(cards[k]), []).append(k)
+                    if count == self.count:
+                        if len(fallback.get(1, ())) + 2 * len(fallback.get(2, ())) >= count:
+                            i = 0
+                            while i < count:
+                                left = count - i
+                                if 1 in fallback:
+                                    k = fallback[1][0]
+                                    if 2 not in fallback or k > fallback[2][0]:
+                                        i += 1
+                                        view.extend(cards[k])
+                                        del fallback[1][0]
+                                        if not fallback[1]:
+                                            del fallback[1]
+                                        continue
+                                k = fallback[2][0]
+                                if left > 1:
+                                    i += 2
+                                    view.extend(cards[k])
+                                    del fallback[2][0]
+                                    if not fallback[2]:
+                                        del fallback[2]
+                                else:
+                                    i += 1
+                                    view.append(next(iter(cards[k])))
+                            cards = {k: cards[k] for k in range(v, right)}
+                            for card in view[3 * self.count:]:
+                                cards.setdefault(card[0], set()).add(card)
+                            return self.whoami()(owner, view, v), cards
+                    else:
+                        count //= 2
+                        if len(fallback.get(2, ())) >= count:
+                            for k in fallback[2][:count]:
+                                view.extend(cards[k])
+                            cards = {k: cards[k] for k in range(v, right)}
+                            for card in view[3 * self.count:]:
+                                cards.setdefault(card[0], set()).add(card)
+                            return self.whoami()(owner, view, v), cards
+            v -= self.count - len(view)
+        for v in range(max(cards), max(min(cards) - 1, 0), -1):
+            if v in cards and len(cards) == 4:
+                return RealBomb(owner, [(v, j) for j in range(4)], v), {v: cards[v]}
+        if 0 in cards and len(cards[0]) == 2:
+            return JokerBomb(owner, [(0, 0), (0, 1)]), {0: cards[0]}
+        return Pass(owner, None), None
+
 
 class FakeBomb(Combo):
     @staticmethod
