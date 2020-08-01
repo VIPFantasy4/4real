@@ -21,3 +21,7 @@ class DrawPhaseRuntimeError(RuntimeError):
 
 class HumanOperationResume(RuntimeError):
     pass
+
+
+class InconsistentDataError(ValueError):
+    pass

@@ -25,5 +25,5 @@ class Chain:
             try:
                 with self._phase as till_i_die:
                     await till_i_die
-            except (DrawPhaseRuntimeError,):
-                raise
+            except (DrawPhaseRuntimeError,) as e:
+                raise ChainRuntimeError(repr(e))

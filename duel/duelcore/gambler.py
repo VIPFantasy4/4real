@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from .combo import Combo
+from .exceptions import InconsistentDataError
 import weakref
 
 
@@ -28,7 +29,7 @@ class Gambler:
     def play(self, cards: dict):
         for k in cards:
             if k not in self._cards or not self._cards[k].issuperset(cards[k]):
-                raise
+                raise InconsistentDataError(f'forgery or stale cards: {cards} from addr: {self.addr} can not match self._cards: {self._cards}')
         for k in cards:
             self._cards[k].difference_update(cards[k])
             if not self._cards[k]:
@@ -43,16 +44,13 @@ class Gambler:
             if combo is not None and combo > last:
                 pass
             elif self.og or last.owner.og:
-                combo, cards = Combo.autodetect(cards, last)
+                combo, cards = Combo.autodetect(cards, self, last)
             else:
                 # AI
                 cards = {}
                 combo = last.fromcards(cards, self)
-        else:
-            if combo is not None:
-                pass
-            else:
-                pass
+        elif combo is None:
+            combo, cards = Combo.autodetect(cards, self)
         if combo:
             self.play(cards)
         track.append(combo)
