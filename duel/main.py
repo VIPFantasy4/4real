@@ -9,13 +9,6 @@ import pickle
 import kafka
 
 
-class DuelInfo:
-    def __init__(self):
-        self._times = None
-        self._og = None
-        self._track = None
-
-
 class Duel:
     def __init__(self, _id):
         self._id = _id
@@ -41,7 +34,7 @@ class Duel:
         return self._id, self._status, self._gamblers
 
     def validate(self):
-        if self._status != duelcore.SERVING or len(self._gamblers) != 3:
+        if self._status == duelcore.SERVING and len(self._gamblers) == 3:
             return True
         return False
 
@@ -76,11 +69,6 @@ class Duel:
 
     async def game_start(self, fut: asyncio.Future):
         if self.validate():
-            log.error('Invalid room%s can not start a game right now', self.view())
-            self._gamblers.clear()
-            self._status = duelcore.WAITING
-            fut.set_exception(duelcore.DuelRuntimeError(duelcore.generate_traceback()))
-        else:
             self._chain.start_over()
             try:
                 await self._chain.duel_start()
@@ -89,6 +77,11 @@ class Duel:
                 self._gamblers.clear()
                 self._status = duelcore.WAITING
                 fut.set_exception(duelcore.DuelRuntimeError(repr(e)))
+        else:
+            log.error('Invalid room%s can not start a game right now', self.view())
+            self._gamblers.clear()
+            self._status = duelcore.WAITING
+            fut.set_exception(duelcore.DuelRuntimeError(duelcore.generate_traceback()))
 
     async def game_over(self):
         pass
@@ -96,7 +89,7 @@ class Duel:
     async def send(self, data):
         if self._writer:
             try:
-                self._writer.write(pickle.dumps(data))
+                self._writer.write(pickle.dumps(data, 2))
                 await self._writer.drain()
             except Exception as e:
                 log.error('Exception occurred in send')
@@ -116,7 +109,7 @@ class Duel:
 
     async def establish(self):
         if self._retry > 4:
-            log.error('Establish failed over 3 times')
+            log.error('Establish failed over 4 times')
             log.error('Destroy the room%s right now', self.view())
             return
         try:

@@ -7,7 +7,10 @@ import weakref
 class Chain:
     def __init__(self, duel):
         self._duel = weakref.proxy(duel)
-        self._phase = None
+        self.phase = None
+        self.times = None
+        self.three = None
+        self.track = None
 
     @property
     def duel(self):
@@ -15,15 +18,16 @@ class Chain:
 
     def start_over(self):
         from .phase import DrawPhase
-        self._phase = DrawPhase(self)
-
-    def shift(self, phase):
-        self._phase = phase
+        self.phase = DrawPhase(self)
+        self.track = []
 
     async def duel_start(self):
-        while self._phase:
+        while self.phase:
             try:
-                with self._phase as till_i_die:
+                with self.phase as till_i_die:
                     await till_i_die
             except (DrawPhaseRuntimeError,) as e:
                 raise ChainRuntimeError(repr(e))
+
+    async def broadcast(self):
+        pass

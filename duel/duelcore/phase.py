@@ -29,7 +29,7 @@ class Phase:
         raise NotImplementedError
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        self._chain.shift(self._next)
+        self._chain.phase = self._next
 
 
 class DrawPhase(Phase):
@@ -63,11 +63,7 @@ class DrawPhase(Phase):
         return self.till_i_die()
 
     async def till_i_die(self):
-        await self._chain.duel.send({
-            'name': '',
-            'args': None,
-            'kwargs': None
-        })
+        await self._chain.broadcast()
 
 
 class GangPhase(Phase):
@@ -93,7 +89,6 @@ class GangPhase(Phase):
         if isinstance(choice, int):
             task.cancel()
         self._fut = None
-        args = (self.turn, choice)
         if choice:
             gambler = self._od[self.turn]
             gambler.role += 1
@@ -114,26 +109,16 @@ class GangPhase(Phase):
             else:
                 self._turn = key_list[0]
                 self._next = GangPhase(self._chain, self._three, self._od, self.turn)
-        if isinstance(self._next, GangPhase):
-            data = {
-                'name': '',
-                'args': args,
-                'kwargs': None
-            }
-        else:
+        if self._next is None:
             og.og = True
             og.deal(self._three)
+            self._chain.three = self._three
             self._next = MainPhase(self._chain, og)
-            data = {
-                'name': '',
-                'args': (),
-                'kwargs': None
-            }
-        await self._chain.duel.send(data)
+        await self._chain.broadcast()
 
 
 class MainPhase(Phase):
-    def __init__(self, chain, od, turn=None, track=None):
+    def __init__(self, chain, od, turn=None):
         super().__init__(chain)
         if not isinstance(od, OrderedDict):
             turn = od.addr
@@ -146,7 +131,7 @@ class MainPhase(Phase):
                 od[key] = gamblers[key]
         self._turn = turn
         self._od: OrderedDict = od
-        self.track = track or []
+        self._track = self._chain.track
 
     def __enter__(self):
         return self.till_i_die()
@@ -172,11 +157,13 @@ class MainPhase(Phase):
         gambler = self._od[self.turn]
         if isinstance(combo, duelcore.Combo):
             task.cancel()
-            self.track.append(combo)
+            self._track.append(combo)
         else:
-            gambler.auto(self.track)
+            gambler.auto(self._track)
         if gambler.gg:
             pass
         else:
             self._od.move_to_end(self.turn)
             self._turn = next(iter(self._od.keys()))
+            self._next = MainPhase(self._chain, self._od, self._turn)
+            await self._chain.broadcast()
