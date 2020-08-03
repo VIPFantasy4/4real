@@ -38,6 +38,9 @@ class Duel:
             return True
         return False
 
+    async def heartbeat(self):
+        await self.send((self._id, self._status, self._gamblers, self._chain))
+
     async def waiter(self, fut: asyncio.Future):
         try:
             await self.queue.put((duelcore.PRIORITY_LEVEL_LOW, await fut))
@@ -89,7 +92,7 @@ class Duel:
     async def send(self, data):
         if self._writer:
             try:
-                self._writer.write(pickle.dumps(data, 2))
+                self._writer.write(pickle.dumps(data, 2).hex().encode() + b'.')
                 await self._writer.drain()
             except Exception as e:
                 log.error('Exception occurred in send')
@@ -100,10 +103,14 @@ class Duel:
     async def recv(self):
         if self._reader:
             try:
-                data = pickle.loads(await self._reader.readuntil(b'.'))
+                data = await self._reader.readuntil(b'.')
             except Exception as e:
                 log.error('Exception occurred in recv')
                 log.error('%s: %s', e.__class__.__name__, e)
+                self._writer.close()
+                await self._writer.wait_closed()
+                return
+            data = pickle.loads(bytes.fromhex(data[:-1].decode()))
         else:
             pass
 

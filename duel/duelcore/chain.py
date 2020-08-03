@@ -5,6 +5,9 @@ import weakref
 
 
 class Chain:
+    def __reduce__(self):
+        return tuple, ((self.phase, self.times, self.three, self.track),)
+
     def __init__(self, duel):
         self._duel = weakref.proxy(duel)
         self.phase = None
@@ -28,6 +31,3 @@ class Chain:
                     await till_i_die
             except (DrawPhaseRuntimeError,) as e:
                 raise ChainRuntimeError(repr(e))
-
-    async def broadcast(self):
-        pass

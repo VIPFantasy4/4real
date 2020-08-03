@@ -127,6 +127,9 @@ class Single(Combo):
             card = next(iter(cards[overview['max']]))
             return [card], card
 
+    def __reduce__(self):
+        return tuple, ((__class__.__name__, self.owner, self.view, self.card),)
+
     def __init__(self, owner, view, card):
         super().__init__(owner, view)
         self.card: tuple = card
@@ -170,6 +173,9 @@ class Pair(Combo):
     def validate(overview: dict, cards: dict) -> tuple:
         if overview['qty'] == 2 and 2 in overview['map'] and overview['map'][2][0]:
             return sorted(cards[overview['max']]), overview['max']
+
+    def __reduce__(self):
+        return tuple, ((__class__.__name__, self.owner, self.view, self.v),)
 
     def __init__(self, owner, view, v):
         super().__init__(owner, view)
@@ -220,6 +226,9 @@ class Seq(Combo):
         if overview['qty'] > 4 and overview['max'] > 1 and 1 in overview['map'] and len(overview['map']) == 1 and list(range(overview['max'], overview['min'] + 1)) == seq:
             return [next(iter(cards[k])) for k in seq], overview['qty'], overview['max']
 
+    def __reduce__(self):
+        return tuple, ((__class__.__name__, self.owner, self.view, self.qty, self.v),)
+
     def __init__(self, owner, view, qty, v):
         super().__init__(owner, view)
         self.qty: int = qty
@@ -260,6 +269,9 @@ class PairSeq(Combo):
                 view.extend(sorted(cards[k]))
             return view, overview['qty'], overview['max']
 
+    def __reduce__(self):
+        return tuple, ((__class__.__name__, self.owner, self.view, self.qty, self.v),)
+
     def __init__(self, owner, view, qty, v):
         super().__init__(owner, view)
         self.qty: int = qty
@@ -297,6 +309,9 @@ class Triple(Combo):
     def validate(overview: dict, cards: dict) -> tuple:
         if overview['qty'] == 3 and 3 in overview['map']:
             return sorted(cards[overview['max']]), overview['max']
+
+    def __reduce__(self):
+        return tuple, ((__class__.__name__, self.owner, self.view, self.v),)
 
     def __init__(self, owner, view, v):
         super().__init__(owner, view)
@@ -338,6 +353,9 @@ class TripleWithSingle(Combo):
             view = sorted(cards[overview['map'][3][0]])
             view.extend([next(iter(cards[overview['map'][1][0]]))])
             return view, overview['map'][3][0]
+
+    def __reduce__(self):
+        return tuple, ((__class__.__name__, self.owner, self.view, self.v),)
 
     def __init__(self, owner, view, v):
         super().__init__(owner, view)
@@ -401,6 +419,9 @@ class TripleWithPair(Combo):
             view = sorted(cards[overview['map'][3][0]])
             view.extend(sorted(cards[overview['map'][2][0]]))
             return view, overview['map'][3][0]
+
+    def __reduce__(self):
+        return tuple, ((__class__.__name__, self.owner, self.view, self.v),)
 
     def __init__(self, owner, view, v):
         super().__init__(owner, view)
@@ -584,6 +605,9 @@ class Plane(Combo):
             count, qty, v = args
             return view, count, qty, v
 
+    def __reduce__(self):
+        return tuple, ((__class__.__name__, self.owner, self.view, self.count, self.qty, self.v),)
+
     def __init__(self, owner, view, count, qty, v):
         super().__init__(owner, view)
         self.count: int = count
@@ -697,6 +721,9 @@ class FakeBomb(Combo):
                     view.extend((i, j) for j in range(4))
                     return view, overview['qty'], v
 
+    def __reduce__(self):
+        return tuple, ((__class__.__name__, self.owner, self.view, self.qty, self.v),)
+
     def __init__(self, owner, view, qty, v):
         super().__init__(owner, view)
         self.qty: int = qty
@@ -779,6 +806,9 @@ class RealBomb(Combo):
             v = overview['max']
             return [(v, j) for j in range(4)], v
 
+    def __reduce__(self):
+        return tuple, ((__class__.__name__, self.owner, self.view, self.v),)
+
     def __init__(self, owner, view, v):
         super().__init__(owner, view)
         self.v: int = v
@@ -807,6 +837,9 @@ class JokerBomb(Combo):
         if overview['qty'] == 2 and 2 in overview['map'] and not overview['map'][2][0]:
             return [(0, 0), (0, 1)],
 
+    def __reduce__(self):
+        return tuple, ((__class__.__name__, self.owner, self.view),)
+
     def __gt__(self, other):
         return True
 
@@ -815,6 +848,9 @@ class JokerBomb(Combo):
 
 
 class Pass(Combo):
+    def __reduce__(self):
+        return tuple, ((__class__.__name__, self.owner, self.view),)
+
     def __bool__(self):
         return False
 

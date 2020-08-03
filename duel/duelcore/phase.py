@@ -11,6 +11,9 @@ import math
 
 
 class Phase:
+    def __reduce__(self):
+        return tuple, ((self.__class__.__name__, self.turn),)
+
     def __init__(self, chain):
         self._chain = weakref.proxy(chain)
         self._fut = None
@@ -35,6 +38,9 @@ class Phase:
 class DrawPhase(Phase):
     DECK = [(0, 0), (0, 1)] + [(i, j) for i in range(1, 14) for j in range(4)]
 
+    def __reduce__(self):
+        return self._next.__reduce__()
+
     def __enter__(self):
         if self._chain.duel.validate():
             _id, status, gamblers = self._chain.duel.view()
@@ -56,6 +62,7 @@ class DrawPhase(Phase):
             od = OrderedDict()
             for key in key_list:
                 od[key] = gamblers[key]
+                gamblers.move_to_end(key)
             self._next = GangPhase(self._chain, self.DECK[-3:], od, addr)
         else:
             log.error('Invalid room%s can not enter DrawPhase', self._chain.duel.view())
@@ -63,7 +70,7 @@ class DrawPhase(Phase):
         return self.till_i_die()
 
     async def till_i_die(self):
-        await self._chain.broadcast()
+        await self._chain.duel.heartbeat()
 
 
 class GangPhase(Phase):
@@ -114,7 +121,7 @@ class GangPhase(Phase):
             og.deal(self._three)
             self._chain.three = self._three
             self._next = MainPhase(self._chain, og)
-        await self._chain.broadcast()
+        await self._chain.duel.heartbeat()
 
 
 class MainPhase(Phase):
@@ -166,4 +173,4 @@ class MainPhase(Phase):
             self._od.move_to_end(self.turn)
             self._turn = next(iter(self._od.keys()))
             self._next = MainPhase(self._chain, self._od, self._turn)
-            await self._chain.broadcast()
+            await self._chain.duel.heartbeat()
