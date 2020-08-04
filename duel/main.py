@@ -13,8 +13,8 @@ class Duel:
     def __init__(self, _id):
         self._id = _id
         self._status = duelcore.WAITING
-        self._writer: asyncio.StreamWriter = None
         self._reader: asyncio.StreamReader = None
+        self._writer: asyncio.StreamWriter = None
         self._retry = 0
         self._consumer = kafka.KafkaConsumer(
             *cfg.KAFKA_TOPICS,
@@ -39,7 +39,11 @@ class Duel:
         return False
 
     async def heartbeat(self):
-        await self.send((self._id, self._status, self._gamblers, self._chain))
+        await self.send({
+            '_id': self._id,
+            'addrs': tuple(self._gamblers.keys()),
+            'args': pickle.dumps((self._id, self._status, self._gamblers, self._chain), 2)
+        })
 
     async def waiter(self, fut: asyncio.Future):
         try:
@@ -108,7 +112,6 @@ class Duel:
                 log.error('Exception occurred in recv')
                 log.error('%s: %s', e.__class__.__name__, e)
                 self._writer.close()
-                await self._writer.wait_closed()
                 return
             data = pickle.loads(bytes.fromhex(data[:-1].decode()))
         else:
