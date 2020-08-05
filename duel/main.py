@@ -99,17 +99,16 @@ class Duel:
             pass
 
     async def recv(self):
-        if self._reader:
+        await asyncio.sleep(0)
+        while True:
             try:
                 data = await self._reader.readuntil(b'.')
             except Exception as e:
                 log.error('Exception occurred in recv')
                 log.error('%s: %s', e.__class__.__name__, e)
                 self._writer.close()
-                return
+                break
             data = pickle.loads(bytes.fromhex(data[:-1].decode()))
-        else:
-            pass
 
     async def establish(self):
         if self._retry > 4:
@@ -121,6 +120,8 @@ class Duel:
             self._reader, self._writer = await asyncio.open_connection(cfg.DUEL_PROXY_HOST, cfg.DUEL_PROXY_PORT)
             log.info('Established addr: %s', (cfg.DUEL_PROXY_HOST, cfg.DUEL_PROXY_PORT))
             self._retry = 0
+            await self.heartbeat()
+            asyncio.create_task(self.recv())
         except Exception as e:
             log.error('Exception occurred in establish')
             log.error('%s: %s', e.__class__.__name__, e)
@@ -130,4 +131,5 @@ class Duel:
             await self.queue.put((duelcore.PRIORITY_LEVEL_HIGH, self.establish()))
 
     async def main(self):
-        reader, writer = await asyncio.open_connection('127.0.0.1', 8888)
+        await self.queue.put((duelcore.PRIORITY_LEVEL_HIGH, self.establish()))
+        await asyncio.create_task(self.worker())
