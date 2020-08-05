@@ -6,7 +6,6 @@ import duelcore
 import cfg
 import asyncio
 import pickle
-import kafka
 
 
 class Duel:
@@ -16,15 +15,10 @@ class Duel:
         self._reader: asyncio.StreamReader = None
         self._writer: asyncio.StreamWriter = None
         self._retry = 0
-        self._consumer = kafka.KafkaConsumer(
-            *cfg.KAFKA_TOPICS,
-            bootstrap_servers=cfg.KAFKA_SERVERS,
-            consumer_timeout_ms=1000
-        )
-        self._producer = kafka.KafkaProducer(bootstrap_servers=cfg.KAFKA_SERVERS)
-        self._gamblers = OrderedDict()
-        self._chain = duelcore.chain.Chain(self)
         self._queue = asyncio.PriorityQueue()
+        self._funcs = {}
+        self._chain = duelcore.chain.Chain(self)
+        self._gamblers = OrderedDict()
 
     @property
     def queue(self):
