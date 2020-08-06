@@ -6,6 +6,7 @@ import duelcore
 import cfg
 import asyncio
 import pickle
+import sys
 
 
 class Duel:
@@ -23,6 +24,10 @@ class Duel:
     @property
     def queue(self):
         return self._queue
+
+    @property
+    def funcs(self):
+        return self._funcs
 
     def view(self):
         return self._id, self._status, self._gamblers
@@ -49,11 +54,10 @@ class Duel:
         while True:
             priority_number, coro = await self.queue.get()
             self.queue.task_done()
-            if self._status == duelcore.SERVING:
-                try:
-                    await coro
-                except:
-                    pass
+            try:
+                await coro
+            except:
+                pass
 
     def participate(self, addr):
         if self._status == duelcore.WAITING:
@@ -107,8 +111,16 @@ class Duel:
                 log.error('Exception occurred in recv')
                 log.error('%s: %s', e.__class__.__name__, e)
                 self._writer.close()
+                await self.queue.put((duelcore.PRIORITY_LEVEL_HIGH, self.establish()))
                 break
             data = pickle.loads(bytes.fromhex(data[:-1].decode()))
+            if isinstance(data, dict) and data.get('name') in self.funcs:
+                func = self.funcs[data['name']]
+                try:
+                    func(*data['args'])
+                except Exception as e:
+                    log.error(f'Exception occurred in {func}')
+                    log.error('%s: %s', e.__class__.__name__, e)
 
     async def establish(self):
         if self._retry > 4:
@@ -133,3 +145,9 @@ class Duel:
     async def main(self):
         await self.queue.put((duelcore.PRIORITY_LEVEL_HIGH, self.establish()))
         await asyncio.create_task(self.worker())
+
+
+if __name__ == '__main__':
+    _id = sys.argv[1]
+
+    asyncio.run(Duel(_id).main())
