@@ -16,7 +16,7 @@ class Duel:
         self._reader: asyncio.StreamReader = None
         self._writer: asyncio.StreamWriter = None
         self._retry = 0
-        self._queue = asyncio.PriorityQueue()
+        self._queue = None
         self._funcs = {}
         self._chain = duelcore.chain.Chain(self)
         self._gamblers = OrderedDict()
@@ -143,6 +143,7 @@ class Duel:
             await self.queue.put((duelcore.PRIORITY_LEVEL_HIGH, self.establish()))
 
     async def main(self):
+        self._queue = asyncio.PriorityQueue()
         await self.queue.put((duelcore.PRIORITY_LEVEL_HIGH, self.establish()))
         await asyncio.create_task(self.worker())
 

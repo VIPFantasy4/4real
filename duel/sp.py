@@ -23,7 +23,6 @@ class SP:
             consumer_timeout_ms=1000
         )
         self._producer = kafka.KafkaProducer(bootstrap_servers=cfg.KAFKA_SERVERS)
-        self._queue = asyncio.PriorityQueue()
         self._pool = pool
 
     def publish(self, topic, value=None, key=None, headers=None, partition=None, timestamp_ms=None):
