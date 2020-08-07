@@ -92,15 +92,12 @@ class Duel:
         pass
 
     async def send(self, data):
-        if self._writer:
-            try:
-                self._writer.write(pickle.dumps(data, 2).hex().encode() + b'.')
-                await self._writer.drain()
-            except Exception as e:
-                log.error('Exception occurred in send')
-                log.error('%s: %s', e.__class__.__name__, e)
-        else:
-            pass
+        try:
+            self._writer.write(pickle.dumps(data, 2).hex().encode() + b'.')
+            await self._writer.drain()
+        except Exception as e:
+            log.error('Exception occurred in send')
+            log.error('%s: %s', e.__class__.__name__, e)
 
     async def recv(self):
         await asyncio.sleep(0)
