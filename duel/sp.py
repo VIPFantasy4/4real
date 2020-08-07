@@ -25,6 +25,10 @@ class SP:
         self._producer = kafka.KafkaProducer(bootstrap_servers=cfg.KAFKA_SERVERS)
         self._pool = pool
 
+    @property
+    def funcs(self):
+        return self._funcs
+
     def publish(self, topic, value=None, key=None, headers=None, partition=None, timestamp_ms=None):
         try:
             self._producer.send(topic, value, key, headers, partition, timestamp_ms)
@@ -39,8 +43,12 @@ class SP:
             if self._consumer._closed:
                 log.error('Met a closed KafkaConsumer while fetching')
 
+    async def participate(self, addr):
+        pass
+
     async def heartbeat(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter):
         _id = None
+        task = None
         while True:
             try:
                 raw = await reader.readuntil(b'.')
@@ -72,9 +80,17 @@ class SP:
             loop = asyncio.get_running_loop()
             msg = await loop.run_in_executor(self._pool, self.fetch)
             if msg.__class__.__name__ == 'ConsumerRecord':
-                msg.value
+                data = pickle.loads(msg.value)
+                if isinstance(data, dict) and data.get('name') in self.funcs:
+                    func = self.funcs[data['name']]
+                    try:
+                        await func(*data['args'])
+                    except Exception as e:
+                        log.error(f'Exception occurred in {func}')
+                        log.error('%s: %s', e.__class__.__name__, e)
 
     async def main(self):
+        self.funcs[self.participate.__name__] = self.participate
         server = await asyncio.start_server(self.heartbeat, cfg.DUEL_PROXY_HOST, cfg.DUEL_PROXY_PORT)
         addr = server.sockets[0].getsockname()
         print(f'Serving on {addr}')
