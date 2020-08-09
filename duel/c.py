@@ -13,7 +13,7 @@ class C(asyncore.dispatcher_with_send):
     def handle_read(self):
         self.in_buffer += self.recv(8192)
         if '.' in self.in_buffer:
-            raw, self.in_buffer = self.in_buffer.split('.', 1)
+            raw, self.in_buffer = self.in_buffer.split('.')[-2:]
             data = pickle.loads(raw.decode('hex'))
             pprint.pprint(data)
 
