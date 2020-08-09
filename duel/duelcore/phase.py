@@ -170,7 +170,8 @@ class MainPhase(Phase):
         else:
             gambler.auto(self._track)
         if gambler.gg:
-            pass
+            print(f'this dude: {gambler.addr} win')
+            await self._chain.duel.heartbeat()
         else:
             self._od.move_to_end(self.turn)
             self._turn = next(iter(self._od.keys()))
