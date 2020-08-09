@@ -40,7 +40,7 @@ class Combo:
         if combo is None:
             # AI
             fallback = {}
-            for item in sorted(cards.items, reverse=True):
+            for item in sorted(cards.items(), reverse=True):
                 qty = len(item[1])
                 if qty == 1:
                     view = list(item[1])
@@ -222,9 +222,10 @@ class Pair(Combo):
 class Seq(Combo):
     @staticmethod
     def validate(overview: dict, cards: dict) -> tuple:
-        seq = sorted(overview['map'][1])
-        if overview['qty'] > 4 and overview['max'] > 1 and 1 in overview['map'] and len(overview['map']) == 1 and list(range(overview['max'], overview['min'] + 1)) == seq:
-            return [next(iter(cards[k])) for k in seq], overview['qty'], overview['max']
+        if overview['qty'] > 4 and overview['max'] > 1 and 1 in overview['map'] and len(overview['map']) == 1:
+            seq = sorted(overview['map'][1])
+            if list(range(overview['max'], overview['min'] + 1)) == seq:
+                return [next(iter(cards[k])) for k in seq], overview['qty'], overview['max']
 
     def __reduce__(self):
         return tuple, ((__class__.__name__, self.owner, self.view, self.qty, self.v),)
@@ -262,12 +263,13 @@ class Seq(Combo):
 class PairSeq(Combo):
     @staticmethod
     def validate(overview: dict, cards: dict) -> tuple:
-        seq = sorted(overview['map'][2])
-        if overview['qty'] > 5 and overview['max'] > 1 and 2 in overview['map'] and len(overview['map']) == 1 and list(range(overview['max'], overview['min'] + 1)) == seq:
-            view = []
-            for k in seq:
-                view.extend(sorted(cards[k]))
-            return view, overview['qty'], overview['max']
+        if overview['qty'] > 5 and overview['max'] > 1 and 2 in overview['map'] and len(overview['map']) == 1:
+            seq = sorted(overview['map'][2])
+            if list(range(overview['max'], overview['min'] + 1)) == seq:
+                view = []
+                for k in seq:
+                    view.extend(sorted(cards[k]))
+                return view, overview['qty'], overview['max']
 
     def __reduce__(self):
         return tuple, ((__class__.__name__, self.owner, self.view, self.qty, self.v),)
