@@ -250,7 +250,7 @@ class Seq(Combo):
                     continue
                 break
             else:
-                return self.whoami()(owner, view, v), {card[0]: {card} for card in view}
+                return self.whoami()(owner, view, self.qty, v), {card[0]: {card} for card in view}
             v -= self.qty - len(view)
         for v in range(max(cards), max(min(cards) - 1, 0), -1):
             if v in cards and len(cards) == 4:
@@ -296,7 +296,7 @@ class PairSeq(Combo):
                     continue
                 break
             else:
-                return self.whoami()(owner, view, v), {view[i][0]: {view[i], view[i + 1]} for i in range(0, self.qty, 2)}
+                return self.whoami()(owner, view, self.qty, v), {view[i][0]: {view[i], view[i + 1]} for i in range(0, self.qty, 2)}
             v -= count - len(view)
         for v in range(max(cards), max(min(cards) - 1, 0), -1):
             if v in cards and len(cards) == 4:
@@ -634,7 +634,7 @@ class Plane(Combo):
             else:
                 count = self.qty - 3 * self.count
                 if not count:
-                    return self.whoami()(owner, view, v), {k: cards[k] for k in range(v, right)}
+                    return self.whoami()(owner, view, self.count, self.qty, v), {k: cards[k] for k in range(v, right)}
                 else:
                     fallback = {}
                     for k in range(max(cards), right - 1, -1):
@@ -672,7 +672,7 @@ class Plane(Combo):
                             cards = {k: cards[k] for k in range(v, right)}
                             for card in view[3 * self.count:]:
                                 cards.setdefault(card[0], set()).add(card)
-                            return self.whoami()(owner, view, v), cards
+                            return self.whoami()(owner, view, self.count, self.qty, v), cards
                     else:
                         count //= 2
                         if len(fallback.get(2, ())) >= count:
@@ -681,7 +681,7 @@ class Plane(Combo):
                             cards = {k: cards[k] for k in range(v, right)}
                             for card in view[3 * self.count:]:
                                 cards.setdefault(card[0], set()).add(card)
-                            return self.whoami()(owner, view, v), cards
+                            return self.whoami()(owner, view, self.count, self.qty, v), cards
             v -= self.count - len(view)
         for v in range(max(cards), max(min(cards) - 1, 0), -1):
             if v in cards and len(cards) == 4:
@@ -762,14 +762,14 @@ class FakeBomb(Combo):
                     for i in range(2):
                         view.extend(cards[fallback[prime][i]])
                     fallback[prime].append(v)
-                    return self.whoami()(owner, view, v), {k: cards[k] for k in fallback[prime]}
+                    return self.whoami()(owner, view, self.qty, v), {k: cards[k] for k in fallback[prime]}
                 if self.qty == 6:
                     if 2 in fallback:
                         if not count or fallback[1][0] < fallback[2]:
                             view = sorted(cards[v])
                             k = fallback[2]
                             view.extend(cards[k])
-                            return self.whoami()(owner, view, v), {v: cards[v], k: cards[k]}
+                            return self.whoami()(owner, view, self.qty, v), {v: cards[v], k: cards[k]}
                     if count:
                         k = fallback[1][0]
                         card = None
@@ -781,7 +781,7 @@ class FakeBomb(Combo):
                             view = sorted(cards[v])
                             view.append(card)
                             view.extend(cards[k])
-                            return self.whoami()(owner, view, v), {v: cards[v], k: cards[k], card[0]: {card}}
+                            return self.whoami()(owner, view, self.qty, v), {v: cards[v], k: cards[k], card[0]: {card}}
                 elif count and 3 in fallback:
                     k = fallback[2][0]
                     view = sorted(cards[v])
@@ -789,7 +789,7 @@ class FakeBomb(Combo):
                     iterator = iter(cards[fallback[3]])
                     s = {next(iterator) for _ in range(2)}
                     view.extend(s)
-                    return self.whoami()(owner, view, v), {v: cards[v], k: cards[k], fallback[3]: s}
+                    return self.whoami()(owner, view, self.qty, v), {v: cards[v], k: cards[k], fallback[3]: s}
                 if 4 in fallback:
                     v = max(fallback[4], v)
                 return RealBomb(owner, [(v, j) for j in range(4)], v), {v: cards[v]}
