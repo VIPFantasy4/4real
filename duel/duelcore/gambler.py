@@ -33,6 +33,9 @@ class Gambler:
         for k in cards:
             if k not in self._cards or not self._cards[k].issuperset(cards[k]):
                 raise InconsistentDataError(f'forgery or stale cards: {cards} from addr: {self.addr} can not match self._cards: {self._cards}')
+        if cards is self._cards:
+            self._cards = {}
+            return
         for k in cards:
             self._cards[k].difference_update(cards[k])
             if not self._cards[k]:
