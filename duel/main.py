@@ -40,8 +40,9 @@ class Duel:
     async def heartbeat(self):
         await self.send({
             '_id': self._id,
-            'addrs': tuple(self._gamblers.keys()),
-            'args': pickle.dumps((self._id, self._status, self._gamblers, self._chain), 2)
+            'addresses': tuple(self._gamblers.keys()),
+            'status': self._status,
+            'args': pickle.dumps((self._id, self._gamblers, self._chain), 2)
         })
 
     async def waiter(self, fut: asyncio.Future):
@@ -59,14 +60,15 @@ class Duel:
             except:
                 pass
 
-    def participate(self, addr):
+    def participate(self, addresses):
         if self._status == duelcore.WAITING:
-            self._gamblers[addr] = duelcore.Gambler(self, addr)
-            if len(self._gamblers) > 2:
-                self._status = duelcore.SERVING
-                fut = asyncio.get_event_loop().create_future()
-                asyncio.create_task(self.waiter(fut))
-                asyncio.create_task(self.game_start(fut))
+            self._gamblers.clear()
+            for addr in addresses:
+                self._gamblers[addr] = duelcore.Gambler(self, addr)
+            self._status = duelcore.SERVING
+            fut = asyncio.get_event_loop().create_future()
+            asyncio.create_task(self.waiter(fut))
+            asyncio.create_task(self.game_start(fut))
             return True
         else:
             log.info('Full room _id: %s participation refused', self._id)
@@ -140,6 +142,7 @@ class Duel:
             await self.queue.put((duelcore.PRIORITY_LEVEL_HIGH, self.establish()))
 
     async def main(self):
+        self.funcs[self.participate.__name__] = self.participate
         self._queue = asyncio.PriorityQueue()
         await self.queue.put((duelcore.PRIORITY_LEVEL_HIGH, self.establish()))
         await asyncio.create_task(self.worker())

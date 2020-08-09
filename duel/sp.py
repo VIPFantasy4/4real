@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+from collections import OrderedDict
 import log
 import cfg
 import functools
@@ -10,10 +11,27 @@ import pickle
 import kafka
 import sys
 
+import sqlite3
+
+conn = sqlite3.connect('test.db')
+conn.execute('DROP TABLE IF EXISTS tbl_test')
+conn.execute(
+    'CREATE TABLE tbl_test (addr TEXT, status INTEGER, service_id TEXT, duel_id TEXT)')
+conn.close()
+
+
+def mark(addresses, service_id, duel_id):
+    conn = sqlite3.connect('test.db')
+    c = conn.cursor()
+    c.executemany('INSERT INTO tbl_test VALUES (?, ?, ?, ?)', [(addr, 1, service_id, duel_id) for addr in addresses])
+    conn.commit()
+    conn.close()
+
 
 class SP:
     def __init__(self, _id, pool):
         self._id = _id
+        self._pool = pool
         self._duels = {}
         self._conns = {}
         self._funcs = {}
@@ -23,7 +41,9 @@ class SP:
             consumer_timeout_ms=1000
         )
         self._producer = kafka.KafkaProducer(bootstrap_servers=cfg.KAFKA_SERVERS)
-        self._pool = pool
+
+        self._od = OrderedDict()
+        self._queue: asyncio.Queue = None
 
     @property
     def funcs(self):
@@ -43,16 +63,35 @@ class SP:
             if self._consumer._closed:
                 log.error('Met a closed KafkaConsumer while fetching')
 
+    async def leave(self, addr):
+        if addr in self._od:
+            self._od.pop(addr)
+
     async def participate(self, addr):
-        pass
+        print(addr)
+        self._od[addr] = None
+        if len(self._od) > 2:
+            await self._queue.put(tuple(self._od.popitem(0)[0] for _ in range(3)))
+
+    async def creator(self):
+        while True:
+            addresses = await self._queue.get()
+            self._queue.task_done()
+            loop = asyncio.get_running_loop()
+            await loop.run_in_executor(self._pool, functools.partial(mark, addresses, self._id, '1'))
+            writer = self._conns['1'][1]
+            writer.write(pickle.dumps({
+                'name': 'participate',
+                'args': (addresses,)
+            }).hex().encode() + b'.')
+            await writer.drain()
 
     async def heartbeat(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter):
         _id = None
-        task = None
         while True:
             try:
                 raw = await reader.readuntil(b'.')
-                raw = raw[:-1]
+                raw = bytes.fromhex(raw[:-1].decode())
             except Exception as e:
                 log.error('Exception occurred in heartbeat')
                 log.error('%s: %s', e.__class__.__name__, e)
@@ -63,7 +102,8 @@ class SP:
                         pass
                 writer.close()
                 break
-            data = pickle.loads(bytes.fromhex(raw.decode()))
+            data = pickle.loads(raw)
+            print(data)
             if _id is None:
                 _id = data['_id']
                 self._conns[_id] = (reader, writer)
@@ -91,11 +131,14 @@ class SP:
 
     async def main(self):
         self.funcs[self.participate.__name__] = self.participate
+        self._queue = asyncio.Queue()
+
         server = await asyncio.start_server(self.heartbeat, cfg.DUEL_PROXY_HOST, cfg.DUEL_PROXY_PORT)
         addr = server.sockets[0].getsockname()
-        print(f'Serving on {addr}')
+        log.info(f'Serving on {addr}')
 
         async with server:
+            asyncio.create_task(self.creator())
             asyncio.create_task(self.consume_forever())
             await server.serve_forever()
 

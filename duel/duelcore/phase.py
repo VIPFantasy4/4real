@@ -15,7 +15,7 @@ class Phase:
         return tuple, ((self.__class__.__name__, self.turn),)
 
     def __init__(self, chain):
-        self._chain = weakref.proxy(chain)
+        self._chain = chain
         self._fut = None
         self._next = None
         self._turn = None
@@ -50,7 +50,9 @@ class DrawPhase(Phase):
             triple = [{} for _ in range(3)]
             for i in range(t):
                 n = once * 3 * i
-                for j in range(n, n + (17 - once * i if t - 1 == i else once)):
+                if t - 1 == i:
+                    once = 17 - once * i
+                for j in range(n, n + once):
                     for i in range(3):
                         card = self.DECK[j + once * i]
                         triple[i].setdefault(card[0], set()).add(card)
@@ -112,7 +114,7 @@ class GangPhase(Phase):
                 og = self._od[key_list[-1]]
             elif not key_list:
                 _id, status, gamblers = self._chain.duel.view()
-                og = random.choice(gamblers.items())[1]
+                og = random.choice(tuple(gamblers.values()))
             else:
                 self._turn = key_list[0]
                 self._next = GangPhase(self._chain, self._three, self._od, self.turn)
