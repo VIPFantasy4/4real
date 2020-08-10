@@ -28,7 +28,7 @@ def mark(addresses, service_id, duel_id):
     conn.close()
 
 
-class SP:
+class Real:
     def __init__(self, _id, pool):
         self._id = _id
         self._pool = pool
@@ -147,4 +147,4 @@ if __name__ == '__main__':
     _id = sys.argv[1]
 
     with concurrent.futures.ThreadPoolExecutor() as pool:
-        asyncio.run(SP(_id, pool).main())
+        asyncio.run(Real(_id, pool).main())
