@@ -5,7 +5,6 @@ import log
 import duelcore
 import asyncio
 import time
-import weakref
 import random
 import math
 
