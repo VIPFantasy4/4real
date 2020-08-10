@@ -128,7 +128,7 @@ class Single(Combo):
             return [card], card
 
     def __reduce__(self):
-        return tuple, ((__class__.__name__, self.owner, self.view, self.card),)
+        return tuple, ((__class__.__name__, self.owner.addr, self.view, self.card),)
 
     def __init__(self, owner, view, card):
         super().__init__(owner, view)
@@ -175,7 +175,7 @@ class Pair(Combo):
             return sorted(cards[overview['max']]), overview['max']
 
     def __reduce__(self):
-        return tuple, ((__class__.__name__, self.owner, self.view, self.v),)
+        return tuple, ((__class__.__name__, self.owner.addr, self.view, self.v),)
 
     def __init__(self, owner, view, v):
         super().__init__(owner, view)
@@ -228,7 +228,7 @@ class Seq(Combo):
                 return [next(iter(cards[k])) for k in seq], overview['qty'], overview['max']
 
     def __reduce__(self):
-        return tuple, ((__class__.__name__, self.owner, self.view, self.qty, self.v),)
+        return tuple, ((__class__.__name__, self.owner.addr, self.view, self.qty, self.v),)
 
     def __init__(self, owner, view, qty, v):
         super().__init__(owner, view)
@@ -272,7 +272,7 @@ class PairSeq(Combo):
                 return view, overview['qty'], overview['max']
 
     def __reduce__(self):
-        return tuple, ((__class__.__name__, self.owner, self.view, self.qty, self.v),)
+        return tuple, ((__class__.__name__, self.owner.addr, self.view, self.qty, self.v),)
 
     def __init__(self, owner, view, qty, v):
         super().__init__(owner, view)
@@ -313,7 +313,7 @@ class Triple(Combo):
             return sorted(cards[overview['max']]), overview['max']
 
     def __reduce__(self):
-        return tuple, ((__class__.__name__, self.owner, self.view, self.v),)
+        return tuple, ((__class__.__name__, self.owner.addr, self.view, self.v),)
 
     def __init__(self, owner, view, v):
         super().__init__(owner, view)
@@ -357,7 +357,7 @@ class TripleWithSingle(Combo):
             return view, overview['map'][3][0]
 
     def __reduce__(self):
-        return tuple, ((__class__.__name__, self.owner, self.view, self.v),)
+        return tuple, ((__class__.__name__, self.owner.addr, self.view, self.v),)
 
     def __init__(self, owner, view, v):
         super().__init__(owner, view)
@@ -423,7 +423,7 @@ class TripleWithPair(Combo):
             return view, overview['map'][3][0]
 
     def __reduce__(self):
-        return tuple, ((__class__.__name__, self.owner, self.view, self.v),)
+        return tuple, ((__class__.__name__, self.owner.addr, self.view, self.v),)
 
     def __init__(self, owner, view, v):
         super().__init__(owner, view)
@@ -608,7 +608,7 @@ class Plane(Combo):
             return view, count, qty, v
 
     def __reduce__(self):
-        return tuple, ((__class__.__name__, self.owner, self.view, self.count, self.qty, self.v),)
+        return tuple, ((__class__.__name__, self.owner.addr, self.view, self.count, self.qty, self.v),)
 
     def __init__(self, owner, view, count, qty, v):
         super().__init__(owner, view)
@@ -724,7 +724,7 @@ class FakeBomb(Combo):
                     return view, overview['qty'], v
 
     def __reduce__(self):
-        return tuple, ((__class__.__name__, self.owner, self.view, self.qty, self.v),)
+        return tuple, ((__class__.__name__, self.owner.addr, self.view, self.qty, self.v),)
 
     def __init__(self, owner, view, qty, v):
         super().__init__(owner, view)
@@ -809,7 +809,7 @@ class RealBomb(Combo):
             return [(v, j) for j in range(4)], v
 
     def __reduce__(self):
-        return tuple, ((__class__.__name__, self.owner, self.view, self.v),)
+        return tuple, ((__class__.__name__, self.owner.addr, self.view, self.v),)
 
     def __init__(self, owner, view, v):
         super().__init__(owner, view)
@@ -840,7 +840,7 @@ class JokerBomb(Combo):
             return [(0, 0), (0, 1)],
 
     def __reduce__(self):
-        return tuple, ((__class__.__name__, self.owner, self.view),)
+        return tuple, ((__class__.__name__, self.owner.addr, self.view),)
 
     def __gt__(self, other):
         return True
@@ -851,7 +851,7 @@ class JokerBomb(Combo):
 
 class Pass(Combo):
     def __reduce__(self):
-        return tuple, ((__class__.__name__, self.owner, self.view),)
+        return tuple, ((__class__.__name__, self.owner.addr, self.view),)
 
     def __bool__(self):
         return False
