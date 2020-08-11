@@ -22,6 +22,7 @@ class Chain:
     def start_over(self):
         from .phase import DrawPhase
         self.phase = DrawPhase(self)
+        self.times = None
         self.track = []
 
     async def duel_start(self):

@@ -119,6 +119,12 @@ class Combo:
     def view(self):
         return self._view
 
+    @property
+    def times(self):
+        if self.whoami() in (RealBomb, JokerBomb):
+            return 2
+        return False
+
 
 class Single(Combo):
     @staticmethod

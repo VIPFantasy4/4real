@@ -59,4 +59,7 @@ class Gambler:
             combo, cards = Combo.autodetect(cards, self)
         if combo:
             self.play(cards)
+        times = combo.times
+        if times:
+            self._duel._chain.times *= times
         track.append(combo)
