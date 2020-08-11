@@ -76,7 +76,7 @@ class Duel:
 
     async def game_start(self, fut: asyncio.Future):
         if self.validate():
-            self._chain.start_over()
+            self._chain.start_over(duelcore.BASE_TIMES)
             try:
                 await self._chain.duel_start()
                 fut.set_result(self.game_over())

@@ -19,7 +19,7 @@ class Chain:
     def duel(self):
         return self._duel
 
-    def start_over(self):
+    def start_over(self, times):
         from .phase import DrawPhase
         self.phase = DrawPhase(self)
         self.times = None
