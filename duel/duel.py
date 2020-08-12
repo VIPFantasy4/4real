@@ -55,10 +55,11 @@ class Duel:
         while True:
             priority_number, coro = await self.queue.get()
             self.queue.task_done()
-            try:
-                await coro
-            except:
-                pass
+            # try:
+            #     await coro
+            # except:
+            #     pass
+            await coro
 
     def participate(self, addresses):
         if self._status == duelcore.WAITING:
