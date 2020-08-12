@@ -9,8 +9,9 @@ class Gambler:
     def __reduce__(self):
         return tuple, ((self.addr, self._cards, self.role, self.og, self.bot),)
 
-    def __init__(self, duel, addr):
+    def __init__(self, duel, addr, show_hand=False):
         self.addr = addr
+        self.show_hand: bool = show_hand
         self._duel = weakref.proxy(duel)
         self._cards = None
         self.role = 0

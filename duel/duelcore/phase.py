@@ -98,8 +98,8 @@ class GangPhase(Phase):
             task.cancel()
         self._fut = None
         if choice:
-            if self._chain.times is None:
-                self._chain.times = duelcore.BASE_TIMES
+            if self._chain.times < 0:
+                self._chain.times = abs(self._chain.times)
             else:
                 self._chain.times *= 2
             gambler = self._od[self.turn]
@@ -116,7 +116,7 @@ class GangPhase(Phase):
             if gambler.role:
                 og = self._od[key_list[-1]]
             elif not key_list:
-                self._chain.times = duelcore.BASE_TIMES
+                self._chain.times = abs(self._chain.times)
                 _id, status, gamblers = self._chain.duel.view()
                 og = random.choice(tuple(gamblers.values()))
             else:
