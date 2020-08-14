@@ -43,7 +43,8 @@ class Real:
         self._producer = kafka.KafkaProducer(bootstrap_servers=cfg.KAFKA_SERVERS)
 
         self._od = OrderedDict()
-        self._queue: asyncio.Queue = None
+        self._work_queue: asyncio.Queue = None
+        self._wait_queue: asyncio.Queue = None
 
     @property
     def funcs(self):
@@ -63,6 +64,13 @@ class Real:
             if self._consumer._closed:
                 log.error('Met a closed KafkaConsumer while fetching')
 
+    async def worker(self):
+        while True:
+            coro = await self._work_queue.get()
+            self._work_queue.task_done()
+
+            await coro
+
     async def leave(self, addr):
         if addr in self._od:
             self._od.pop(addr)
@@ -71,12 +79,12 @@ class Real:
         print(addr)
         self._od[addr] = None
         if len(self._od) > 2:
-            await self._queue.put(tuple(self._od.popitem(0)[0] for _ in range(3)))
+            await self._wait_queue.put(tuple(self._od.popitem(0)[0] for _ in range(3)))
 
     async def creator(self):
         while True:
-            addresses = await self._queue.get()
-            self._queue.task_done()
+            addresses = await self._wait_queue.get()
+            self._wait_queue.task_done()
             loop = asyncio.get_running_loop()
             await loop.run_in_executor(self._pool, functools.partial(mark, addresses, self._id, '1'))
             writer = self._conns['1'][1]
@@ -123,21 +131,24 @@ class Real:
                 data = pickle.loads(msg.value)
                 if isinstance(data, dict) and data.get('name') in self.funcs:
                     func = self.funcs[data['name']]
-                    try:
-                        await func(*data['args'])
-                    except Exception as e:
-                        log.error(f'Exception occurred in {func}')
-                        log.error('%s: %s', e.__class__.__name__, e)
+                    # try:
+                    #     await func(*data['args'])
+                    # except Exception as e:
+                    #     log.error(f'Exception occurred in {func}')
+                    #     log.error('%s: %s', e.__class__.__name__, e)
+                    await self._work_queue.put(func(*data['args']))
 
     async def main(self):
         self.funcs[self.participate.__name__] = self.participate
-        self._queue = asyncio.Queue()
+        self._work_queue = asyncio.Queue()
+        self._wait_queue = asyncio.Queue()
 
         server = await asyncio.start_server(self.heartbeat, cfg.DUEL_PROXY_HOST, cfg.DUEL_PROXY_PORT)
         addr = server.sockets[0].getsockname()
         log.info(f'Serving on {addr}')
 
         async with server:
+            asyncio.create_task(self.worker())
             asyncio.create_task(self.creator())
             asyncio.create_task(self.consume_forever())
             await server.serve_forever()

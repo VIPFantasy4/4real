@@ -61,7 +61,7 @@ class Duel:
             #     pass
             await coro
 
-    def participate(self, addresses):
+    async def participate(self, addresses):
         if self._status == duelcore.WAITING:
             self._gamblers.clear()
             for addr in addresses:
@@ -92,7 +92,7 @@ class Duel:
             fut.set_exception(duelcore.DuelRuntimeError(duelcore.generate_traceback()))
 
     async def game_over(self):
-        pass
+        self._gamblers.clear()
 
     async def send(self, data):
         try:
@@ -116,11 +116,12 @@ class Duel:
             data = pickle.loads(bytes.fromhex(data[:-1].decode()))
             if isinstance(data, dict) and data.get('name') in self.funcs:
                 func = self.funcs[data['name']]
-                try:
-                    func(*data['args'])
-                except Exception as e:
-                    log.error(f'Exception occurred in {func}')
-                    log.error('%s: %s', e.__class__.__name__, e)
+                # try:
+                #     func(*data['args'])
+                # except Exception as e:
+                #     log.error(f'Exception occurred in {func}')
+                #     log.error('%s: %s', e.__class__.__name__, e)
+                await self.queue.put((duelcore.PRIORITY_LEVEL_LOW, func(*data['args'])))
 
     async def establish(self):
         if self._retry > 4:
