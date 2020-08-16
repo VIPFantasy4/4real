@@ -15,6 +15,7 @@ class Duel:
         self._status = duelcore.WAITING
         self._reader: asyncio.StreamReader = None
         self._writer: asyncio.StreamWriter = None
+        self._dirty = False
         self._retry = 0
         self._queue = None
         self._funcs = {}
@@ -55,10 +56,7 @@ class Duel:
         while True:
             priority_number, coro = await self.queue.get()
             self.queue.task_done()
-            # try:
-            #     await coro
-            # except:
-            #     pass
+
             await coro
 
     async def participate(self, addresses):
@@ -147,7 +145,7 @@ class Duel:
         self.funcs[self.participate.__name__] = self.participate
         self._queue = asyncio.PriorityQueue()
         await self.queue.put((duelcore.PRIORITY_LEVEL_HIGH, self.establish()))
-        await asyncio.create_task(self.worker())
+        await self.worker()
 
 
 if __name__ == '__main__':

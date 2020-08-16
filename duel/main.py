@@ -140,6 +140,7 @@ class Real:
 
     async def main(self):
         self.funcs[self.participate.__name__] = self.participate
+
         self._work_queue = asyncio.Queue()
         self._wait_queue = asyncio.Queue()
 
