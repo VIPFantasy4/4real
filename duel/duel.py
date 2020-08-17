@@ -43,7 +43,7 @@ class Duel:
             '_id': self._id,
             'addresses': tuple(self._gamblers.keys()),
             'status': self._status,
-            'args': pickle.dumps((self._id, self._gamblers, self._chain), 2)
+            'args': (self._id, self._gamblers, self._chain)
         })
 
     async def waiter(self, fut: asyncio.Future):

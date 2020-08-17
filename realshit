@@ -1,6 +1,6 @@
 1: 重构同步，改为延迟1loop并使用json
 2: 增加加倍环节
-3: 重构消费，不在消费await逻辑，消费只取和反序列化，逻辑丢给worker
+3: 重构消费，不在消费await逻辑，消费只取和反序列化，逻辑丢给worker done
 4: webserver到duelservice塞人的过程
 5: duel到webserver结算
 6: webserver显示duelservice状态

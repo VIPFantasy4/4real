@@ -96,7 +96,7 @@ def consume_forever():
         for addr in data['addresses']:
             if addr in conns:
                 if duel is None:
-                    duel = Duel(*pickle.loads(data['args']))
+                    duel = Duel(*data['args'])
                     pprint.pprint(duel)
                     duels[duel._id] = duel
                     data = {

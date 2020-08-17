@@ -111,7 +111,7 @@ class Real:
                 writer.close()
                 break
             data = pickle.loads(raw)
-            print(data)
+            print(len(raw), data)
             if _id is None:
                 _id = data['_id']
                 self._conns[_id] = (reader, writer)
