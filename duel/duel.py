@@ -39,12 +39,12 @@ class Duel:
         return False
 
     async def heartbeat(self):
-        await self.send({
-            '_id': self._id,
-            'addresses': tuple(self._gamblers.keys()),
-            'status': self._status,
-            'args': (self._id, self._gamblers, self._chain)
-        })
+        await self.send((
+            self._id,
+            self._status,
+            tuple(gambler.regress() for gambler in self._gamblers.values()),
+            self._chain.regress()
+        ))
 
     async def waiter(self, fut: asyncio.Future):
         try:

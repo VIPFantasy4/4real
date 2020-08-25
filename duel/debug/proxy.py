@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from collections import OrderedDict
 import cfg
 import threading
 import asyncore
@@ -43,7 +44,7 @@ class Chain(object):
 
 class Gambler(object):
     def __reduce__(self):
-        return tuple, ((self.addr, len(self.cards), self.role, self.og, self.bot),)
+        return tuple, ((self.addr, sum(map(lambda s: len(s), self.cards.itervalues())), self.role, self.og, self.bot),)
 
     def __init__(self, duel, addr, cards, role, og, bot):
         self.duel = weakref.proxy(duel)
@@ -54,18 +55,21 @@ class Gambler(object):
         self.bot = bot
 
     def __str__(self):
-        return 'Gambler(%s, %s, %s, %s, %s)' % (self.addr, len(self.cards), self.role, self.og, self.bot)
+        return 'Gambler(%s, %s, %s, %s, %s)' % (self.addr, sum(
+            map(lambda s: len(s), self.cards.itervalues())), self.role, self.og, self.bot)
 
     __repr__ = __str__
 
 
 class Duel(object):
-    def __init__(self, _id, gamblers, chain):
+    def __init__(self, _id, status, gamblers, chain):
         self._id = _id
-        for _ in range(3):
-            addr, args = gamblers.popitem(0)
-            gamblers[addr] = Gambler(self, *args)
-        self.gamblers = gamblers
+        self._status = status
+        od = OrderedDict()
+        for args in gamblers:
+            gambler = Gambler(self, *args)
+            od[gambler.addr] = gambler
+        self.gamblers = od
         self.chain = Chain(self, *chain)
 
     def __str__(self):
@@ -93,10 +97,11 @@ def consume_forever():
             continue
         data = msg.value
         duel = None
-        for addr in data['addresses']:
+        for args in data[2]:
+            addr = args[0]
             if addr in conns:
                 if duel is None:
-                    duel = Duel(*data['args'])
+                    duel = Duel(*data)
                     pprint.pprint(duel)
                     duels[duel._id] = duel
                     data = {

@@ -6,8 +6,8 @@ import weakref
 
 
 class Gambler:
-    def __reduce__(self):
-        return tuple, ((self.addr, self._cards, self.role, self.og, self.bot),)
+    def regress(self):
+        return self.addr, self._cards and {k: tuple(s) for k, s in self._cards.items()}, self.role, self.og, self.bot
 
     def __init__(self, duel, addr):
         self.addr = addr

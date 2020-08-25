@@ -10,8 +10,8 @@ import math
 
 
 class Phase:
-    def __reduce__(self):
-        return tuple, ((self.__class__.__name__, self.turn),)
+    def regress(self):
+        return self.__class__.__name__, self.turn
 
     def __init__(self, chain):
         self._chain = chain
@@ -37,8 +37,8 @@ class Phase:
 class DrawPhase(Phase):
     DECK = [(0, 0), (0, 1)] + [(i, j) for i in range(1, 14) for j in range(4)]
 
-    def __reduce__(self):
-        return self._next.__reduce__()
+    def regress(self):
+        return self._next.regress()
 
     def __enter__(self):
         if self._chain.duel.validate():
@@ -64,7 +64,7 @@ class DrawPhase(Phase):
             for key in key_list:
                 od[key] = gamblers[key]
                 gamblers.move_to_end(key)
-            self._next = GangPhase(self._chain, self.DECK[-3:], od, addr)
+            self._next = GangPhase(self._chain, tuple(self.DECK[-3:]), od, addr)
         else:
             log.error('Invalid room%s can not enter DrawPhase', self._chain.duel.view())
             raise duelcore.DrawPhaseRuntimeError(duelcore.generate_traceback())
@@ -135,6 +135,7 @@ class MainPhase(Phase):
         super().__init__(chain)
         if not isinstance(od, OrderedDict):
             turn = od.addr
+            print(turn, '地主')
             _id, status, gamblers = self._chain.duel.view()
             key_list = list(gamblers.keys())
             order = key_list.index(turn)

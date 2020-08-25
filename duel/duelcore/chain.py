@@ -5,8 +5,9 @@ import weakref
 
 
 class Chain:
-    def __reduce__(self):
-        return tuple, ((self.phase, self.times, self.three, self.track),)
+    def regress(self):
+        return self.phase and self.phase.regress(), self.times, self.three, self.track and tuple(
+            combo.regress() for combo in self.track)
 
     def __init__(self, duel):
         self._duel = weakref.proxy(duel)

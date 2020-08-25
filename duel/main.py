@@ -113,11 +113,11 @@ class Real:
             data = pickle.loads(raw)
             print(len(raw), data)
             if _id is None:
-                _id = data['_id']
+                _id = data[0]
                 self._conns[_id] = (reader, writer)
-            elif _id != data['_id']:
+            elif _id != data[0]:
                 log.error("Even if it's unlikely")
-                _id = data['_id']
+                _id = data[0]
             self._duels[_id] = data
             loop = asyncio.get_running_loop()
             await loop.run_in_executor(self._pool, functools.partial(self.publish, 'duel', raw))
