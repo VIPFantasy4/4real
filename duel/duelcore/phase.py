@@ -27,20 +27,17 @@ class Phase:
     def fut(self):
         return self._fut
 
-    def __enter__(self):
+    async def __aenter__(self):
         raise NotImplementedError
 
-    def __exit__(self, exc_type, exc_val, exc_tb):
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
         self._chain.phase = self._next
 
 
 class DrawPhase(Phase):
     DECK = [(0, 0), (0, 1)] + [(i, j) for i in range(1, 14) for j in range(4)]
 
-    def regress(self):
-        return self._next.regress()
-
-    def __enter__(self):
+    async def __aenter__(self):
         if self._chain.duel.validate():
             _id, status, gamblers = self._chain.duel.view()
             random.shuffle(self.DECK)
@@ -65,13 +62,36 @@ class DrawPhase(Phase):
                 od[key] = gamblers[key]
                 gamblers.move_to_end(key)
             self._next = GangPhase(self._chain, tuple(self.DECK[-3:]), od, addr)
+            self._chain.duel.funcs[self.show_hand.__name__] = self.show_hand
+            await self._chain.duel.heartbeat()
         else:
             log.error('Invalid room%s can not enter DrawPhase', self._chain.duel.view())
             raise duelcore.DrawPhaseRuntimeError(duelcore.generate_traceback())
         return self.till_i_die()
 
     async def till_i_die(self):
-        await self._chain.duel.heartbeat()
+        await asyncio.sleep(duelcore.DP_LIFETIME)
+        del self._chain.duel.funcs[self.show_hand.__name__]
+
+    async def show_hand(self, addr):
+        _id, status, gamblers = self._chain.duel.view()
+        if addr in gamblers:
+            gambler = gamblers[addr]
+            if not gambler.show_hand:
+                gambler.show_hand = True
+                self._chain.times *= 2
+                if not self.turn:
+                    self._turn = addr
+                    key_list = list(gamblers.keys())
+                    order = key_list.index(addr)
+                    key_list = key_list[order:] + key_list[:order]
+                    od = OrderedDict()
+                    for key in key_list:
+                        od[key] = gamblers[key]
+                        gamblers.move_to_end(key)
+                    self._next._od = od
+                    self._next._turn = addr
+                await self._chain.duel.heartbeat()
 
 
 class GangPhase(Phase):
@@ -81,7 +101,8 @@ class GangPhase(Phase):
         self._turn = turn
         self._od: OrderedDict = od
 
-    def __enter__(self):
+    async def __aenter__(self):
+        await self._chain.duel.heartbeat()
         return self.till_i_die()
 
     async def run_out(self, fut):
@@ -127,7 +148,6 @@ class GangPhase(Phase):
             og.deal(self._three)
             self._chain.three = self._three
             self._next = MainPhase(self._chain, og)
-        await self._chain.duel.heartbeat()
 
 
 class MainPhase(Phase):
@@ -147,7 +167,8 @@ class MainPhase(Phase):
         self._od: OrderedDict = od
         self._track = self._chain.track
 
-    def __enter__(self):
+    async def __aenter__(self):
+        await self._chain.duel.heartbeat()
         return self.till_i_die()
 
     async def run_out(self, fut, delay):
@@ -184,4 +205,3 @@ class MainPhase(Phase):
             self._od.move_to_end(self.turn)
             self._turn = next(iter(self._od.keys()))
             self._next = MainPhase(self._chain, self._od, self._turn)
-            await self._chain.duel.heartbeat()

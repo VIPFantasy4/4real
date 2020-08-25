@@ -29,7 +29,7 @@ class Chain:
     async def duel_start(self):
         while self.phase:
             try:
-                with self.phase as till_i_die:
+                async with self.phase as till_i_die:
                     await till_i_die
             except (DrawPhaseRuntimeError,) as e:
                 raise ChainRuntimeError(repr(e))
