@@ -148,6 +148,7 @@ class GangPhase(Phase):
             og.deal(self._three)
             self._chain.three = self._three
             self._next = MainPhase(self._chain, og)
+            self._chain.duel.funcs[self._next.show_hand.__name__] = self._next.show_hand
 
 
 class MainPhase(Phase):
@@ -155,7 +156,7 @@ class MainPhase(Phase):
         super().__init__(chain)
         if not isinstance(od, OrderedDict):
             turn = od.addr
-            print(turn, '地主')
+            print(turn, 'og')
             _id, status, gamblers = self._chain.duel.view()
             key_list = list(gamblers.keys())
             order = key_list.index(turn)
@@ -189,6 +190,7 @@ class MainPhase(Phase):
             await self.till_i_die(resumed_at)
             return
         self._fut = None
+        self._chain.duel.funcs.pop(self.show_hand.__name__, None)
         gambler = self._od[self.turn]
         if isinstance(combo, duelcore.Combo):
             task.cancel()
@@ -205,3 +207,11 @@ class MainPhase(Phase):
             self._od.move_to_end(self.turn)
             self._turn = next(iter(self._od.keys()))
             self._next = MainPhase(self._chain, self._od, self._turn)
+
+    async def show_hand(self, addr):
+        if addr == self.turn:
+            gambler = self._od[addr]
+            if not gambler.show_hand:
+                gambler.show_hand = True
+                self._chain.times *= 2
+            await self._chain.duel.heartbeat()

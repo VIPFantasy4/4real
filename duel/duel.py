@@ -91,6 +91,7 @@ class Duel:
 
     async def game_over(self):
         self._gamblers.clear()
+        self._status = duelcore.WAITING
 
     async def send(self, data):
         try:
