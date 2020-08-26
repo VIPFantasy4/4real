@@ -74,24 +74,25 @@ class DrawPhase(Phase):
         del self._chain.duel.funcs[self.show_hand.__name__]
 
     async def show_hand(self, addr):
-        _id, status, gamblers = self._chain.duel.view()
-        if addr in gamblers:
-            gambler = gamblers[addr]
-            if not gambler.show_hand:
-                gambler.show_hand = True
-                self._chain.times *= 2
-                if not self.turn:
-                    self._turn = addr
-                    key_list = list(gamblers.keys())
-                    order = key_list.index(addr)
-                    key_list = key_list[order:] + key_list[:order]
-                    od = OrderedDict()
-                    for key in key_list:
-                        od[key] = gamblers[key]
-                        gamblers.move_to_end(key)
-                    self._next._od = od
-                    self._next._turn = addr
-                await self._chain.duel.heartbeat()
+        if self._chain.phase is self:
+            _id, status, gamblers = self._chain.duel.view()
+            if addr in gamblers:
+                gambler = gamblers[addr]
+                if not gambler.show_hand:
+                    gambler.show_hand = True
+                    self._chain.times *= 2
+                    if not self.turn:
+                        self._turn = addr
+                        key_list = list(gamblers.keys())
+                        order = key_list.index(addr)
+                        key_list = key_list[order:] + key_list[:order]
+                        od = OrderedDict()
+                        for key in key_list:
+                            od[key] = gamblers[key]
+                            gamblers.move_to_end(key)
+                        self._next._od = od
+                        self._next._turn = addr
+                    await self._chain.duel.heartbeat()
 
 
 class GangPhase(Phase):
@@ -169,12 +170,14 @@ class MainPhase(Phase):
         self._track = self._chain.track
 
     async def __aenter__(self):
+        self._chain.duel.funcs[self.play.__name__] = self.play
         await self._chain.duel.heartbeat()
         return self.till_i_die()
 
     async def run_out(self, fut, delay):
         await asyncio.sleep(self._od[self.turn].bot > 0 and duelcore.BOT_DELAY or duelcore.MP_TIMEOUT - delay)
         if not fut.done():
+            self._chain.duel.funcs.pop(self.play().__name__, None)
             self._od[self.turn].bot += 1
             fut.set_result(None)
 
@@ -215,3 +218,6 @@ class MainPhase(Phase):
                 gambler.show_hand = True
                 self._chain.times *= 2
             await self._chain.duel.heartbeat()
+
+    async def play(self):
+        pass
