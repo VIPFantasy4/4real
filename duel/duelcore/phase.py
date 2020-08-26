@@ -212,12 +212,13 @@ class MainPhase(Phase):
             self._next = MainPhase(self._chain, self._od, self._turn)
 
     async def show_hand(self, addr):
-        if addr == self.turn:
+        if self.show_hand.__name__ in self._chain.duel.funcs and addr == self.turn:
             gambler = self._od[addr]
             if not gambler.show_hand:
                 gambler.show_hand = True
                 self._chain.times *= 2
             await self._chain.duel.heartbeat()
 
-    async def play(self):
-        pass
+    async def play(self, addr, cards):
+        if self.fut and not self.fut.done():
+            pass
