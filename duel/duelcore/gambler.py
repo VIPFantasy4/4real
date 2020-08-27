@@ -31,10 +31,17 @@ class Gambler:
             for card in cards:
                 self._cards.setdefault(card[0], set()).add(card)
 
+    def scan(self, cards: dict):
+        try:
+            for k in cards:
+                if k not in self._cards or not self._cards[k].issuperset(cards[k]):
+                    raise TypeError
+        except TypeError:
+            raise InconsistentDataError(
+                f'forgery or stale cards: {cards} from addr: {self.addr} can not match self._cards: {self._cards}')
+
     def play(self, cards: dict):
-        for k in cards:
-            if k not in self._cards or not self._cards[k].issuperset(cards[k]):
-                raise InconsistentDataError(f'forgery or stale cards: {cards} from addr: {self.addr} can not match self._cards: {self._cards}')
+        self.scan(cards)
         if cards is self._cards:
             self._cards = {}
             return
@@ -56,7 +63,7 @@ class Gambler:
             else:
                 # AI
                 cards = {}
-                combo = last.fromcards(cards, self)
+                combo = Combo.fromcards(cards, self)
         elif combo is None:
             combo, cards = Combo.autodetect(cards, self)
         if combo:

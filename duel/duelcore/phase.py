@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from collections import OrderedDict
+from .combo import Combo
 import log
 import duelcore
 import asyncio
@@ -177,7 +178,6 @@ class MainPhase(Phase):
     async def run_out(self, fut, delay):
         await asyncio.sleep(self._od[self.turn].bot > 0 and duelcore.BOT_DELAY or duelcore.MP_TIMEOUT - delay)
         if not fut.done():
-            self._chain.duel.funcs.pop(self.play().__name__, None)
             self._od[self.turn].bot += 1
             fut.set_result(None)
 
@@ -194,6 +194,7 @@ class MainPhase(Phase):
             return
         self._fut = None
         self._chain.duel.funcs.pop(self.show_hand.__name__, None)
+        del self._chain.duel.funcs[self.play.__name__]
         gambler = self._od[self.turn]
         if isinstance(combo, duelcore.Combo):
             task.cancel()
@@ -220,5 +221,21 @@ class MainPhase(Phase):
             await self._chain.duel.heartbeat()
 
     async def play(self, addr, cards):
-        if self.fut and not self.fut.done():
-            pass
+        if self.fut and not self.fut.done() and addr == self.turn and isinstance(cards, dict):
+            gambler = self._od[addr]
+            try:
+                gambler.scan(cards)
+                first, second = self._track[-2:] + [None for _ in range(2 - len(self._track))]
+                last = second if second else first
+                combo = Combo.fromcards(cards, gambler)
+                if combo is not None:
+                    if (not combo or combo > last) if last else combo:
+                        gambler.play(cards)
+                        self.fut.set_result(combo)
+                        return
+                log.info(
+                    'A preventable request from addr: %s with combo: %s against the last: %s is definitely negated',
+                    addr, combo, last)
+            except duelcore.InconsistentDataError as e:
+                log.error('Exception occurred in play by request argument cards: %s from addr: %s', cards, addr)
+                log.error('%s: %s', e.__class__.__name__, e)
