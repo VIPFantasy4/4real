@@ -44,15 +44,16 @@ class Chain(object):
 
 class Gambler(object):
     def __reduce__(self):
-        return tuple, ((self.addr, sum(map(lambda s: len(s), self.cards.itervalues())), self.role, self.og, self.bot),)
+        return tuple, ((self.addr, sum(map(lambda s: len(s), self.cards.itervalues())), self.role, self.og, self.times, self.bot),)
 
-    def __init__(self, duel, addr, cards, show_hand, role, og, bot):
+    def __init__(self, duel, addr, cards, show_hand, role, og, times, bot):
         self.duel = weakref.proxy(duel)
         self.addr = addr
         self.cards = cards
         self.show_hand = show_hand
         self.role = role
         self.og = og
+        self.times = times
         self.bot = bot
 
     def __str__(self):

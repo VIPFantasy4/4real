@@ -149,8 +149,45 @@ class GangPhase(Phase):
             og.og = True
             og.deal(self._three)
             self._chain.three = self._three
-            self._next = MainPhase(self._chain, og)
-            self._chain.duel.funcs[self._next.show_hand.__name__] = self._next.show_hand
+            self._next = PlusPhase(self._chain)
+            self._next._next = MainPhase(self._chain, og)
+            self._next._turn = 0
+
+
+class PlusPhase(Phase):
+    async def __aenter__(self):
+        self._chain.duel.funcs[self.times.__name__] = self.times
+        await self._chain.duel.heartbeat()
+        return self.till_i_die()
+
+    async def run_out(self, fut):
+        await asyncio.sleep(duelcore.PP_TIMEOUT)
+        if not fut.done():
+            fut.set_result(None)
+
+    async def till_i_die(self):
+        fut = asyncio.get_event_loop().create_future()
+        self._fut = fut
+        task = asyncio.create_task(self.run_out(fut))
+        prior = await fut
+        del self._chain.duel.funcs[self.times.__name__]
+        if prior:
+            task.cancel()
+        self._chain.duel.funcs[self._next.show_hand.__name__] = self._next.show_hand
+
+    async def times(self, addr, times):
+        if self.fut and not self.fut.done() and times in (1, 2, 4):
+            _id, status, gamblers = self._chain.duel.view()
+            if addr in gamblers:
+                gambler = gamblers[addr]
+                if not gambler.times:
+                    gambler.times = times
+                    if times != 1:
+                        self._chain.times *= times
+                    self._turn += 1
+                    if self.turn == 3:
+                        self.fut.set_result(True)
+                    await self._chain.duel.heartbeat()
 
 
 class MainPhase(Phase):

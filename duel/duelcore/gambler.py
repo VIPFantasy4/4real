@@ -8,7 +8,7 @@ import weakref
 class Gambler:
     def regress(self):
         return self.addr, self._cards and {
-            k: tuple(s) for k, s in self._cards.items()}, self.show_hand, self.role, self.og, self.bot
+            k: tuple(s) for k, s in self._cards.items()}, self.show_hand, self.role, self.og, self.times, self.bot
 
     def __init__(self, duel, addr):
         self.addr = addr
@@ -17,6 +17,7 @@ class Gambler:
         self.show_hand = False
         self.role = 0
         self.og = False
+        self.times = 0
         self.bot = -1
 
     @property
