@@ -104,6 +104,7 @@ class GangPhase(Phase):
         self._od: OrderedDict = od
 
     async def __aenter__(self):
+        self._chain.duel.funcs[self.choose.__name__] = self.choose
         await self._chain.duel.heartbeat()
         return self.till_i_die()
 
@@ -120,6 +121,7 @@ class GangPhase(Phase):
         if isinstance(choice, int):
             task.cancel()
         self._fut = None
+        del self._chain.duel.funcs[self.choose.__name__]
         if choice:
             if self._chain.times < 0:
                 self._chain.times = abs(self._chain.times)
@@ -152,6 +154,10 @@ class GangPhase(Phase):
             self._next = PlusPhase(self._chain)
             self._next._next = MainPhase(self._chain, og)
             self._next._turn = 0
+
+    async def choose(self, addr, choice):
+        if self.fut and not self.fut.done() and addr == self.turn and isinstance(choice, int) and choice in (0, 1):
+            self.fut.set_result(choice)
 
 
 class PlusPhase(Phase):
