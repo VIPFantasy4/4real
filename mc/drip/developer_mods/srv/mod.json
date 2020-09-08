@@ -1,0 +1,8 @@
+{
+  "netgame_mod_version": "0.0.1",
+  "min_app_version": "1.16.0.release20200220",
+  "support_server_type": [
+    "lobby",
+    "game"
+  ]
+}

@@ -1,0 +1,7762 @@
+{
+  "auto@common.button": {
+    "$default_texture": "textures/ui/auto",
+    "$hover_texture": "textures/ui/auto",
+    "$is_new_nine_slice": true,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/auto",
+    "$texture_layer": 2,
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      },
+      {
+        "resume@GUI.resume": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 300,
+    "offset": [
+      0.0,
+      -21.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      320.0,
+      123.0
+    ],
+    "type": "button",
+    "visible": false
+  },
+  "balance": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "color": [
+      1,
+      1,
+      1
+    ],
+    "font_scale_factor": 0.5899999737739563,
+    "font_size": "normal",
+    "font_type": "smooth",
+    "layer": 2,
+    "offset": [
+      114.0,
+      11.0
+    ],
+    "shadow": false,
+    "size": [
+      39.0,
+      5.0
+    ],
+    "text": "3000",
+    "text_alignment": "left",
+    "type": "label",
+    "visible": true
+  },
+  "bot@common.button": {
+    "$default_texture": "textures/ui/bot",
+    "$hover_texture": "textures/ui/botc",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/botc",
+    "$texture_layer": 2,
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 444,
+    "offset": [
+      -28.0,
+      4.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      20.0,
+      20.0
+    ],
+    "type": "button",
+    "visible": false
+  },
+  "bottom": {
+    "anchor_from": "bottom_left",
+    "anchor_to": "bottom_left",
+    "controls": [
+      {
+        "toolbar@GUI.toolbar": {}
+      },
+      {
+        "infobar@GUI.infobar": {}
+      }
+    ],
+    "layer": 1,
+    "offset": [
+      0,
+      0
+    ],
+    "size": [
+      "100.0%+0.0px",
+      20.0
+    ],
+    "type": "panel",
+    "visible": true
+  },
+  "bubble": {
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "is_new_nine_slice": false,
+    "layer": 4,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      0.0,
+      0.0
+    ],
+    "size": [
+      16.0,
+      16.0
+    ],
+    "texture": "textures/ui/bubble",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "bullshit@common.button": {
+    "$default_texture": "textures/ui/bullshit",
+    "$hover_texture": "textures/ui/bullshitc",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 4,
+    "$nine_slice_left": 4,
+    "$nine_slice_right": 4,
+    "$nine_slice_top": 4,
+    "$nineslice_size": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/bullshitc",
+    "$texture_layer": 2,
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      },
+      {
+        "bubble@GUI.bubble": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 1,
+    "offset": [
+      0.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      40.0,
+      "100.0%+0.0px"
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "button_label": {
+    "color": "$label_color",
+    "font_scale_factor": "$label_font_scale_factor",
+    "font_size": "$label_font_size",
+    "font_type": "smooth",
+    "layer": "$label_layer",
+    "max_size": [
+      "100%",
+      "100%"
+    ],
+    "offset": "$label_offset",
+    "shadow": false,
+    "text": "$label_text",
+    "text_alignment": "center",
+    "type": "label"
+  },
+  "c": {
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "controls": [
+      {
+        "classical@GUI.classical": {}
+      },
+      {
+        "variant@GUI.variant": {}
+      },
+      {
+        "tournament@GUI.tournament": {}
+      }
+    ],
+    "layer": 1,
+    "offset": [
+      0,
+      0
+    ],
+    "size": [
+      "100.0%+0.0px",
+      "100.0%+0.0px"
+    ],
+    "type": "panel",
+    "visible": false
+  },
+  "c-c": {
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "controls": [
+      {
+        "rookie@GUI.rookie": {}
+      },
+      {
+        "primary@GUI.primary": {}
+      },
+      {
+        "junior@GUI.junior": {}
+      },
+      {
+        "senior@GUI.senior": {}
+      },
+      {
+        "major@GUI.major": {}
+      },
+      {
+        "psycho@GUI.psycho": {}
+      }
+    ],
+    "layer": 1,
+    "offset": [
+      0,
+      0
+    ],
+    "size": [
+      "100.0%+0.0px",
+      "100.0%+0.0px"
+    ],
+    "type": "panel",
+    "visible": false
+  },
+  "c0": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 0,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      0.0,
+      0.0
+    ],
+    "size": [
+      18.0,
+      25.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "c1": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 1,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      6.0,
+      0.0
+    ],
+    "size": [
+      18.0,
+      25.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "c10": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 10,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      60.0,
+      0.0
+    ],
+    "size": [
+      18.0,
+      25.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "c11": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 11,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      66.0,
+      0.0
+    ],
+    "size": [
+      18.0,
+      25.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "c12": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 12,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      72.0,
+      0.0
+    ],
+    "size": [
+      18.0,
+      25.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "c13": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 13,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      78.0,
+      0.0
+    ],
+    "size": [
+      18.0,
+      25.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "c14": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 14,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      84.0,
+      0.0
+    ],
+    "size": [
+      18.0,
+      25.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "c15": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 15,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      90.0,
+      0.0
+    ],
+    "size": [
+      18.0,
+      25.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "c16": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 16,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      96.0,
+      0.0
+    ],
+    "size": [
+      18.0,
+      25.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "c17": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 17,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      102.0,
+      0.0
+    ],
+    "size": [
+      18.0,
+      25.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "c18": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 18,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      108.0,
+      0.0
+    ],
+    "size": [
+      18.0,
+      25.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "c19": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 19,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      114.0,
+      0.0
+    ],
+    "size": [
+      18.0,
+      25.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "c2": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 2,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      12.0,
+      0.0
+    ],
+    "size": [
+      18.0,
+      25.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "c3": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 3,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      18.0,
+      0.0
+    ],
+    "size": [
+      18.0,
+      25.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "c4": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 4,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      24.0,
+      0.0
+    ],
+    "size": [
+      18.0,
+      25.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "c5": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 5,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      30.0,
+      0.0
+    ],
+    "size": [
+      18.0,
+      25.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "c6": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 6,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      36.0,
+      0.0
+    ],
+    "size": [
+      18.0,
+      25.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "c7": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 7,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      42.0,
+      0.0
+    ],
+    "size": [
+      18.0,
+      25.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "c8": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 8,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      48.0,
+      0.0
+    ],
+    "size": [
+      18.0,
+      25.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "c9": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 9,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      54.0,
+      0.0
+    ],
+    "size": [
+      18.0,
+      25.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "calm@common.button": {
+    "$default_texture": "textures/netease/common/button/default",
+    "$hover_texture": "textures/netease/common/button/hover",
+    "$is_new_nine_slice": true,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 1.169999957084656,
+    "$label_font_size": "normal",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "不加倍",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/netease/common/button/pressed",
+    "$texture_layer": 2,
+    "anchor_from": "center",
+    "anchor_to": "left_middle",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 1,
+    "offset": [
+      40.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      60.0,
+      20.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "casket": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": true,
+    "layer": 1,
+    "nine_slice_buttom": 1,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 1,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      98.0,
+      8.0
+    ],
+    "size": [
+      51.0,
+      11.0
+    ],
+    "texture": "textures/ui/slot",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "change@common.button": {
+    "$default_texture": "textures/ui/change",
+    "$hover_texture": "textures/ui/changec",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/changec",
+    "$texture_layer": 2,
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 444,
+    "offset": [
+      -28.0,
+      4.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      20.0,
+      20.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "chart@common.button": {
+    "$default_texture": "textures/ui/chart",
+    "$hover_texture": "textures/ui/chartc",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/chartc",
+    "$texture_layer": 2,
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 2,
+    "offset": [
+      -100.0,
+      9.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      9.0,
+      9.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "choice": {
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "color": [
+      1,
+      1,
+      1
+    ],
+    "font_scale_factor": 1.169999957084656,
+    "font_size": "normal",
+    "font_type": "smooth",
+    "layer": 1,
+    "offset": [
+      0.0,
+      -129.0
+    ],
+    "shadow": false,
+    "size": [
+      40.0,
+      10.0
+    ],
+    "text": "超级加倍",
+    "text_alignment": "center",
+    "type": "label",
+    "visible": false
+  },
+  "classic@common.button": {
+    "$default_texture": "textures/netease/common/button/default",
+    "$hover_texture": "textures/netease/common/button/hover",
+    "$is_new_nine_slice": true,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 1.0,
+    "$label_font_size": "large",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "经典模式",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/netease/common/button/pressed",
+    "$texture_layer": 2,
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 1,
+    "offset": [
+      "-20.0%+0.0px",
+      "1.0%+0.0px"
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      "40.0%+0.0px",
+      "77.0%+0.0px"
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "classical@common.button": {
+    "$default_texture": "textures/netease/common/button/default",
+    "$hover_texture": "textures/netease/common/button/hover",
+    "$is_new_nine_slice": true,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 1.0,
+    "$label_font_size": "large",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "经典玩法",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/netease/common/button/pressed",
+    "$texture_layer": 2,
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 1,
+    "offset": [
+      "-30.0%+0.0px",
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      "30.0%+0.0px",
+      "77.0%+0.0px"
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "clock": {
+    "anchor_from": "bottom_middle",
+    "anchor_to": "center",
+    "controls": [
+      {
+        "sec@GUI.sec": {}
+      }
+    ],
+    "is_new_nine_slice": false,
+    "layer": 1,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      -44.0,
+      -134.0
+    ],
+    "size": [
+      40.0,
+      40.0
+    ],
+    "texture": "textures/ui/clock",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": false
+  },
+  "coin": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 2,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      77.0,
+      8.0
+    ],
+    "size": [
+      9.0,
+      9.0
+    ],
+    "texture": "textures/ui/w1h1",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "count": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "color": [
+      1,
+      1,
+      1
+    ],
+    "font_scale_factor": 0.5899999737739563,
+    "font_size": "normal",
+    "font_type": "smooth",
+    "layer": 1,
+    "offset": [
+      2.0,
+      4.0
+    ],
+    "shadow": false,
+    "size": [
+      8.0,
+      5.0
+    ],
+    "text": "10",
+    "text_alignment": "center",
+    "type": "label",
+    "visible": true
+  },
+  "court": {
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "controls": [
+      {
+        "gang@GUI.gang": {}
+      },
+      {
+        "plus@GUI.plus": {}
+      },
+      {
+        "turn@GUI.turn": {}
+      },
+      {
+        "mh@GUI.mh": {}
+      },
+      {
+        "left@GUI.left": {}
+      },
+      {
+        "right@GUI.right": {}
+      },
+      {
+        "auto@GUI.auto": {}
+      },
+      {
+        "choice@GUI.choice": {}
+      },
+      {
+        "m@GUI.m": {}
+      },
+      {
+        "showhand@GUI.showhand": {}
+      },
+      {
+        "clock@GUI.clock": {}
+      },
+      {
+        "mclock@GUI.mclock": {}
+      }
+    ],
+    "layer": 1,
+    "offset": [
+      0,
+      0
+    ],
+    "size": [
+      "100.0%+0.0px",
+      "100.0%+0.0px"
+    ],
+    "type": "panel",
+    "visible": true
+  },
+  "debut": {
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "controls": [
+      {
+        "classic@GUI.classic": {}
+      },
+      {
+        "single@GUI.single": {}
+      }
+    ],
+    "layer": 1,
+    "offset": [
+      0,
+      0
+    ],
+    "size": [
+      "100.0%+0.0px",
+      "100.0%+0.0px"
+    ],
+    "type": "panel",
+    "visible": true
+  },
+  "default": {
+    "is_new_nine_slice": "$is_new_nine_slice",
+    "layer": "$texture_layer",
+    "nine_slice_buttom": "$nine_slice_buttom",
+    "nine_slice_left": "$nine_slice_left",
+    "nine_slice_right": "$nine_slice_right",
+    "nine_slice_top": "$nine_slice_top",
+    "nineslice_size": "$nineslice_size",
+    "texture": "$default_texture",
+    "type": "image"
+  },
+  "drip@common.button": {
+    "$default_texture": "textures/ui/rich",
+    "$hover_texture": "textures/ui/richc",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/richc",
+    "$texture_layer": 2,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 2,
+    "offset": [
+      140.0,
+      9.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      9.0,
+      10.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "fee": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "color": [
+      1,
+      1,
+      1
+    ],
+    "font_scale_factor": 0.6999999880790710,
+    "font_size": "normal",
+    "font_type": "smooth",
+    "layer": 1,
+    "offset": [
+      25.0,
+      29.0
+    ],
+    "shadow": false,
+    "size": [
+      18.0,
+      6.0
+    ],
+    "text": "2200",
+    "text_alignment": "center",
+    "type": "label",
+    "visible": true
+  },
+  "fightover@common.button": {
+    "$default_texture": "textures/netease/common/button/default",
+    "$hover_texture": "textures/netease/common/button/hover",
+    "$is_new_nine_slice": true,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 1.169999957084656,
+    "$label_font_size": "normal",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "叫地主",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/netease/common/button/pressed",
+    "$texture_layer": 2,
+    "anchor_from": "center",
+    "anchor_to": "right_middle",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 1,
+    "offset": [
+      -20.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      60.0,
+      20.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "flip": {
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "controls": [
+      {
+        "debut@GUI.debut": {}
+      },
+      {
+        "c@GUI.c": {}
+      },
+      {
+        "c-c@GUI.c-c": {}
+      }
+    ],
+    "layer": 1,
+    "offset": [
+      0,
+      0
+    ],
+    "size": [
+      "100.0%+0.0px",
+      "100.0%+0.0px"
+    ],
+    "type": "panel",
+    "visible": true
+  },
+  "gang": {
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "controls": [
+      {
+        "fightover@GUI.fightover": {}
+      },
+      {
+        "giveup@GUI.giveup": {}
+      }
+    ],
+    "layer": 100,
+    "offset": [
+      0.0,
+      -124.0
+    ],
+    "size": [
+      320.0,
+      20.0
+    ],
+    "type": "panel",
+    "visible": false
+  },
+  "giveup@common.button": {
+    "$default_texture": "textures/netease/common/button/default",
+    "$hover_texture": "textures/netease/common/button/hover",
+    "$is_new_nine_slice": true,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 1.169999957084656,
+    "$label_font_size": "normal",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "不叫",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/netease/common/button/pressed",
+    "$texture_layer": 2,
+    "anchor_from": "center",
+    "anchor_to": "left_middle",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 1,
+    "offset": [
+      20.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      60.0,
+      20.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "h0": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 0,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 1,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "size": [
+      16.0,
+      21.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "h1": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 1,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 1,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      5.0,
+      0.0
+    ],
+    "size": [
+      16.0,
+      21.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "h10": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 10,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 1,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      50.0,
+      0.0
+    ],
+    "size": [
+      16.0,
+      21.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "h11": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 11,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 1,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      55.0,
+      0.0
+    ],
+    "size": [
+      16.0,
+      21.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "h12": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 12,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 1,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      60.0,
+      0.0
+    ],
+    "size": [
+      16.0,
+      21.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "h13": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 13,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 1,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      65.0,
+      0.0
+    ],
+    "size": [
+      16.0,
+      21.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "h14": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 14,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 1,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      70.0,
+      0.0
+    ],
+    "size": [
+      16.0,
+      21.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "h15": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 15,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 1,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      75.0,
+      0.0
+    ],
+    "size": [
+      16.0,
+      21.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "h16": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 16,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 1,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      80.0,
+      0.0
+    ],
+    "size": [
+      16.0,
+      21.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "h17": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 17,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 1,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      85.0,
+      0.0
+    ],
+    "size": [
+      16.0,
+      21.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "h18": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 18,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 1,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      90.0,
+      0.0
+    ],
+    "size": [
+      16.0,
+      21.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "h19": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 19,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 1,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      95.0,
+      0.0
+    ],
+    "size": [
+      16.0,
+      21.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "h2": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 2,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 1,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      10.0,
+      0.0
+    ],
+    "size": [
+      16.0,
+      21.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "h3": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 3,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 1,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      15.0,
+      0.0
+    ],
+    "size": [
+      16.0,
+      21.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "h4": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 4,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 1,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      20.0,
+      0.0
+    ],
+    "size": [
+      16.0,
+      21.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "h5": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 5,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 1,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      25.0,
+      0.0
+    ],
+    "size": [
+      16.0,
+      21.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "h6": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 6,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 1,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      30.0,
+      0.0
+    ],
+    "size": [
+      16.0,
+      21.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "h7": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 7,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 1,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      35.0,
+      0.0
+    ],
+    "size": [
+      16.0,
+      21.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "h8": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 8,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 1,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      40.0,
+      0.0
+    ],
+    "size": [
+      16.0,
+      21.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "h9": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 9,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 1,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      1,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      45.0,
+      0.0
+    ],
+    "size": [
+      16.0,
+      21.0
+    ],
+    "texture": "textures/ui/poker/(10, 0)",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "head@common.button": {
+    "$default_texture": "textures/ui/Steve",
+    "$hover_texture": "textures/ui/Steve",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/Steve",
+    "$texture_layer": 2,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 1,
+    "offset": [
+      4.0,
+      4.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      16.0,
+      16.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "hint@common.button": {
+    "$default_texture": "textures/netease/common/button/default",
+    "$hover_texture": "textures/netease/common/button/hover",
+    "$is_new_nine_slice": true,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 1.169999957084656,
+    "$label_font_size": "normal",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "提示",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/netease/common/button/pressed",
+    "$texture_layer": 2,
+    "anchor_from": "center",
+    "anchor_to": "left_middle",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 1,
+    "offset": [
+      -24.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      60.0,
+      20.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "hover": {
+    "is_new_nine_slice": "$is_new_nine_slice",
+    "layer": "$texture_layer",
+    "nine_slice_buttom": "$nine_slice_buttom",
+    "nine_slice_left": "$nine_slice_left",
+    "nine_slice_right": "$nine_slice_right",
+    "nine_slice_top": "$nine_slice_top",
+    "nineslice_size": "$nineslice_size",
+    "texture": "$hover_texture",
+    "type": "image"
+  },
+  "icon": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": [
+      {
+        "og@GUI.og": {}
+      }
+    ],
+    "is_new_nine_slice": false,
+    "layer": 1,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      4.0,
+      4.0
+    ],
+    "size": [
+      16.0,
+      16.0
+    ],
+    "texture": "textures/ui/Alex",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "infobar": {
+    "anchor_from": "bottom_right",
+    "anchor_to": "bottom_right",
+    "controls": [
+      {
+        "icon@GUI.icon": {}
+      },
+      {
+        "plate@GUI.plate": {}
+      },
+      {
+        "shorty@GUI.shorty": {}
+      },
+      {
+        "casket@GUI.casket": {}
+      },
+      {
+        "jetton@GUI.jetton": {}
+      },
+      {
+        "balance@GUI.balance": {}
+      },
+      {
+        "drip@GUI.drip": {}
+      },
+      {
+        "tray@GUI.tray": {}
+      },
+      {
+        "chart@GUI.chart": {}
+      },
+      {
+        "times@GUI.times": {}
+      },
+      {
+        "bullshit@GUI.bullshit": {}
+      }
+    ],
+    "is_new_nine_slice": false,
+    "layer": 444,
+    "nine_slice_buttom": 4,
+    "nine_slice_left": 4,
+    "nine_slice_right": 4,
+    "nine_slice_top": 4,
+    "nineslice_size": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "size": [
+      "100.0%+0.0px",
+      25.0
+    ],
+    "texture": "textures/ui/infobar",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": false
+  },
+  "jetton": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 2,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      100.0,
+      9.0
+    ],
+    "size": [
+      9.0,
+      9.0
+    ],
+    "texture": "textures/ui/w1h1",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "junior@common.button": {
+    "$default_texture": "textures/netease/common/button/default",
+    "$hover_texture": "textures/netease/common/button/hover",
+    "$is_new_nine_slice": true,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 1.0,
+    "$label_font_size": "large",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "普通场",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/netease/common/button/pressed",
+    "$texture_layer": 2,
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 1,
+    "offset": [
+      "31.0%+0.0px",
+      "-16.0%+0.0px"
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      "24.0%+0.0px",
+      "26.0%+0.0px"
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "l": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": [
+      {
+        "c0@GUI.c0": {}
+      },
+      {
+        "c1@GUI.c1": {}
+      },
+      {
+        "c2@GUI.c2": {}
+      },
+      {
+        "c3@GUI.c3": {}
+      },
+      {
+        "c4@GUI.c4": {}
+      },
+      {
+        "c5@GUI.c5": {}
+      },
+      {
+        "c6@GUI.c6": {}
+      },
+      {
+        "c7@GUI.c7": {}
+      },
+      {
+        "c8@GUI.c8": {}
+      },
+      {
+        "c9@GUI.c9": {}
+      },
+      {
+        "c10@GUI.c10": {}
+      },
+      {
+        "c11@GUI.c11": {}
+      },
+      {
+        "c12@GUI.c12": {}
+      },
+      {
+        "c13@GUI.c13": {}
+      },
+      {
+        "c14@GUI.c14": {}
+      },
+      {
+        "c15@GUI.c15": {}
+      },
+      {
+        "c16@GUI.c16": {}
+      },
+      {
+        "c17@GUI.c17": {}
+      },
+      {
+        "c18@GUI.c18": {}
+      },
+      {
+        "c19@GUI.c19": {}
+      }
+    ],
+    "layer": 1,
+    "offset": [
+      52.0,
+      12.0
+    ],
+    "size": [
+      132.0,
+      25.0
+    ],
+    "type": "panel",
+    "visible": true
+  },
+  "lbanker": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 1,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      21.0,
+      11.0
+    ],
+    "size": [
+      10.0,
+      10.0
+    ],
+    "texture": "textures/ui/og",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "lblank": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": [
+      {
+        "count@GUI.count": {}
+      }
+    ],
+    "is_new_nine_slice": false,
+    "layer": 1,
+    "nine_slice_buttom": 1,
+    "nine_slice_left": 1,
+    "nine_slice_right": 1,
+    "nine_slice_top": 1,
+    "nineslice_size": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "offset": [
+      33.0,
+      18.0
+    ],
+    "size": [
+      10.0,
+      14.0
+    ],
+    "texture": "textures/ui/blank",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "lchoice": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "color": [
+      1,
+      1,
+      1
+    ],
+    "font_scale_factor": 1.169999957084656,
+    "font_size": "normal",
+    "font_type": "smooth",
+    "layer": 1,
+    "offset": [
+      60.0,
+      15.0
+    ],
+    "shadow": false,
+    "size": [
+      40.0,
+      10.0
+    ],
+    "text": "超级加倍",
+    "text_alignment": "center",
+    "type": "label",
+    "visible": false
+  },
+  "lclock": {
+    "anchor_from": "top_left",
+    "anchor_to": "center",
+    "controls": [
+      {
+        "lsec@GUI.lsec": {}
+      }
+    ],
+    "is_new_nine_slice": false,
+    "layer": 1,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      80.0,
+      20.0
+    ],
+    "size": [
+      40.0,
+      40.0
+    ],
+    "texture": "textures/ui/clock",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": false
+  },
+  "lcoin": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 2,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      4.0,
+      45.0
+    ],
+    "size": [
+      9.0,
+      9.0
+    ],
+    "texture": "textures/ui/w1h1",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "leave@common.button": {
+    "$default_texture": "textures/ui/leave",
+    "$hover_texture": "textures/ui/leavec",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/leavec",
+    "$texture_layer": 2,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 444,
+    "offset": [
+      4.0,
+      4.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      20.0,
+      20.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "left": {
+    "anchor_from": "left_middle",
+    "anchor_to": "left_middle",
+    "controls": [
+      {
+        "licon@GUI.licon": {}
+      },
+      {
+        "lplate@GUI.lplate": {}
+      },
+      {
+        "lname@GUI.lname": {}
+      },
+      {
+        "ltray@GUI.ltray": {}
+      },
+      {
+        "lcoin@GUI.lcoin": {}
+      },
+      {
+        "lreal@GUI.lreal": {}
+      },
+      {
+        "lbanker@GUI.lbanker": {}
+      },
+      {
+        "lblank@GUI.lblank": {}
+      },
+      {
+        "lsu@GUI.lsu": {}
+      },
+      {
+        "lsup@GUI.lsup": {}
+      },
+      {
+        "lh@GUI.lh": {}
+      },
+      {
+        "l@GUI.l": {}
+      },
+      {
+        "lclock@GUI.lclock": {}
+      },
+      {
+        "lchoice@GUI.lchoice": {}
+      }
+    ],
+    "layer": 1,
+    "offset": [
+      0.0,
+      0.0
+    ],
+    "size": [
+      "50.0%+0.0px",
+      150.0
+    ],
+    "type": "panel",
+    "visible": true
+  },
+  "lh": {
+    "anchor_from": "top_left",
+    "anchor_to": "left_middle",
+    "controls": [
+      {
+        "h0@GUI.h0": {}
+      },
+      {
+        "h1@GUI.h1": {}
+      },
+      {
+        "h2@GUI.h2": {}
+      },
+      {
+        "h3@GUI.h3": {}
+      },
+      {
+        "h4@GUI.h4": {}
+      },
+      {
+        "h5@GUI.h5": {}
+      },
+      {
+        "h6@GUI.h6": {}
+      },
+      {
+        "h7@GUI.h7": {}
+      },
+      {
+        "h8@GUI.h8": {}
+      },
+      {
+        "h9@GUI.h9": {}
+      },
+      {
+        "h10@GUI.h10": {}
+      },
+      {
+        "h11@GUI.h11": {}
+      },
+      {
+        "h12@GUI.h12": {}
+      },
+      {
+        "h13@GUI.h13": {}
+      },
+      {
+        "h14@GUI.h14": {}
+      },
+      {
+        "h15@GUI.h15": {}
+      },
+      {
+        "h16@GUI.h16": {}
+      },
+      {
+        "h17@GUI.h17": {}
+      },
+      {
+        "h18@GUI.h18": {}
+      },
+      {
+        "h19@GUI.h19": {}
+      }
+    ],
+    "layer": 1,
+    "offset": [
+      44.0,
+      0.0
+    ],
+    "size": [
+      111.0,
+      21.0
+    ],
+    "type": "panel",
+    "visible": true
+  },
+  "licon@common.button": {
+    "$default_texture": "textures/ui/Steve",
+    "$hover_texture": "textures/ui/Steve",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/Steve",
+    "$texture_layer": 2,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 1,
+    "offset": [
+      4.0,
+      4.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      16.0,
+      16.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "lname": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "color": [
+      1,
+      1,
+      1
+    ],
+    "font_scale_factor": 0.6999999880790710,
+    "font_size": "normal",
+    "font_type": "smooth",
+    "layer": 1,
+    "offset": [
+      4.0,
+      34.0
+    ],
+    "shadow": false,
+    "size": [
+      46.0,
+      6.0
+    ],
+    "text": "故意只显示七个字",
+    "text_alignment": "left",
+    "type": "label",
+    "visible": true
+  },
+  "lplate": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 1,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      4.0,
+      24.0
+    ],
+    "size": [
+      24.0,
+      8.0
+    ],
+    "texture": "textures/ui/w3h1",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "lreal": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "color": [
+      1,
+      1,
+      1
+    ],
+    "font_scale_factor": 0.5899999737739563,
+    "font_size": "normal",
+    "font_type": "smooth",
+    "layer": 2,
+    "offset": [
+      18.0,
+      47.0
+    ],
+    "shadow": false,
+    "size": [
+      39.0,
+      5.0
+    ],
+    "text": "3000",
+    "text_alignment": "left",
+    "type": "label",
+    "visible": true
+  },
+  "lsec": {
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "color": [
+      1,
+      1,
+      1
+    ],
+    "font_scale_factor": 0.9399999976158142,
+    "font_size": "normal",
+    "font_type": "smooth",
+    "layer": 1,
+    "offset": [
+      1.0,
+      1.0
+    ],
+    "shadow": false,
+    "size": [
+      12.0,
+      8.0
+    ],
+    "text": "20",
+    "text_alignment": "center",
+    "type": "label",
+    "visible": true
+  },
+  "lsu": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "color": [
+      1,
+      1,
+      1
+    ],
+    "font_scale_factor": 0.5899999737739563,
+    "font_size": "normal",
+    "font_type": "smooth",
+    "layer": 1,
+    "offset": [
+      4.0,
+      57.0
+    ],
+    "shadow": false,
+    "size": [
+      14.0,
+      5.0
+    ],
+    "text": "§6<加倍>",
+    "text_alignment": "left",
+    "type": "label",
+    "visible": true
+  },
+  "lsup": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "color": [
+      1,
+      1,
+      1
+    ],
+    "font_scale_factor": 0.5899999737739563,
+    "font_size": "normal",
+    "font_type": "smooth",
+    "layer": 1,
+    "offset": [
+      4.0,
+      57.0
+    ],
+    "shadow": false,
+    "size": [
+      24.0,
+      5.0
+    ],
+    "text": "§6<超级加倍>",
+    "text_alignment": "left",
+    "type": "label",
+    "visible": true
+  },
+  "ltray": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": true,
+    "layer": 1,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      2.0,
+      44.0
+    ],
+    "size": [
+      51.0,
+      11.0
+    ],
+    "texture": "textures/ui/tray",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "m@GUI.l": {
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "layer": 1,
+    "offset": [
+      0.0,
+      -122.0
+    ]
+  },
+  "m0@common.button": {
+    "$default_texture": "textures/ui/poker/(10, 0)",
+    "$hover_texture": "textures/ui/poker/(10, 0)",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/poker/(10, 0)",
+    "$texture_layer": 2,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 0,
+    "offset": [
+      0.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      54.0,
+      85.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "m10@common.button": {
+    "$default_texture": "textures/ui/poker/(10, 0)",
+    "$hover_texture": "textures/ui/poker/(10, 0)",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/poker/(10, 0)",
+    "$texture_layer": 2,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 100,
+    "offset": [
+      140.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      54.0,
+      85.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "m11@common.button": {
+    "$default_texture": "textures/ui/poker/(10, 0)",
+    "$hover_texture": "textures/ui/poker/(10, 0)",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/poker/(10, 0)",
+    "$texture_layer": 2,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 110,
+    "offset": [
+      154.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      54.0,
+      85.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "m12@common.button": {
+    "$default_texture": "textures/ui/poker/(10, 0)",
+    "$hover_texture": "textures/ui/poker/(10, 0)",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/poker/(10, 0)",
+    "$texture_layer": 2,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 120,
+    "offset": [
+      168.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      54.0,
+      85.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "m13@common.button": {
+    "$default_texture": "textures/ui/poker/(10, 0)",
+    "$hover_texture": "textures/ui/poker/(10, 0)",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/poker/(10, 0)",
+    "$texture_layer": 2,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 130,
+    "offset": [
+      182.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      54.0,
+      85.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "m14@common.button": {
+    "$default_texture": "textures/ui/poker/(10, 0)",
+    "$hover_texture": "textures/ui/poker/(10, 0)",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/poker/(10, 0)",
+    "$texture_layer": 2,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 140,
+    "offset": [
+      196.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      54.0,
+      85.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "m15@common.button": {
+    "$default_texture": "textures/ui/poker/(10, 0)",
+    "$hover_texture": "textures/ui/poker/(10, 0)",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/poker/(10, 0)",
+    "$texture_layer": 2,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 150,
+    "offset": [
+      210.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      54.0,
+      85.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "m16@common.button": {
+    "$default_texture": "textures/ui/poker/(10, 0)",
+    "$hover_texture": "textures/ui/poker/(10, 0)",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/poker/(10, 0)",
+    "$texture_layer": 2,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 160,
+    "offset": [
+      224.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      54.0,
+      85.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "m17@common.button": {
+    "$default_texture": "textures/ui/poker/(10, 0)",
+    "$hover_texture": "textures/ui/poker/(10, 0)",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/poker/(10, 0)",
+    "$texture_layer": 2,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 170,
+    "offset": [
+      238.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      54.0,
+      85.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "m18@common.button": {
+    "$default_texture": "textures/ui/poker/(10, 0)",
+    "$hover_texture": "textures/ui/poker/(10, 0)",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/poker/(10, 0)",
+    "$texture_layer": 2,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 180,
+    "offset": [
+      252.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      54.0,
+      85.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "m19@common.button": {
+    "$default_texture": "textures/ui/poker/(10, 0)",
+    "$hover_texture": "textures/ui/poker/(10, 0)",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/poker/(10, 0)",
+    "$texture_layer": 2,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 190,
+    "offset": [
+      266.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      54.0,
+      85.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "m1@common.button": {
+    "$default_texture": "textures/ui/poker/(10, 0)",
+    "$hover_texture": "textures/ui/poker/(10, 0)",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/poker/(10, 0)",
+    "$texture_layer": 2,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 10,
+    "offset": [
+      14.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      54.0,
+      85.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "m2@common.button": {
+    "$default_texture": "textures/ui/poker/(10, 0)",
+    "$hover_texture": "textures/ui/poker/(10, 0)",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/poker/(10, 0)",
+    "$texture_layer": 2,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 20,
+    "offset": [
+      28.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      54.0,
+      85.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "m3@common.button": {
+    "$default_texture": "textures/ui/poker/(10, 0)",
+    "$hover_texture": "textures/ui/poker/(10, 0)",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/poker/(10, 0)",
+    "$texture_layer": 2,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 30,
+    "offset": [
+      42.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      54.0,
+      85.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "m4@common.button": {
+    "$default_texture": "textures/ui/poker/(10, 0)",
+    "$hover_texture": "textures/ui/poker/(10, 0)",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/poker/(10, 0)",
+    "$texture_layer": 2,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 40,
+    "offset": [
+      56.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      54.0,
+      85.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "m5@common.button": {
+    "$default_texture": "textures/ui/poker/(10, 0)",
+    "$hover_texture": "textures/ui/poker/(10, 0)",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/poker/(10, 0)",
+    "$texture_layer": 2,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 50,
+    "offset": [
+      70.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      54.0,
+      85.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "m6@common.button": {
+    "$default_texture": "textures/ui/poker/(10, 0)",
+    "$hover_texture": "textures/ui/poker/(10, 0)",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/poker/(10, 0)",
+    "$texture_layer": 2,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 60,
+    "offset": [
+      84.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      54.0,
+      85.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "m7@common.button": {
+    "$default_texture": "textures/ui/poker/(10, 0)",
+    "$hover_texture": "textures/ui/poker/(10, 0)",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/poker/(10, 0)",
+    "$texture_layer": 2,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 70,
+    "offset": [
+      98.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      54.0,
+      85.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "m8@common.button": {
+    "$default_texture": "textures/ui/poker/(10, 0)",
+    "$hover_texture": "textures/ui/poker/(10, 0)",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/poker/(10, 0)",
+    "$texture_layer": 2,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 80,
+    "offset": [
+      112.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      54.0,
+      85.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "m9@common.button": {
+    "$default_texture": "textures/ui/poker/(10, 0)",
+    "$hover_texture": "textures/ui/poker/(10, 0)",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/poker/(10, 0)",
+    "$texture_layer": 2,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 90,
+    "offset": [
+      126.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      54.0,
+      85.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "main": {
+    "absorbs_input": true,
+    "always_accepts_input": false,
+    "controls": [
+      {
+        "main_panel@GUI.main_panel": {}
+      }
+    ],
+    "force_render_below": false,
+    "is_showing_menu": true,
+    "render_game_behind": true,
+    "render_only_when_topmost": true,
+    "should_steal_mouse": false,
+    "type": "screen"
+  },
+  "main_panel": {
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "controls": [
+      {
+        "top@GUI.top": {}
+      },
+      {
+        "bottom@GUI.bottom": {}
+      },
+      {
+        "flip@GUI.flip": {}
+      },
+      {
+        "room@GUI.room": {}
+      }
+    ],
+    "layer": 1,
+    "offset": [
+      0,
+      0
+    ],
+    "size": [
+      "100.0%+0.0px",
+      "100.0%+0.0px"
+    ],
+    "type": "panel",
+    "visible": true
+  },
+  "major@common.button": {
+    "$default_texture": "textures/netease/common/button/default",
+    "$hover_texture": "textures/netease/common/button/hover",
+    "$is_new_nine_slice": true,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 1.0,
+    "$label_font_size": "large",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "高级场",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/netease/common/button/pressed",
+    "$texture_layer": 2,
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 1,
+    "offset": [
+      0.0,
+      "16.0%+0.0px"
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      "24.0%+0.0px",
+      "26.0%+0.0px"
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "match@common.button": {
+    "$default_texture": "textures/netease/common/button/default",
+    "$hover_texture": "textures/netease/common/button/hover",
+    "$is_new_nine_slice": true,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 1.169999957084656,
+    "$label_font_size": "normal",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "开始游戏",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/netease/common/button/pressed",
+    "$texture_layer": 2,
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 100,
+    "offset": [
+      0.0,
+      -124.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      80.0,
+      20.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "mclock": {
+    "anchor_from": "bottom_middle",
+    "anchor_to": "center",
+    "controls": [
+      {
+        "msec@GUI.msec": {}
+      }
+    ],
+    "is_new_nine_slice": false,
+    "layer": 1,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      0.0,
+      -134.0
+    ],
+    "size": [
+      40.0,
+      40.0
+    ],
+    "texture": "textures/ui/clock",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": false
+  },
+  "menu@common.button": {
+    "$default_texture": "textures/ui/menu",
+    "$hover_texture": "textures/ui/menuc",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/menuc",
+    "$texture_layer": 2,
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 444,
+    "offset": [
+      -4.0,
+      4.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      20.0,
+      20.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "mh": {
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "controls": [
+      {
+        "m0@GUI.m0": {}
+      },
+      {
+        "m1@GUI.m1": {}
+      },
+      {
+        "m2@GUI.m2": {}
+      },
+      {
+        "m3@GUI.m3": {}
+      },
+      {
+        "m4@GUI.m4": {}
+      },
+      {
+        "m5@GUI.m5": {}
+      },
+      {
+        "m6@GUI.m6": {}
+      },
+      {
+        "m7@GUI.m7": {}
+      },
+      {
+        "m8@GUI.m8": {}
+      },
+      {
+        "m9@GUI.m9": {}
+      },
+      {
+        "m10@GUI.m10": {}
+      },
+      {
+        "m11@GUI.m11": {}
+      },
+      {
+        "m12@GUI.m12": {}
+      },
+      {
+        "m13@GUI.m13": {}
+      },
+      {
+        "m14@GUI.m14": {}
+      },
+      {
+        "m15@GUI.m15": {}
+      },
+      {
+        "m16@GUI.m16": {}
+      },
+      {
+        "m17@GUI.m17": {}
+      },
+      {
+        "m18@GUI.m18": {}
+      },
+      {
+        "m19@GUI.m19": {}
+      }
+    ],
+    "layer": 100,
+    "offset": [
+      0.0,
+      -21.0
+    ],
+    "size": [
+      320.0,
+      85.0
+    ],
+    "type": "panel",
+    "visible": true
+  },
+  "msec": {
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "color": [
+      1,
+      1,
+      1
+    ],
+    "font_scale_factor": 0.9399999976158142,
+    "font_size": "normal",
+    "font_type": "smooth",
+    "layer": 1,
+    "offset": [
+      1.0,
+      1.0
+    ],
+    "shadow": false,
+    "size": [
+      12.0,
+      8.0
+    ],
+    "text": "20",
+    "text_alignment": "center",
+    "type": "label",
+    "visible": true
+  },
+  "name": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "color": [
+      1,
+      1,
+      1
+    ],
+    "font_scale_factor": 0.6999999880790710,
+    "font_size": "normal",
+    "font_type": "smooth",
+    "layer": 1,
+    "offset": [
+      24.0,
+      5.0
+    ],
+    "shadow": false,
+    "size": [
+      100.0,
+      6.0
+    ],
+    "text": "药水哥",
+    "text_alignment": "left",
+    "type": "label",
+    "visible": true
+  },
+  "namespace": "GUI",
+  "og": {
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "is_new_nine_slice": false,
+    "layer": 1,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      7.0,
+      -6.0
+    ],
+    "size": [
+      10.0,
+      10.0
+    ],
+    "texture": "textures/ui/og",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "pass@common.button": {
+    "$default_texture": "textures/netease/common/button/default",
+    "$hover_texture": "textures/netease/common/button/hover",
+    "$is_new_nine_slice": true,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 1.169999957084656,
+    "$label_font_size": "normal",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "不出",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/netease/common/button/pressed",
+    "$texture_layer": 2,
+    "anchor_from": "center",
+    "anchor_to": "right_middle",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 1,
+    "offset": [
+      -64.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      60.0,
+      20.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "plate": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 1,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      24.0,
+      11.0
+    ],
+    "size": [
+      24.0,
+      8.0
+    ],
+    "texture": "textures/ui/w3h1",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "play@common.button": {
+    "$default_texture": "textures/netease/common/button/default",
+    "$hover_texture": "textures/netease/common/button/hover",
+    "$is_new_nine_slice": true,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 1.169999957084656,
+    "$label_font_size": "normal",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "出牌",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/netease/common/button/pressed",
+    "$texture_layer": 2,
+    "anchor_from": "center",
+    "anchor_to": "left_middle",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 1,
+    "offset": [
+      40.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      60.0,
+      20.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "plus": {
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "controls": [
+      {
+        "su@GUI.su": {}
+      },
+      {
+        "sup@GUI.sup": {}
+      },
+      {
+        "calm@GUI.calm": {}
+      }
+    ],
+    "layer": 100,
+    "offset": [
+      0.0,
+      -124.0
+    ],
+    "size": [
+      320.0,
+      20.0
+    ],
+    "type": "panel",
+    "visible": false
+  },
+  "pressed": {
+    "is_new_nine_slice": "$is_new_nine_slice",
+    "layer": "$texture_layer",
+    "nine_slice_buttom": "$nine_slice_buttom",
+    "nine_slice_left": "$nine_slice_left",
+    "nine_slice_right": "$nine_slice_right",
+    "nine_slice_top": "$nine_slice_top",
+    "nineslice_size": "$nineslice_size",
+    "texture": "$pressed_texture",
+    "type": "image"
+  },
+  "primary@common.button": {
+    "$default_texture": "textures/netease/common/button/default",
+    "$hover_texture": "textures/netease/common/button/hover",
+    "$is_new_nine_slice": true,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 1.0,
+    "$label_font_size": "large",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "初级场",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/netease/common/button/pressed",
+    "$texture_layer": 2,
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 1,
+    "offset": [
+      0.0,
+      "-16.0%+0.0px"
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      "24.0%+0.0px",
+      "26.0%+0.0px"
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "psycho@common.button": {
+    "$default_texture": "textures/netease/common/button/default",
+    "$hover_texture": "textures/netease/common/button/hover",
+    "$is_new_nine_slice": true,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 1.0,
+    "$label_font_size": "large",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "顶级场",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/netease/common/button/pressed",
+    "$texture_layer": 2,
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 1,
+    "offset": [
+      "31.0%+0.0px",
+      "16.0%+0.0px"
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      "24.0%+0.0px",
+      "26.0%+0.0px"
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "r@GUI.l": {
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "layer": 1,
+    "offset": [
+      -52.0,
+      12.0
+    ]
+  },
+  "rank": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": false,
+    "layer": 1,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      23.0,
+      13.0
+    ],
+    "size": [
+      21.0,
+      7.0
+    ],
+    "texture": "textures/ui/w3h1",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "rbanker": {
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "is_new_nine_slice": false,
+    "layer": 1,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      -21.0,
+      11.0
+    ],
+    "size": [
+      10.0,
+      10.0
+    ],
+    "texture": "textures/ui/og",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "rblank": {
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "controls": [
+      {
+        "count@GUI.count": {}
+      }
+    ],
+    "is_new_nine_slice": false,
+    "layer": 1,
+    "nine_slice_buttom": 1,
+    "nine_slice_left": 1,
+    "nine_slice_right": 1,
+    "nine_slice_top": 1,
+    "nineslice_size": [
+      1,
+      1,
+      1,
+      1
+    ],
+    "offset": [
+      -33.0,
+      18.0
+    ],
+    "size": [
+      10.0,
+      14.0
+    ],
+    "texture": "textures/ui/blank",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "rchoice": {
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "color": [
+      1,
+      1,
+      1
+    ],
+    "font_scale_factor": 1.169999957084656,
+    "font_size": "normal",
+    "font_type": "smooth",
+    "layer": 1,
+    "offset": [
+      -60.0,
+      15.0
+    ],
+    "shadow": false,
+    "size": [
+      40.0,
+      10.0
+    ],
+    "text": "超级加倍",
+    "text_alignment": "center",
+    "type": "label",
+    "visible": false
+  },
+  "rclock": {
+    "anchor_from": "top_right",
+    "anchor_to": "center",
+    "controls": [
+      {
+        "rsec@GUI.rsec": {}
+      }
+    ],
+    "is_new_nine_slice": false,
+    "layer": 1,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      -80.0,
+      20.0
+    ],
+    "size": [
+      40.0,
+      40.0
+    ],
+    "texture": "textures/ui/clock",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": false
+  },
+  "rcoin": {
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "is_new_nine_slice": false,
+    "layer": 2,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      -44.0,
+      45.0
+    ],
+    "size": [
+      9.0,
+      9.0
+    ],
+    "texture": "textures/ui/w1h1",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "real": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "color": [
+      1,
+      1,
+      1
+    ],
+    "font_scale_factor": 0.5899999737739563,
+    "font_size": "normal",
+    "font_type": "smooth",
+    "layer": 2,
+    "offset": [
+      91.0,
+      10.0
+    ],
+    "shadow": false,
+    "size": [
+      39.0,
+      5.0
+    ],
+    "text": "3000",
+    "text_alignment": "left",
+    "type": "label",
+    "visible": true
+  },
+  "rec@common.button": {
+    "$default_texture": "textures/ui/rec",
+    "$hover_texture": "textures/ui/recc",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/recc",
+    "$texture_layer": 2,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 444,
+    "offset": [
+      28.0,
+      4.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      20.0,
+      20.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "resume@common.button": {
+    "$default_texture": "textures/netease/common/button/default",
+    "$hover_texture": "textures/netease/common/button/hover",
+    "$is_new_nine_slice": true,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 1.169999957084656,
+    "$label_font_size": "normal",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "取消托管",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/netease/common/button/pressed",
+    "$texture_layer": 2,
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 4,
+    "offset": [
+      0.0,
+      11.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      80.0,
+      20.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "rh@GUI.lh": {
+    "anchor_from": "top_right",
+    "anchor_to": "right_middle",
+    "layer": 1,
+    "offset": [
+      -44.0,
+      0.0
+    ]
+  },
+  "rich@common.button": {
+    "$default_texture": "textures/ui/rich",
+    "$hover_texture": "textures/ui/richc",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/richc",
+    "$texture_layer": 2,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 2,
+    "offset": [
+      117.0,
+      8.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      9.0,
+      10.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "ricon@common.button": {
+    "$default_texture": "textures/ui/Steve",
+    "$hover_texture": "textures/ui/Steve",
+    "$is_new_nine_slice": false,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 0.2300000041723251,
+    "$label_font_size": "small",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/ui/Steve",
+    "$texture_layer": 2,
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 1,
+    "offset": [
+      -4.0,
+      4.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      16.0,
+      16.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "right": {
+    "anchor_from": "right_middle",
+    "anchor_to": "right_middle",
+    "controls": [
+      {
+        "ricon@GUI.ricon": {}
+      },
+      {
+        "rplate@GUI.rplate": {}
+      },
+      {
+        "rname@GUI.rname": {}
+      },
+      {
+        "rtray@GUI.rtray": {}
+      },
+      {
+        "rcoin@GUI.rcoin": {}
+      },
+      {
+        "rreal@GUI.rreal": {}
+      },
+      {
+        "rbanker@GUI.rbanker": {}
+      },
+      {
+        "rblank@GUI.rblank": {}
+      },
+      {
+        "rsu@GUI.rsu": {}
+      },
+      {
+        "rsup@GUI.rsup": {}
+      },
+      {
+        "rh@GUI.rh": {}
+      },
+      {
+        "r@GUI.r": {}
+      },
+      {
+        "rclock@GUI.rclock": {}
+      },
+      {
+        "rchoice@GUI.rchoice": {}
+      }
+    ],
+    "layer": 1,
+    "offset": [
+      0.0,
+      0.0
+    ],
+    "size": [
+      "50.0%+0.0px",
+      150.0
+    ],
+    "type": "panel",
+    "visible": true
+  },
+  "rname": {
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "color": [
+      1,
+      1,
+      1
+    ],
+    "font_scale_factor": 0.6999999880790710,
+    "font_size": "normal",
+    "font_type": "smooth",
+    "layer": 1,
+    "offset": [
+      -4.0,
+      34.0
+    ],
+    "shadow": false,
+    "size": [
+      46.0,
+      6.0
+    ],
+    "text": "故意只显示七个字",
+    "text_alignment": "left",
+    "type": "label",
+    "visible": true
+  },
+  "rookie@common.button": {
+    "$default_texture": "textures/netease/common/button/default",
+    "$hover_texture": "textures/netease/common/button/hover",
+    "$is_new_nine_slice": true,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 1.0,
+    "$label_font_size": "large",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "新手场",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/netease/common/button/pressed",
+    "$texture_layer": 2,
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 1,
+    "offset": [
+      "-31.0%+0.0px",
+      "-16.0%+0.0px"
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      "24.0%+0.0px",
+      "26.0%+0.0px"
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "room": {
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "controls": [
+      {
+        "leave@GUI.leave": {}
+      },
+      {
+        "rec@GUI.rec": {}
+      },
+      {
+        "menu@GUI.menu": {}
+      },
+      {
+        "change@GUI.change": {}
+      },
+      {
+        "bot@GUI.bot": {}
+      },
+      {
+        "match@GUI.match": {}
+      },
+      {
+        "tag@GUI.tag": {}
+      },
+      {
+        "court@GUI.court": {}
+      }
+    ],
+    "layer": 1,
+    "offset": [
+      0,
+      0
+    ],
+    "size": [
+      "100.0%+0.0px",
+      "100.0%+0.0px"
+    ],
+    "type": "panel",
+    "visible": true
+  },
+  "rplate": {
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "is_new_nine_slice": false,
+    "layer": 1,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      -4.0,
+      24.0
+    ],
+    "size": [
+      24.0,
+      8.0
+    ],
+    "texture": "textures/ui/w3h1",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "rreal": {
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "color": [
+      1,
+      1,
+      1
+    ],
+    "font_scale_factor": 0.5899999737739563,
+    "font_size": "normal",
+    "font_type": "smooth",
+    "layer": 2,
+    "offset": [
+      0.0,
+      47.0
+    ],
+    "shadow": false,
+    "size": [
+      39.0,
+      5.0
+    ],
+    "text": "3000",
+    "text_alignment": "left",
+    "type": "label",
+    "visible": true
+  },
+  "rsec": {
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "color": [
+      1,
+      1,
+      1
+    ],
+    "font_scale_factor": 0.9399999976158142,
+    "font_size": "normal",
+    "font_type": "smooth",
+    "layer": 1,
+    "offset": [
+      1.0,
+      1.0
+    ],
+    "shadow": false,
+    "size": [
+      12.0,
+      8.0
+    ],
+    "text": "20",
+    "text_alignment": "center",
+    "type": "label",
+    "visible": true
+  },
+  "rsu": {
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "color": [
+      1,
+      1,
+      1
+    ],
+    "font_scale_factor": 0.5899999737739563,
+    "font_size": "normal",
+    "font_type": "smooth",
+    "layer": 1,
+    "offset": [
+      -4.0,
+      57.0
+    ],
+    "shadow": false,
+    "size": [
+      14.0,
+      5.0
+    ],
+    "text": "§6<加倍>",
+    "text_alignment": "left",
+    "type": "label",
+    "visible": true
+  },
+  "rsup": {
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "color": [
+      1,
+      1,
+      1
+    ],
+    "font_scale_factor": 0.5899999737739563,
+    "font_size": "normal",
+    "font_type": "smooth",
+    "layer": 1,
+    "offset": [
+      -4.0,
+      57.0
+    ],
+    "shadow": false,
+    "size": [
+      24.0,
+      5.0
+    ],
+    "text": "§6<超级加倍>",
+    "text_alignment": "left",
+    "type": "label",
+    "visible": true
+  },
+  "rtray": {
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "is_new_nine_slice": true,
+    "layer": 1,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      -4.0,
+      44.0
+    ],
+    "size": [
+      51.0,
+      11.0
+    ],
+    "texture": "textures/ui/tray",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "sec": {
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "color": [
+      1,
+      1,
+      1
+    ],
+    "font_scale_factor": 0.9399999976158142,
+    "font_size": "normal",
+    "font_type": "smooth",
+    "layer": 1,
+    "offset": [
+      1.0,
+      1.0
+    ],
+    "shadow": false,
+    "size": [
+      12.0,
+      8.0
+    ],
+    "text": "20",
+    "text_alignment": "center",
+    "type": "label",
+    "visible": true
+  },
+  "senior@common.button": {
+    "$default_texture": "textures/netease/common/button/default",
+    "$hover_texture": "textures/netease/common/button/hover",
+    "$is_new_nine_slice": true,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 1.0,
+    "$label_font_size": "large",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "中级场",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/netease/common/button/pressed",
+    "$texture_layer": 2,
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 1,
+    "offset": [
+      "-31.0%+0.0px",
+      "16.0%+0.0px"
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      "24.0%+0.0px",
+      "26.0%+0.0px"
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "sh@common.button": {
+    "$default_texture": "textures/netease/common/button/default",
+    "$hover_texture": "textures/netease/common/button/hover",
+    "$is_new_nine_slice": true,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 1.169999957084656,
+    "$label_font_size": "normal",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "明牌",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/netease/common/button/pressed",
+    "$texture_layer": 2,
+    "anchor_from": "center",
+    "anchor_to": "right_middle",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 1,
+    "offset": [
+      -64.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      60.0,
+      20.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "shorty": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "color": [
+      1,
+      1,
+      1
+    ],
+    "font_scale_factor": 0.6999999880790710,
+    "font_size": "normal",
+    "font_type": "smooth",
+    "layer": 1,
+    "offset": [
+      50.0,
+      11.0
+    ],
+    "shadow": false,
+    "size": [
+      46.0,
+      6.0
+    ],
+    "text": "故意只显示七个字",
+    "text_alignment": "left",
+    "type": "label",
+    "visible": true
+  },
+  "showhand@common.button": {
+    "$default_texture": "textures/netease/common/button/default",
+    "$hover_texture": "textures/netease/common/button/hover",
+    "$is_new_nine_slice": true,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 1.169999957084656,
+    "$label_font_size": "normal",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "明牌",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/netease/common/button/pressed",
+    "$texture_layer": 2,
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 100,
+    "offset": [
+      0.0,
+      -124.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      60.0,
+      20.0
+    ],
+    "type": "button",
+    "visible": false
+  },
+  "single@common.button": {
+    "$default_texture": "textures/netease/common/button/default",
+    "$hover_texture": "textures/netease/common/button/hover",
+    "$is_new_nine_slice": true,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 1.0,
+    "$label_font_size": "large",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "单人模式",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/netease/common/button/pressed",
+    "$texture_layer": 2,
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 1,
+    "offset": [
+      "20.0%+0.0px",
+      "1.0%+0.0px"
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      "40.0%+0.0px",
+      "77.0%+0.0px"
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "slot": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "is_new_nine_slice": true,
+    "layer": 1,
+    "nine_slice_buttom": 1,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 1,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      75.0,
+      7.0
+    ],
+    "size": [
+      51.0,
+      11.0
+    ],
+    "texture": "textures/ui/slot",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "su@common.button": {
+    "$default_texture": "textures/netease/common/button/default",
+    "$hover_texture": "textures/netease/common/button/hover",
+    "$is_new_nine_slice": true,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 1.169999957084656,
+    "$label_font_size": "normal",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "加倍",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/netease/common/button/pressed",
+    "$texture_layer": 2,
+    "anchor_from": "center",
+    "anchor_to": "right_middle",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 1,
+    "offset": [
+      -64.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      60.0,
+      20.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "sup@common.button": {
+    "$default_texture": "textures/netease/common/button/default",
+    "$hover_texture": "textures/netease/common/button/hover",
+    "$is_new_nine_slice": true,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 1.169999957084656,
+    "$label_font_size": "normal",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "超级加倍",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/netease/common/button/pressed",
+    "$texture_layer": 2,
+    "anchor_from": "center",
+    "anchor_to": "left_middle",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 1,
+    "offset": [
+      -24.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      60.0,
+      20.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "tag": {
+    "anchor_from": "bottom_right",
+    "anchor_to": "bottom_right",
+    "controls": [
+      {
+        "fee@GUI.fee": {}
+      },
+      {
+        "utmost@GUI.utmost": {}
+      }
+    ],
+    "is_new_nine_slice": false,
+    "layer": 1,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      -3.0,
+      0.0
+    ],
+    "size": [
+      50.0,
+      80.0
+    ],
+    "texture": "textures/ui/tag",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "times": {
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "color": [
+      1,
+      1,
+      1
+    ],
+    "font_scale_factor": 0.5899999737739563,
+    "font_size": "normal",
+    "font_type": "smooth",
+    "layer": 2,
+    "offset": [
+      -66.0,
+      11.0
+    ],
+    "shadow": false,
+    "size": [
+      34.0,
+      5.0
+    ],
+    "text": "0",
+    "text_alignment": "center",
+    "type": "label",
+    "visible": true
+  },
+  "toolbar": {
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "layer": 1,
+    "offset": [
+      0,
+      0
+    ],
+    "size": [
+      "100.0%+0.0px",
+      "100.0%+0.0px"
+    ],
+    "type": "panel",
+    "visible": true
+  },
+  "top": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": [
+      {
+        "head@GUI.head": {}
+      },
+      {
+        "name@GUI.name": {}
+      },
+      {
+        "rank@GUI.rank": {}
+      },
+      {
+        "slot@GUI.slot": {}
+      },
+      {
+        "coin@GUI.coin": {}
+      },
+      {
+        "real@GUI.real": {}
+      },
+      {
+        "rich@GUI.rich": {}
+      }
+    ],
+    "is_new_nine_slice": false,
+    "layer": 1,
+    "nine_slice_buttom": 4,
+    "nine_slice_left": 4,
+    "nine_slice_right": 4,
+    "nine_slice_top": 4,
+    "nineslice_size": [
+      4,
+      4,
+      4,
+      4
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "size": [
+      200.0,
+      25.0
+    ],
+    "texture": "textures/ui/top",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "tournament@common.button": {
+    "$default_texture": "textures/netease/common/button/default",
+    "$hover_texture": "textures/netease/common/button/hover",
+    "$is_new_nine_slice": true,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 1.0,
+    "$label_font_size": "large",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "挑战赛",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/netease/common/button/pressed",
+    "$texture_layer": 2,
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 1,
+    "offset": [
+      "30.0%+0.0px",
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      "30.0%+0.0px",
+      "77.0%+0.0px"
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "tray": {
+    "anchor_from": "top_right",
+    "anchor_to": "top_right",
+    "is_new_nine_slice": true,
+    "layer": 1,
+    "nine_slice_buttom": 1,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 1,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      -60.0,
+      8.0
+    ],
+    "size": [
+      51.0,
+      11.0
+    ],
+    "texture": "textures/ui/slot",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
+  "turn": {
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "controls": [
+      {
+        "pass@GUI.pass": {}
+      },
+      {
+        "hint@GUI.hint": {}
+      },
+      {
+        "play@GUI.play": {}
+      },
+      {
+        "sh@GUI.sh": {}
+      }
+    ],
+    "layer": 100,
+    "offset": [
+      0.0,
+      -124.0
+    ],
+    "size": [
+      320.0,
+      20.0
+    ],
+    "type": "panel",
+    "visible": false
+  },
+  "utmost": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "color": [
+      1,
+      1,
+      1
+    ],
+    "font_scale_factor": 0.6999999880790710,
+    "font_size": "normal",
+    "font_type": "smooth",
+    "layer": 1,
+    "offset": [
+      25.0,
+      42.0
+    ],
+    "shadow": false,
+    "size": [
+      18.0,
+      6.0
+    ],
+    "text": "4396",
+    "text_alignment": "center",
+    "type": "label",
+    "visible": true
+  },
+  "variant@common.button": {
+    "$default_texture": "textures/netease/common/button/default",
+    "$hover_texture": "textures/netease/common/button/hover",
+    "$is_new_nine_slice": true,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 1.0,
+    "$label_font_size": "large",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "癞子玩法",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/netease/common/button/pressed",
+    "$texture_layer": 2,
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 1,
+    "offset": [
+      0.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      "30.0%+0.0px",
+      "77.0%+0.0px"
+    ],
+    "type": "button",
+    "visible": true
+  }
+}
