@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import lobbyGame.netgameApi as onlineApi
 import server.extraServerApi as serverApi
 import cfg
 
@@ -10,14 +11,18 @@ class Srv(serverApi.GetServerSystemCls()):
 
     def Destroy(self):
         self.UnListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'AddServerPlayerEvent',
-                              self, self.on_add)
+                              self, self.connection_made)
+        self.UnListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(),
+                              'LoadServerAddonScriptsAfter', self, self.serve_forever)
 
         self._destroy()
 
     def __init__(self, *args):
         super(Srv, self).__init__(*args)
         self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'AddServerPlayerEvent',
-                            self, self.on_add)
+                            self, self.connection_made)
+        self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(),
+                            'LoadServerAddonScriptsAfter', self, self.serve_forever)
 
         self._flag = 1
 
@@ -27,5 +32,10 @@ class Srv(serverApi.GetServerSystemCls()):
     def _destroy(self):
         pass
 
-    def on_add(self, *args):
-        print 'AddServerPlayerEvent'
+    def serve_forever(self, *args):
+        pass
+
+    def connection_made(self, data):
+        uid = onlineApi.GetPlayerUid(data.get('id'))
+        if not uid:
+            return
