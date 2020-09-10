@@ -456,6 +456,7 @@ class GUI(clientApi.GetScreenNodeCls()):
             '/safezone_screen_panel'
             '/root_screen_panel'
         )
+        self._selected = None
         self._duel = None
 
     def standby(self):
@@ -482,7 +483,8 @@ class GUI(clientApi.GetScreenNodeCls()):
 
     def match(self, kws):
         if kws["TouchEvent"] == clientApi.GetMinecraftEnum().TouchEvent.TouchUp:
-            self._cli.NotifyToServer('G_MATCH', {
-                'addr': clientApi.GetLocalPlayerId(),
-                'court': self._selected
-            })
+            if self._selected is not None:
+                self._cli.NotifyToServer('G_MATCH', {
+                    'addr': clientApi.GetLocalPlayerId(),
+                    'court': self._selected
+                })
