@@ -1641,7 +1641,7 @@
     "type": "panel",
     "visible": true
   },
-  "debut": {
+  "homepage": {
     "anchor_from": "center",
     "anchor_to": "center",
     "controls": [
@@ -1846,7 +1846,7 @@
     "anchor_to": "center",
     "controls": [
       {
-        "debut@GUI.debut": {}
+        "homepage@GUI.homepage": {}
       },
       {
         "c@GUI.c": {}
@@ -5164,22 +5164,22 @@
     "type": "button",
     "visible": true
   },
-  "main": {
-    "absorbs_input": true,
-    "always_accepts_input": false,
+  "main@common.base_screen": {
+    "$screen_content": "GUI.dual"
+  },
+  "dual": {
     "controls": [
       {
-        "main_panel@GUI.main_panel": {}
+        "4real@GUI.4real": {}
       }
     ],
-    "force_render_below": false,
-    "is_showing_menu": true,
-    "render_game_behind": true,
-    "render_only_when_topmost": true,
-    "should_steal_mouse": false,
-    "type": "screen"
+    "size": [
+      "100%",
+      "100%"
+    ],
+    "type": "panel"
   },
-  "main_panel": {
+  "4real": {
     "anchor_from": "center",
     "anchor_to": "center",
     "controls": [
