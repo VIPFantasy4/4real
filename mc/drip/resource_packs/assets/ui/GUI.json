@@ -3101,7 +3101,7 @@
       25.0
     ],
     "type": "panel",
-    "visible": true
+    "visible": false
   },
   "lbanker": {
     "anchor_from": "top_left",

@@ -1,50 +1,57 @@
 # -*- coding: utf-8 -*-
 
 from collections import OrderedDict
-import weakref
 import client.extraClientApi as clientApi
 import cfg
 
+POKER = "textures/ui/poker/{}"
+M = {
+    1: xrange(9, 10),
+    2: xrange(9, 11),
+    3: xrange(8, 11),
+    4: xrange(8, 12),
+    5: xrange(7, 12),
+    6: xrange(7, 13),
+    7: xrange(6, 13),
+    8: xrange(6, 14),
+    9: xrange(5, 14),
+    10: xrange(5, 15),
+    11: xrange(4, 15),
+    12: xrange(4, 16),
+    13: xrange(3, 16),
+    14: xrange(3, 17),
+    15: xrange(2, 17),
+    16: xrange(2, 18),
+    17: xrange(1, 18),
+    18: xrange(1, 19),
+    19: xrange(19),
+    20: xrange(20),
+}
+
 
 class Phase(object):
-    def __reduce__(self):
-        return tuple, ((self.name, self.turn),)
-
     def __init__(self, name, turn):
         self.name = name
         self.turn = turn
 
-    def __str__(self):
-        return 'Phase(%s, %s)' % (self.name, self.turn)
-
-    __repr__ = __str__
-
 
 class Chain(object):
-    def __reduce__(self):
-        return tuple, ((self.phase, self.times, self.three, self.track),)
-
     def __init__(self, duel, phase, times, three, track):
-        self.duel = weakref.proxy(duel)
+        self.duel = duel  # type: Duel
         self.phase = Phase(*phase)
-        self.times = times
+        self.times = abs(times)
         self.three = three
         self.track = track
 
-    def __str__(self):
-        return 'Chain(%s, %s, %s, %s)' % (
-            self.phase, self.times, self.three, '\n'.join(repr(item) for item in self.track))
-
-    __repr__ = __str__
+        g = self.duel.g
+        if self.three:
+            pass
+        g.SetText(g.times, str(times))
 
 
 class Gambler(object):
-    def __reduce__(self):
-        return tuple, (
-            (self.addr, sum(map(lambda s: len(s), self.cards.itervalues())), self.role, self.og, self.times, self.bot),)
-
     def __init__(self, duel, addr, cards, show_hand, role, og, times, bot):
-        self.duel = weakref.proxy(duel)
+        self.duel = duel  # type: Duel
         self.addr = addr
         self.cards = cards
         self.show_hand = show_hand
@@ -53,28 +60,86 @@ class Gambler(object):
         self.times = times
         self.bot = bot
 
-    def __str__(self):
-        return 'Gambler(%s, %s, %s, %s, %s)' % (self.addr, sum(
-            map(lambda s: len(s), self.cards.itervalues())), self.role, self.og, self.bot)
+        g = self.duel.g
+        phase = self.duel.chain.phase
+        if phase.name == 'DrawPhase':
+            if not self.show_hand:
+                g.SetVisible(g.court + '/showhand', True)
+        elif phase.name == 'PlusPhase':
+            if not self.times:
+                g.SetVisible(g.plus, True)
+        elif phase.name == 'GangPhase':
+            if phase.turn == addr:
+                g.SetVisible(g.gang, True)
+        elif phase.name == 'MainPhase':
+            track = self.duel.chain.track
+            if phase.turn == addr:
+                if not track:
+                    g.SetVisible(g.turn + '/pass', False)
+                elif track[-2:] + [None for _ in xrange(2 - len(track))] == [None, None]:
+                    g.SetVisible(g.turn + '/pass', False)
+                    g.SetVisible(g.turn + '/sh', False)
+                else:
+                    g.SetVisible(g.turn + '/sh', False)
+                g.SetVisible(g.turn, True)
+            else:
+                for combo in track[-2:]:
+                    if combo.owner == addr:
+                        if combo.view:
+                            view = combo.view
+                            r = M[len(view)]
+                            count = 0
+                            for i in xrange(20):
+                                c = g.m + '/c{}'.format(i)
+                                on = i in r
+                                if on:
+                                    g.SetSprite(c, POKER.format(tuple(view[count])))
+                                    count += 1
+                                g.SetVisible(c, on)
+                            g.SetVisible(g.m, True)
+                        else:
+                            g.SetText(g.choice, '不出')
+                            g.SetVisible(g.choice, True)
+        if bot > 0:
+            g.SetVisible(g.auto, True)
+        r = M[len(cards)]
+        count = 0
+        for i in xrange(20):
+            c = g.mh + '/m{}'.format(i)
+            on = i in r
+            if on:
+                g.SetSprite(c + '', POKER.format(tuple(cards[count])))
+                g.SetSprite(c + '', POKER.format(tuple(cards[count])))
+                g.SetSprite(c + '', POKER.format(tuple(cards[count])))
+                count += 1
+            g.SetVisible(c, on)
+        g.SetVisible(g.mh, True)
 
-    __repr__ = __str__
+
+class L(Gambler):
+    pass
+
+
+class R(Gambler):
+    pass
 
 
 class Duel(object):
-    def __init__(self, _id, status, gamblers, chain):
-        self._id = _id
+    def __init__(self, g, uid, status, gamblers, chain):
+        self.g = g  # type: GUI
+        self.uid = uid
         self._status = status
+        self.chain = Chain(self, *chain)
         od = OrderedDict()
-        for args in gamblers:
-            gambler = Gambler(self, *args)
+        for i, pair in enumerate(zip(((Gambler, R, L), (L, Gambler, R), (R, L, Gambler))[map(
+                lambda args: args[0], gamblers).index(uid)], gamblers)):
+            cls, args = pair
+            gambler = cls(self, i, *args)
             od[gambler.addr] = gambler
         self.gamblers = od
-        self.chain = Chain(self, *chain)
 
-    def __str__(self):
-        return 'Duel(\n%s,\n%s,\n%s\n)\n' % (self._id, self.gamblers, self.chain)
-
-    __repr__ = __str__
+    def catch_up(self):
+        pass
 
 
 class Cli(clientApi.GetClientSystemCls()):
@@ -128,7 +193,7 @@ class Cli(clientApi.GetClientSystemCls()):
         else:
             self._g.standby()
             self.NotifyToServer('G_DEBUT', {
-                'addr': clientApi.GetLocalPlayerId(),
+                'pid': clientApi.GetLocalPlayerId(),
             })
 
     def debut(self, data):
@@ -439,11 +504,15 @@ class GUI(clientApi.GetScreenNodeCls()):
         if not self.debut:
             self.debut = True
         if self._duel is args is None:
+            self.SetVisible(self.court, False)
             self.SetVisible(self.room, False)
             self.SetVisible(self.real, True)
             return
         if self.retreat:
             pass
+        if self._duel is None:
+            self._duel = Duel(self, *args)
+            self.SetVisible(self.court, True)
 
     def __init__(self, *args):
         super(GUI, self).__init__(*args)
@@ -476,15 +545,18 @@ class GUI(clientApi.GetScreenNodeCls()):
         if kws["TouchEvent"] == clientApi.GetMinecraftEnum().TouchEvent.TouchUp:
             if self.retreat:
                 pass
-            else:
+            elif self._selected is None:
                 self._selected = 0
+                self.SetVisible(self.top, False)
                 self.SetVisible(self.flip, False)
+                self.SetVisible(self.toolbar, False)
+                self.SetVisible(self.infobar, True)
                 self.SetVisible(self.room, True)
 
     def match(self, kws):
         if kws["TouchEvent"] == clientApi.GetMinecraftEnum().TouchEvent.TouchUp:
             if self._selected is not None:
                 self._cli.NotifyToServer('G_MATCH', {
-                    'addr': clientApi.GetLocalPlayerId(),
+                    'pid': clientApi.GetLocalPlayerId(),
                     'court': self._selected
                 })
