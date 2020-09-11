@@ -3136,7 +3136,7 @@
       0,
       0
     ],
-    "visible": true
+    "visible": false
   },
   "lblank": {
     "anchor_from": "top_left",
@@ -3483,7 +3483,7 @@
       21.0
     ],
     "type": "panel",
-    "visible": true
+    "visible": false
   },
   "licon@common.button": {
     "$default_texture": "textures/ui/Steve",
@@ -3692,7 +3692,7 @@
     "text": "§6<加倍>",
     "text_alignment": "left",
     "type": "label",
-    "visible": true
+    "visible": false
   },
   "lsup": {
     "anchor_from": "top_left",
@@ -3718,7 +3718,7 @@
     "text": "§6<超级加倍>",
     "text_alignment": "left",
     "type": "label",
-    "visible": true
+    "visible": false
   },
   "ltray": {
     "anchor_from": "top_left",
@@ -5533,7 +5533,7 @@
       85.0
     ],
     "type": "panel",
-    "visible": true
+    "visible": false
   },
   "msec": {
     "anchor_from": "center",
@@ -5621,7 +5621,7 @@
       0,
       0
     ],
-    "visible": true
+    "visible": false
   },
   "pass@common.button": {
     "$default_texture": "textures/netease/common/button/default",
@@ -6052,7 +6052,7 @@
       0,
       0
     ],
-    "visible": true
+    "visible": false
   },
   "rblank": {
     "anchor_from": "top_right",
@@ -6817,7 +6817,7 @@
     "text": "§6<加倍>",
     "text_alignment": "left",
     "type": "label",
-    "visible": true
+    "visible": false
   },
   "rsup": {
     "anchor_from": "top_right",
@@ -6843,7 +6843,7 @@
     "text": "§6<超级加倍>",
     "text_alignment": "left",
     "type": "label",
-    "visible": true
+    "visible": false
   },
   "rtray": {
     "anchor_from": "top_right",
