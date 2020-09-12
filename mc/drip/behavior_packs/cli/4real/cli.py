@@ -79,6 +79,11 @@ class Chain(object):
         elif name == 'MainPhase':
             if name != phase.name:
                 pass
+            elif self.phase.turn == self.duel.uid != phase.turn:
+                g.selected = None
+                for i in xrange(20):
+                    h = g.mh + '/m{}'.format(i)
+                    g.SetPosition(h, g.origins[i])
         self.phase = phase
         self.track = track
 
@@ -653,6 +658,22 @@ class GUI(clientApi.GetScreenNodeCls()):
         self.AddTouchEventHandler(self.c + '/classical', self.classical)  # flip
         self.AddTouchEventHandler(self.cc + '/rookie', self.rookie)  # flip
         self.AddTouchEventHandler(self.room + '/match', self.match)  # room
+        origins = []
+        for i in xrange(20):
+            h = self.mh + '/m{}'.format(i)
+            origins.append(self.GetPosition(h))
+            self.AddTouchEventHandler(h, self.select)
+        self.origins = tuple(origins)
+        self.AddTouchEventHandler(self.court + '/showhand', self.showhand)  # room
+        self.AddTouchEventHandler(self.gang + '/fightover', self.fightover)  # room
+        self.AddTouchEventHandler(self.gang + '/giveup', self.giveup)  # room
+        self.AddTouchEventHandler(self.plus + '/su', self.su)  # room
+        self.AddTouchEventHandler(self.plus + '/sup', self.sup)  # room
+        self.AddTouchEventHandler(self.plus + '/calm', self.calm)  # room
+        self.AddTouchEventHandler(self.turn + '/pass', self.skip)  # room
+        self.AddTouchEventHandler(self.turn + '/hint', self.hint)  # room
+        self.AddTouchEventHandler(self.turn + '/play', self.play)  # room
+        self.AddTouchEventHandler(self.turn + '/sh', self.showhand)  # room
 
     # <editor-fold desc="widgets">
     # region room
@@ -957,7 +978,9 @@ class GUI(clientApi.GetScreenNodeCls()):
             '/safezone_screen_panel'
             '/root_screen_panel'
         )
-        self._selected = None
+        self.origins = None
+        self.selected = None
+        self._court = None
         self._duel = None
 
     def standby(self):
@@ -977,8 +1000,10 @@ class GUI(clientApi.GetScreenNodeCls()):
         if kws["TouchEvent"] == clientApi.GetMinecraftEnum().TouchEvent.TouchUp:
             if self.retreat:
                 pass
-            elif self._selected is None:
-                self._selected = 0
+            elif self._court is None:
+                self._court = 0
+                self.SetText(self.fee, '996')
+                self.SetText(self.utmost, '4396万')
                 self.SetVisible(self.top, False)
                 self.SetVisible(self.flip, False)
                 self.SetVisible(self.toolbar, False)
@@ -987,8 +1012,38 @@ class GUI(clientApi.GetScreenNodeCls()):
 
     def match(self, kws):
         if kws["TouchEvent"] == clientApi.GetMinecraftEnum().TouchEvent.TouchUp:
-            if self._selected is not None:
+            if self._court is not None:
                 self._cli.NotifyToServer('G_MATCH', {
                     'pid': clientApi.GetLocalPlayerId(),
-                    'court': self._selected
+                    'court': self._court
                 })
+
+    def select(self, kws):
+        pass
+
+    def showhand(self, kws):
+        pass
+
+    def fightover(self, kws):
+        pass
+
+    def giveup(self, kws):
+        pass
+
+    def calm(self, kws):
+        pass
+
+    def su(self, kws):
+        pass
+
+    def sup(self, kws):
+        pass
+
+    def skip(self, kws):
+        pass
+
+    def hint(self, kws):
+        pass
+
+    def play(self, kws):
+        pass
