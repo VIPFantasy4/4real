@@ -281,25 +281,7 @@ class L(object):
             if phase.turn == addr:
                 g.SetVisible(g.lclock, True)
             else:
-                track = self.duel.chain.track
-                for combo in track[-2:]:
-                    if combo.owner == addr:
-                        if combo.view:
-                            view = combo.view
-                            r = xrange(len(view))
-                            count = 0
-                            for i in xrange(20):
-                                c = g.l + '/c{}'.format(i)
-                                on = i in r
-                                if on:
-                                    g.SetSprite(c, POKER.format(tuple(view[count])))
-                                    count += 1
-                                g.SetVisible(c, on)
-                            g.SetVisible(g.l, True)
-                        else:
-                            g.SetText(g.lchoice, '不出')
-                            g.SetVisible(g.lchoice, True)
-                        break
+                self._main()
         if show_hand:
             r = xrange(len(cards))
             count = 0
@@ -320,6 +302,81 @@ class L(object):
             g.SetVisible(g.lsup, True)
         if og:
             g.SetVisible(g.lbanker, True)
+
+    def catch_up(self, addr, cards, show_hand, role, og, times, bot):
+        self.role = role
+        g = self.duel.g
+        phase = self.duel.chain.phase
+        if phase.name == 'GangPhase':
+            g.SetVisible(g.lclock, phase.turn == addr)
+        elif phase.name == 'PlusPhase':
+            if self.times != times:
+                if times == 1:
+                    g.SetText(g.lchoice, '不加倍')
+                    g.SetVisible(g.lchoice, True)
+                elif times == 2:
+                    g.SetText(g.lchoice, '加倍')
+                    g.SetVisible(g.lchoice, True)
+                    g.SetVisible(g.lsu, True)
+                elif times == 4:
+                    g.SetText(g.lchoice, '超级加倍')
+                    g.SetVisible(g.lchoice, True)
+                    g.SetVisible(g.lsup, True)
+        elif phase.name == 'MainPhase':
+            turn = phase.turn == addr
+            if turn:
+                g.SetVisible(g.lchoice, False)
+                g.SetVisible(g.l, False)
+            else:
+                self._main()
+            g.SetVisible(g.lclock, turn)
+        self.times = times
+        self.bot = bot
+        if self.og != og:
+            g.SetVisible(g.lbanker, og)
+            self.og = og
+        qty = cards if isinstance(cards, int) else len(cards)
+        if qty != (self.cards if isinstance(self.cards, int) else len(self.cards)):
+            self.cards = cards
+            g.SetText(g.lcount, str(qty))
+            if show_hand:
+                self.show_hand = None
+        if self.show_hand != show_hand:
+            if show_hand:
+                r = xrange(len(cards))
+                count = 0
+                for i in xrange(20):
+                    h = g.lh + '/h{}'.format(i)
+                    on = i in r
+                    if on:
+                        g.SetSprite(h, POKER.format(tuple(cards[count])))
+                        count += 1
+                    g.SetVisible(h, on)
+            g.SetVisible(g.lh, show_hand)
+            self.show_hand = show_hand
+
+    def _main(self):
+        addr = self.addr
+        g = self.duel.g
+        track = self.duel.chain.track
+        for combo in track[-2:]:
+            if combo.owner == addr:
+                if combo.view:
+                    view = combo.view
+                    r = xrange(len(view))
+                    count = 0
+                    for i in xrange(20):
+                        c = g.l + '/c{}'.format(i)
+                        on = i in r
+                        if on:
+                            g.SetSprite(c, POKER.format(tuple(view[count])))
+                            count += 1
+                        g.SetVisible(c, on)
+                    g.SetVisible(g.l, True)
+                else:
+                    g.SetText(g.lchoice, '不出')
+                    g.SetVisible(g.lchoice, True)
+                break
 
 
 class R(object):
@@ -356,25 +413,7 @@ class R(object):
             if phase.turn == addr:
                 g.SetVisible(g.rclock, True)
             else:
-                track = self.duel.chain.track
-                for combo in track[-2:]:
-                    if combo.owner == addr:
-                        if combo.view:
-                            view = combo.view
-                            r = xrange(19, 19 - len(view), -1)
-                            count = 0
-                            for i in xrange(20):
-                                c = g.r + '/c{}'.format(i)
-                                on = i in r
-                                if on:
-                                    g.SetSprite(c, POKER.format(tuple(view[count])))
-                                    count += 1
-                                g.SetVisible(c, on)
-                            g.SetVisible(g.r, True)
-                        else:
-                            g.SetText(g.rchoice, '不出')
-                            g.SetVisible(g.rchoice, True)
-                        break
+                self._main()
         if show_hand:
             r = xrange(19, 19 - len(cards), -1)
             count = 0
@@ -395,6 +434,81 @@ class R(object):
             g.SetVisible(g.rsup, True)
         if og:
             g.SetVisible(g.rbanker, True)
+
+    def catch_up(self, addr, cards, show_hand, role, og, times, bot):
+        self.role = role
+        g = self.duel.g
+        phase = self.duel.chain.phase
+        if phase.name == 'GangPhase':
+            g.SetVisible(g.rclock, phase.turn == addr)
+        elif phase.name == 'PlusPhase':
+            if self.times != times:
+                if times == 1:
+                    g.SetText(g.rchoice, '不加倍')
+                    g.SetVisible(g.rchoice, True)
+                elif times == 2:
+                    g.SetText(g.rchoice, '加倍')
+                    g.SetVisible(g.rchoice, True)
+                    g.SetVisible(g.rsu, True)
+                elif times == 4:
+                    g.SetText(g.rchoice, '超级加倍')
+                    g.SetVisible(g.rchoice, True)
+                    g.SetVisible(g.rsup, True)
+        elif phase.name == 'MainPhase':
+            turn = phase.turn == addr
+            if turn:
+                g.SetVisible(g.rchoice, False)
+                g.SetVisible(g.r, False)
+            else:
+                self._main()
+            g.SetVisible(g.rclock, turn)
+        self.times = times
+        self.bot = bot
+        if self.og != og:
+            g.SetVisible(g.rbanker, og)
+            self.og = og
+        qty = cards if isinstance(cards, int) else len(cards)
+        if qty != (self.cards if isinstance(self.cards, int) else len(self.cards)):
+            self.cards = cards
+            g.SetText(g.rcount, str(qty))
+            if show_hand:
+                self.show_hand = None
+        if self.show_hand != show_hand:
+            if show_hand:
+                r = xrange(19, 19 - len(cards), -1)
+                count = 0
+                for i in xrange(20):
+                    h = g.rh + '/h{}'.format(i)
+                    on = i in r
+                    if on:
+                        g.SetSprite(h, POKER.format(tuple(cards[count])))
+                        count += 1
+                    g.SetVisible(h, on)
+            g.SetVisible(g.rh, show_hand)
+            self.show_hand = show_hand
+
+    def _main(self):
+        addr = self.addr
+        g = self.duel.g
+        track = self.duel.chain.track
+        for combo in track[-2:]:
+            if combo.owner == addr:
+                if combo.view:
+                    view = combo.view
+                    r = xrange(19, 19 - len(view), -1)
+                    count = 0
+                    for i in xrange(20):
+                        c = g.r + '/c{}'.format(i)
+                        on = i in r
+                        if on:
+                            g.SetSprite(c, POKER.format(tuple(view[count])))
+                            count += 1
+                        g.SetVisible(c, on)
+                    g.SetVisible(g.r, True)
+                else:
+                    g.SetText(g.rchoice, '不出')
+                    g.SetVisible(g.rchoice, True)
+                break
 
 
 class Duel(object):
