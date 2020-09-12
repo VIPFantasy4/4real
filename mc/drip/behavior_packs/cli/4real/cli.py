@@ -50,6 +50,10 @@ class Chain(object):
 
 
 class Gambler(object):
+    @property
+    def choice(self):
+        return self.duel.g.choice
+
     def __init__(self, duel, addr, cards, show_hand, role, og, times, bot):
         self.duel = duel  # type: Duel
         self.addr = addr
@@ -135,6 +139,10 @@ class Gambler(object):
 
 
 class L(object):
+    @property
+    def choice(self):
+        return self.duel.g.lchoice
+
     def __init__(self, duel, addr, cards, show_hand, role, og, times, bot):
         self.duel = duel  # type: Duel
         self.addr = addr
@@ -206,6 +214,10 @@ class L(object):
 
 
 class R(object):
+    @property
+    def choice(self):
+        return self.duel.g.rchoice
+
     def __init__(self, duel, addr, cards, show_hand, role, og, times, bot):
         self.duel = duel  # type: Duel
         self.addr = addr
@@ -283,12 +295,39 @@ class Duel(object):
         self._status = status
         self.chain = Chain(self, *chain)
         od = OrderedDict()
-        for i, pair in enumerate(zip(((Gambler, R, L), (L, Gambler, R), (R, L, Gambler))[map(
-                lambda args: args[0], gamblers).index(uid)], gamblers)):
-            cls, args = pair
-            gambler = cls(self, i, *args)
+        for cls, args in zip(((Gambler, R, L), (L, Gambler, R), (R, L, Gambler))[map(
+                lambda args: args[0], gamblers).index(uid)], gamblers):
+            gambler = cls(self, *args)
             od[gambler.addr] = gambler
         self.gamblers = od
+        if self.chain.phase.name == 'GangPhase':
+            phase = self.chain.phase
+            turn = phase.turn
+            order = 0
+            for addr in od:
+                if addr == turn:
+                    break
+                order += 1
+            iterator = iter(od)
+            i = 0
+            thug = 0
+            while i < 3:
+                addr = next(iterator)
+                gambler = od[addr]
+                if i == order:
+                    if not gambler.role:
+                        break
+                    thug += 1
+                elif i < order:
+                    if not i or not thug:
+                        g.SetText(gambler.choice, gambler.role and '叫地主' or '不叫')
+                    else:
+                        g.SetText(gambler.choice, gambler.role and '抢地主' or '不抢')
+                    g.SetVisible(gambler.choice, True)
+                elif thug > 1:
+                    g.SetText(gambler.choice, gambler.role and '抢地主' or '不抢')
+                    g.SetVisible(gambler.choice, True)
+                thug += gambler.role
 
     def catch_up(self):
         pass
