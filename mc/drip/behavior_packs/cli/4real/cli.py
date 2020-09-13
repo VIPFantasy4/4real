@@ -80,7 +80,7 @@ class Chain(object):
             if name != phase.name:
                 pass
             elif self.phase.turn == self.duel.uid != phase.turn:
-                g.selected = None
+                g.selected.clear()
                 for i in xrange(20):
                     h = g.mh + '/m{}'.format(i)
                     g.SetPosition(h, g.origins[i])
@@ -978,8 +978,8 @@ class GUI(clientApi.GetScreenNodeCls()):
             '/safezone_screen_panel'
             '/root_screen_panel'
         )
+        self.selected = set()
         self.origins = None
-        self.selected = None
         self._court = None
         self._duel = None
 
@@ -1019,31 +1019,87 @@ class GUI(clientApi.GetScreenNodeCls()):
                 })
 
     def select(self, kws):
-        pass
+        if kws["TouchEvent"] == clientApi.GetMinecraftEnum().TouchEvent.TouchMoveIn:
+            if self.duel:
+                i = int(kws['ButtonPath'][::-1].split('/', 1)[0][:-1][::-1])
+                if i in self.duel.gamblers[self.duel.uid].cards:
+                    x, y = self.origins[i]
+                    if i in self.selected:
+                        self.selected.discard(i)
+                        self.SetPosition(kws['ButtonPath'], (x, y))
+                    else:
+                        self.selected.add(i)
+                        self.SetPosition(kws['ButtonPath'], (x, y - 14.0))
 
     def showhand(self, kws):
-        pass
+        if kws["TouchEvent"] == clientApi.GetMinecraftEnum().TouchEvent.TouchUp:
+            self._cli.NotifyToServer('G_COURT', {
+                'pid': clientApi.GetLocalPlayerId(),
+                'name': 'show_hand',
+                'args': []
+            })
 
     def fightover(self, kws):
-        pass
+        if kws["TouchEvent"] == clientApi.GetMinecraftEnum().TouchEvent.TouchUp:
+            self._cli.NotifyToServer('G_COURT', {
+                'pid': clientApi.GetLocalPlayerId(),
+                'name': 'choose',
+                'args': [1]
+            })
 
     def giveup(self, kws):
-        pass
+        if kws["TouchEvent"] == clientApi.GetMinecraftEnum().TouchEvent.TouchUp:
+            self._cli.NotifyToServer('G_COURT', {
+                'pid': clientApi.GetLocalPlayerId(),
+                'name': 'choose',
+                'args': [0]
+            })
 
     def calm(self, kws):
-        pass
+        if kws["TouchEvent"] == clientApi.GetMinecraftEnum().TouchEvent.TouchUp:
+            self._cli.NotifyToServer('G_COURT', {
+                'pid': clientApi.GetLocalPlayerId(),
+                'name': 'times',
+                'args': [1]
+            })
 
     def su(self, kws):
-        pass
+        if kws["TouchEvent"] == clientApi.GetMinecraftEnum().TouchEvent.TouchUp:
+            self._cli.NotifyToServer('G_COURT', {
+                'pid': clientApi.GetLocalPlayerId(),
+                'name': 'times',
+                'args': [2]
+            })
 
     def sup(self, kws):
-        pass
+        if kws["TouchEvent"] == clientApi.GetMinecraftEnum().TouchEvent.TouchUp:
+            self._cli.NotifyToServer('G_COURT', {
+                'pid': clientApi.GetLocalPlayerId(),
+                'name': 'times',
+                'args': [4]
+            })
 
     def skip(self, kws):
-        pass
+        if kws["TouchEvent"] == clientApi.GetMinecraftEnum().TouchEvent.TouchUp:
+            self._cli.NotifyToServer('G_COURT', {
+                'pid': clientApi.GetLocalPlayerId(),
+                'name': 'play',
+                'args': [{}]
+            })
 
     def hint(self, kws):
         pass
 
     def play(self, kws):
-        pass
+        if kws["TouchEvent"] == clientApi.GetMinecraftEnum().TouchEvent.TouchUp:
+            if self.selected:
+                cards = {}
+                gambler = self.duel.gamblers[self.duel.uid]
+                for i in self.selected:
+                    card = gambler.cards[i]
+                    cards.setdefault(card[0], []).append(card)
+                self._cli.NotifyToServer('G_COURT', {
+                    'pid': clientApi.GetLocalPlayerId(),
+                    'name': 'play',
+                    'args': [cards]
+                })
