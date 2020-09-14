@@ -17,7 +17,7 @@ class Gambler:
         self.show_hand = False
         self.role = 0
         self.og = False
-        self.times = 0
+        self.times = None
         self.bot = -1
 
     @property

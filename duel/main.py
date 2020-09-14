@@ -141,6 +141,8 @@ class Real:
     async def main(self):
         self.funcs[self.participate.__name__] = self.participate
 
+        self.funcs[self.rcall.__name__] = self.rcall
+
         self._work_queue = asyncio.Queue()
         self._wait_queue = asyncio.Queue()
 
@@ -153,6 +155,12 @@ class Real:
             asyncio.create_task(self.creator())
             asyncio.create_task(self.consume_forever())
             await server.serve_forever()
+
+    async def rcall(self, _id, data):
+        if _id in self._conns:
+            writer = self._conns[_id][1]
+            writer.write(pickle.dumps(data).hex().encode() + b'.')
+            await writer.drain()
 
 
 if __name__ == '__main__':

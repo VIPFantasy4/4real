@@ -231,11 +231,12 @@ class Gambler(object):
                 g.SetVisible(g.turn + '/sh', False)
             else:
                 g.SetVisible(g.turn + '/sh', False)
+                g.SetVisible(g.turn + '/pass', True)
         else:
             for combo in track[-2:]:
-                if combo.owner == addr:
-                    if combo.view:
-                        view = combo.view
+                if combo[1] == addr:
+                    if combo[2]:
+                        view = combo[2]
                         r = M[len(view)]
                         count = 0
                         for i in xrange(20):
@@ -365,9 +366,9 @@ class L(object):
         g = self.duel.g
         track = self.duel.chain.track
         for combo in track[-2:]:
-            if combo.owner == addr:
-                if combo.view:
-                    view = combo.view
+            if combo[1] == addr:
+                if combo[2]:
+                    view = combo[2]
                     r = xrange(len(view))
                     count = 0
                     for i in xrange(20):
@@ -497,9 +498,9 @@ class R(object):
         g = self.duel.g
         track = self.duel.chain.track
         for combo in track[-2:]:
-            if combo.owner == addr:
-                if combo.view:
-                    view = combo.view
+            if combo[1] == addr:
+                if combo[2]:
+                    view = combo[2]
                     r = xrange(19, 19 - len(view), -1)
                     count = 0
                     for i in xrange(20):
@@ -567,6 +568,7 @@ class Duel(object):
                     g.SetText(gambler.choice, gambler.role and '抢地主' or '不抢')
                     g.SetVisible(gambler.choice, True)
                 thug += gambler.role
+                i += 1
 
     def catch_up(self, uid, status, gamblers, chain):
         self.uid = uid
@@ -919,10 +921,6 @@ class GUI(clientApi.GetScreenNodeCls()):
         return self.top + '/rank'
 
     @property
-    def name(self):
-        return self.top + '/name'
-
-    @property
     def top(self):
         return self.real + '/top'
 
@@ -938,7 +936,7 @@ class GUI(clientApi.GetScreenNodeCls()):
         self.SetText(self.balance, info['real'])
         self.SetText(self.top + '/real', info['real'])
         self.SetText(self.shorty, info['name'])
-        self.SetText(self.name, info['name'])
+        self.SetText(self.top + '/name', info['name'])
         self.SetSprite(self.plate, info['rank'])
         self.SetSprite(self.rank, info['rank'])
         self.SetSprite(self.icon, info['icon'])
@@ -955,6 +953,7 @@ class GUI(clientApi.GetScreenNodeCls()):
         if not self.debut:
             self.debut = True
         if self._duel is args is None:
+            self.SetVisible(self.mh, False)
             self.SetVisible(self.court, False)
             self.SetVisible(self.room, False)
             self.SetVisible(self.real, True)
@@ -963,6 +962,7 @@ class GUI(clientApi.GetScreenNodeCls()):
             pass
         if self._duel is None:
             self._duel = Duel(self, *args)
+            self.SetVisible(self.room + '/match', False)
             self.SetVisible(self.court, True)
         else:
             self._duel.catch_up(*args)

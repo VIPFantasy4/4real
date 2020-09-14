@@ -5533,7 +5533,7 @@
       85.0
     ],
     "type": "panel",
-    "visible": false
+    "visible": true
   },
   "msec": {
     "anchor_from": "center",
