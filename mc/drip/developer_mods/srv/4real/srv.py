@@ -46,10 +46,9 @@ class Duel(object):
         return addr, self._status, [
             gambler.addr == addr and (
                 gambler.addr,
-                sorted(reduce(lambda x, y: x + y, map(lambda s: tuple(s), gambler.cards.itervalues()))),
-                gambler.show_hand, gambler.role, gambler.og, gambler.times, gambler.bot
-            ) or (
-                gambler.addr, sum(map(lambda s: len(s), gambler.cards.itervalues())),
+                (gambler.addr == addr and sorted(
+                    reduce(lambda x, y: x + y, map(lambda s: tuple(s), gambler.cards.itervalues()))) or sum(
+                    map(lambda s: len(s), gambler.cards.itervalues()))),
                 gambler.show_hand, gambler.role, gambler.og, gambler.times, gambler.bot
             ) for gambler in self.gamblers.itervalues()
         ], ((self.chain.phase.name, self.chain.phase.turn), self.chain.times, self.chain.three, self.chain.track)
