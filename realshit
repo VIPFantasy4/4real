@@ -2,6 +2,6 @@
 4: webserver到duelservice塞人的过程
 5: duel到webserver结算
 6: webserver显示duelservice状态
-8: http请求返回自己最新的余额称号头像，在对局中还要返回其余两人请求时存的数据
+8: http请求返回自己最新的余额称号头像，在G_MATCH中还要返回其余两人请求时存的数据
 9: 每个场都是唯一编号
-10: 改一下plusphase，最初是none，进的时候是0，出的时候是1
+11: webserver转发rcall
