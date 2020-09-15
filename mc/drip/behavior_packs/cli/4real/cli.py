@@ -574,8 +574,12 @@ class Duel(object):
         self.uid = uid
         self._status = status
         self.chain.catch_up(*chain)
-        for gambler in self.gamblers.itervalues():
-            gambler.catch_up(*gamblers.pop(0))
+        od = OrderedDict()
+        for args in gamblers:
+            gambler = self.gamblers[args[0]]
+            gambler.catch_up(*args)
+            od[gambler.addr] = gambler
+        self.gamblers = od
         self._gang()
 
 

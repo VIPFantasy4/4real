@@ -43,14 +43,13 @@ class Gambler(object):
 
 class Duel(object):
     def regress(self, addr):
-        return addr, self._status, [
-            gambler.addr == addr and (
-                gambler.addr,
-                (gambler.addr == addr and sorted(
-                    reduce(lambda x, y: x + y, map(lambda s: tuple(s), gambler.cards.itervalues()))) or sum(
-                    map(lambda s: len(s), gambler.cards.itervalues()))),
-                gambler.show_hand, gambler.role, gambler.og, gambler.times, gambler.bot
-            ) for gambler in self.gamblers.itervalues()
+        return addr, self._status, [(
+            gambler.addr,
+            sorted(
+                reduce(lambda x, y: x + y, map(lambda s: tuple(s), gambler.cards.itervalues()))
+            ) if gambler.show_hand or gambler.addr == addr else sum(map(lambda s: len(s), gambler.cards.itervalues())),
+            gambler.show_hand, gambler.role, gambler.og, gambler.times, gambler.bot
+        ) for gambler in self.gamblers.itervalues()
         ], ((self.chain.phase.name, self.chain.phase.turn), self.chain.times, self.chain.three, self.chain.track)
 
     def __init__(self, _id, status, gamblers, chain):
@@ -71,6 +70,8 @@ class Srv(serverApi.GetServerSystemCls()):
     def Destroy(self):
         self.UnListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'AddServerPlayerEvent',
                               self, self.connection_made)
+        self.UnListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'DelServerPlayerEvent',
+                              self, self.connection_lost)
         self.UnListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(),
                               'LoadServerAddonScriptsAfter', self, self.serve_forever)
         self.UnListenForEvent(cfg.MOD_NAMESPACE, cfg.MOD_CLI_NAME, 'G_DEBUT', self, self.debut)
@@ -83,12 +84,15 @@ class Srv(serverApi.GetServerSystemCls()):
         super(Srv, self).__init__(*args)
         self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'AddServerPlayerEvent',
                             self, self.connection_made)
+        self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(), 'DelServerPlayerEvent',
+                            self, self.connection_lost)
         self.ListenForEvent(serverApi.GetEngineNamespace(), serverApi.GetEngineSystemName(),
                             'LoadServerAddonScriptsAfter', self, self.serve_forever)
         self.ListenForEvent(cfg.MOD_NAMESPACE, cfg.MOD_CLI_NAME, 'G_DEBUT', self, self.debut)
         self.ListenForEvent(cfg.MOD_NAMESPACE, cfg.MOD_CLI_NAME, 'G_MATCH', self, self.match)
         self.ListenForEvent(cfg.MOD_NAMESPACE, cfg.MOD_CLI_NAME, 'G_COURT', self, self.rcall)
 
+        self.s = set()
         self._mapping = {}
         self._q = Queue()
         self._alive = True
@@ -117,7 +121,11 @@ class Srv(serverApi.GetServerSystemCls()):
                 msg = next(consumer)
             except StopIteration:
                 continue
-            self._q.put(msg.value)
+            data = msg.value
+            for args in data[2]:
+                if args[0] in self.s:
+                    self._q.put(data)
+                    break
 
     def process_forever(self):
         if self._alive:
@@ -136,9 +144,10 @@ class Srv(serverApi.GetServerSystemCls()):
                 pass
 
     def connection_made(self, data):
-        uid = onlineApi.GetPlayerUid(data.get('id'))
-        if not uid:
-            return
+        self.s.add(data['uid'])
+
+    def connection_lost(self, data):
+        self.s.discard(data['uid'])
 
     def debut(self, data):
         self.NotifyToClient(data['pid'], 'G_DEBUT', {
