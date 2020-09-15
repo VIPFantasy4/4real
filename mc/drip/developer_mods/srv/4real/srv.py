@@ -46,7 +46,7 @@ class Duel(object):
         return addr, self._status, [(
             gambler.addr,
             sorted(
-                reduce(lambda x, y: x + y, map(lambda s: tuple(s), gambler.cards.itervalues()))
+                reduce(lambda x, y: x + y, map(lambda s: tuple(s), gambler.cards.itervalues()) or [[]])
             ) if gambler.show_hand or gambler.addr == addr else sum(map(lambda s: len(s), gambler.cards.itervalues())),
             gambler.show_hand, gambler.role, gambler.og, gambler.times, gambler.bot
         ) for gambler in self.gamblers.itervalues()

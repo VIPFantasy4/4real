@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 
 from collections import OrderedDict
+from combo import Combo
 import client.extraClientApi as clientApi
 import cfg
 
 POKER = "textures/ui/poker/{}"
 M = {
+    0: (),
     1: xrange(9, 10),
     2: xrange(9, 11),
     3: xrange(8, 11),
@@ -41,7 +43,7 @@ class Chain(object):
         self.phase = Phase(*phase)
         self.times = abs(times)
         self.three = three
-        self.track = track
+        self.track = track[:-2] + [Combo.fromargs(args) for args in track[-2:]]
 
         g = self.duel.g
         if self.three:
@@ -85,7 +87,7 @@ class Chain(object):
                     h = g.mh + '/m{}'.format(i)
                     g.SetPosition(h, g.origins[i])
         self.phase = phase
-        self.track = track
+        self.track = track[:-2] + [Combo.fromargs(args) for args in track[-2:]]
 
 
 class Gambler(object):
@@ -165,6 +167,7 @@ class Gambler(object):
             on = phase.turn == addr
             g.SetVisible(g.gang, on)
             g.SetVisible(g.mclock, on)
+            g.SetVisible(g.choice, not on)
         elif phase.name == 'PlusPhase':
             if self.times != times:
                 if not times:
@@ -234,9 +237,9 @@ class Gambler(object):
                 g.SetVisible(g.turn + '/pass', True)
         else:
             for combo in track[-2:]:
-                if combo[1] == addr:
-                    if combo[2]:
-                        view = combo[2]
+                if combo.owner == addr:
+                    if combo.view:
+                        view = combo.view
                         r = M[len(view)]
                         count = 0
                         for i in xrange(20):
@@ -315,6 +318,7 @@ class L(object):
         phase = self.duel.chain.phase
         if phase.name == 'GangPhase':
             g.SetVisible(g.lclock, phase.turn == addr)
+            g.SetVisible(g.lchoice, phase.turn != addr)
         elif phase.name == 'PlusPhase':
             if self.times != times:
                 if times == 1:
@@ -366,9 +370,9 @@ class L(object):
         g = self.duel.g
         track = self.duel.chain.track
         for combo in track[-2:]:
-            if combo[1] == addr:
-                if combo[2]:
-                    view = combo[2]
+            if combo.owner == addr:
+                if combo.view:
+                    view = combo.view
                     r = xrange(len(view))
                     count = 0
                     for i in xrange(20):
@@ -447,6 +451,7 @@ class R(object):
         phase = self.duel.chain.phase
         if phase.name == 'GangPhase':
             g.SetVisible(g.rclock, phase.turn == addr)
+            g.SetVisible(g.rchoice, phase.turn != addr)
         elif phase.name == 'PlusPhase':
             if self.times != times:
                 if times == 1:
@@ -498,9 +503,9 @@ class R(object):
         g = self.duel.g
         track = self.duel.chain.track
         for combo in track[-2:]:
-            if combo[1] == addr:
-                if combo[2]:
-                    view = combo[2]
+            if combo.owner == addr:
+                if combo.view:
+                    view = combo.view
                     r = xrange(19, 19 - len(view), -1)
                     count = 0
                     for i in xrange(20):
