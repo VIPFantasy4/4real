@@ -167,7 +167,8 @@ class Gambler(object):
             on = phase.turn == addr
             g.SetVisible(g.gang, on)
             g.SetVisible(g.mclock, on)
-            g.SetVisible(g.choice, not on)
+            if on:
+                g.SetVisible(g.choice, False)
         elif phase.name == 'PlusPhase':
             if self.times != times:
                 if not times:
@@ -317,8 +318,10 @@ class L(object):
         g = self.duel.g
         phase = self.duel.chain.phase
         if phase.name == 'GangPhase':
-            g.SetVisible(g.lclock, phase.turn == addr)
-            g.SetVisible(g.lchoice, phase.turn != addr)
+            on = phase.turn == addr
+            g.SetVisible(g.lclock, on)
+            if on:
+                g.SetVisible(g.lchoice, False)
         elif phase.name == 'PlusPhase':
             if self.times != times:
                 if times == 1:
@@ -450,8 +453,10 @@ class R(object):
         g = self.duel.g
         phase = self.duel.chain.phase
         if phase.name == 'GangPhase':
-            g.SetVisible(g.rclock, phase.turn == addr)
-            g.SetVisible(g.rchoice, phase.turn != addr)
+            on = phase.turn == addr
+            g.SetVisible(g.rclock, on)
+            if on:
+                g.SetVisible(g.rchoice, False)
         elif phase.name == 'PlusPhase':
             if self.times != times:
                 if times == 1:
