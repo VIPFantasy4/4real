@@ -21,8 +21,7 @@ class Phase(object):
 
 
 class Chain(object):
-    def __init__(self, duel, phase, times, three, track):
-        self.duel = duel
+    def __init__(self, phase, times, three, track):
         self.phase = Phase(*phase)
         self.times = times
         self.three = three
@@ -30,8 +29,7 @@ class Chain(object):
 
 
 class Gambler(object):
-    def __init__(self, duel, addr, cards, show_hand, role, og, times, bot):
-        self.duel = duel
+    def __init__(self, addr, cards, show_hand, role, og, times, bot):
         self.addr = addr
         self.cards = cards
         self.show_hand = show_hand
@@ -57,10 +55,10 @@ class Duel(object):
         self._status = status
         od = OrderedDict()
         for args in gamblers:
-            gambler = Gambler(self, *args)
+            gambler = Gambler(*args)
             od[gambler.addr] = gambler
         self.gamblers = od
-        self.chain = Chain(self, *chain)
+        self.chain = Chain(*chain)
 
 
 class Srv(serverApi.GetServerSystemCls()):
