@@ -68,6 +68,7 @@ class DrawPhase(Phase):
         else:
             log.error('Invalid room%s can not enter DrawPhase', self._chain.duel.view())
             raise duelcore.DrawPhaseRuntimeError(duelcore.generate_traceback())
+        self._chain.duel.funcs[self._chain.bot.__name__] = self._chain.bot
         return self.till_i_die()
 
     async def till_i_die(self):
@@ -232,8 +233,9 @@ class MainPhase(Phase):
             fut.set_result(None)
 
     async def till_i_die(self, started_at=0):
+        gambler = self._od[self.turn]
         fut = asyncio.get_event_loop().create_future()
-        self._fut = fut
+        self._fut = gambler.fut = fut
         resumed_at = int(time.monotonic())
         task = asyncio.create_task(self.run_out(fut, started_at and resumed_at - started_at))
         try:
@@ -245,7 +247,6 @@ class MainPhase(Phase):
         self._fut = None
         self._chain.duel.funcs.pop(self.show_hand.__name__, None)
         del self._chain.duel.funcs[self.play.__name__]
-        gambler = self._od[self.turn]
         if isinstance(combo, duelcore.Combo):
             task.cancel()
             times = combo.times
@@ -255,6 +256,7 @@ class MainPhase(Phase):
         else:
             gambler.auto(self._track)
         if gambler.gg:
+            del self._chain.duel.funcs[self._chain.bot.__name__]
             print(f'this dude: {gambler.addr} win')
             await self._chain.duel.heartbeat()
         else:

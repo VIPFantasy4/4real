@@ -2,6 +2,7 @@
 
 from .exceptions import *
 import weakref
+import log
 
 
 class Chain:
@@ -33,3 +34,31 @@ class Chain:
                     await till_i_die
             except (DrawPhaseRuntimeError,) as e:
                 raise ChainRuntimeError(repr(e))
+
+    async def bot(self, addr, bot):
+        if self.bot.__name__ in self.duel.funcs:
+            _id, status, gamblers = self.duel.view()
+            if addr in gamblers:
+                gambler = gamblers[addr]
+                try:
+                    if gambler.bot > 0:
+                        if bot:
+                            raise DuelRuntimeError
+                        else:
+                            gambler.bot = -1
+                    elif bot:
+                        gambler.bot = 1
+                    else:
+                        raise DuelRuntimeError
+                    await self.duel.heartbeat()
+                    if gambler.fut is not None:
+                        if not gambler.fut.done():
+                            if bot:
+                                gambler.fut.set_result(None)
+                            else:
+                                gambler.fut.set_exception(HumanOperationResume)
+                        gambler.fut = None
+                except DuelRuntimeError:
+                    log.info(
+                        'A preventable request from addr: %s with bot: %s that attempts to set gambler.bot: %s is definitely redundant',
+                        addr, bot, gambler.bot)

@@ -19,6 +19,7 @@ class Gambler:
         self.og = False
         self.times = None
         self.bot = -1
+        self.fut = None
 
     @property
     def gg(self):
