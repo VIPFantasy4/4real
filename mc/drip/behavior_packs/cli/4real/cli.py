@@ -1056,6 +1056,7 @@ class GUI(clientApi.GetScreenNodeCls()):
             '/root_screen_panel'
         )
         self.selected = set()
+        self.proposals = []
         self.origins = None
         self._court = None
         self._duel = None
@@ -1181,7 +1182,8 @@ class GUI(clientApi.GetScreenNodeCls()):
             })
 
     def hint(self, kws):
-        pass
+        if kws["TouchEvent"] == clientApi.GetMinecraftEnum().TouchEvent.TouchUp:
+            pass
 
     def play(self, kws):
         if kws["TouchEvent"] == clientApi.GetMinecraftEnum().TouchEvent.TouchUp:
