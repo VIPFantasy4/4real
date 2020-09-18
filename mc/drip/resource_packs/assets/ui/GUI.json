@@ -62,7 +62,7 @@
     "layer": 300,
     "offset": [
       0.0,
-      -21.0
+      -24.0
     ],
     "pressed_control": "pressed",
     "size": [
@@ -2851,6 +2851,84 @@
     ],
     "visible": true
   },
+  "msh": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_right",
+    "color": [
+      1,
+      1,
+      1
+    ],
+    "font_scale_factor": 0.5899999737739563,
+    "font_size": "normal",
+    "font_type": "smooth",
+    "layer": 1,
+    "offset": [
+      48.0,
+      4.0
+    ],
+    "shadow": false,
+    "size": [
+      14.0,
+      5.0
+    ],
+    "text": "§4<明牌>",
+    "text_alignment": "left",
+    "type": "label",
+    "visible": false
+  },
+  "msu": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "color": [
+      1,
+      1,
+      1
+    ],
+    "font_scale_factor": 0.5899999737739563,
+    "font_size": "normal",
+    "font_type": "smooth",
+    "layer": 1,
+    "offset": [
+      50.0,
+      4.0
+    ],
+    "shadow": false,
+    "size": [
+      14.0,
+      5.0
+    ],
+    "text": "§e<加倍>",
+    "text_alignment": "left",
+    "type": "label",
+    "visible": false
+  },
+  "msup": {
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "color": [
+      1,
+      1,
+      1
+    ],
+    "font_scale_factor": 0.5899999737739563,
+    "font_size": "normal",
+    "font_type": "smooth",
+    "layer": 1,
+    "offset": [
+      50.0,
+      4.0
+    ],
+    "shadow": false,
+    "size": [
+      24.0,
+      5.0
+    ],
+    "text": "§e<超级加倍>",
+    "text_alignment": "left",
+    "type": "label",
+    "visible": false
+  },
   "infobar": {
     "anchor_from": "bottom_right",
     "anchor_to": "bottom_right",
@@ -2887,6 +2965,15 @@
       },
       {
         "bullshit@GUI.bullshit": {}
+      },
+      {
+        "msu@GUI.msu": {}
+      },
+      {
+        "msup@GUI.msup": {}
+      },
+      {
+        "msh@GUI.msh": {}
       }
     ],
     "is_new_nine_slice": false,
@@ -3226,7 +3313,7 @@
     ],
     "offset": [
       80.0,
-      20.0
+      22.0
     ],
     "size": [
       40.0,
@@ -3537,6 +3624,9 @@
       },
       {
         "button_label@GUI.button_label": {}
+      },
+      {
+        "robot@GUI.robot": {}
       }
     ],
     "default_control": "default",
@@ -3689,7 +3779,7 @@
       14.0,
       5.0
     ],
-    "text": "§6<加倍>",
+    "text": "§e<加倍>",
     "text_alignment": "left",
     "type": "label",
     "visible": false
@@ -3715,7 +3805,7 @@
       24.0,
       5.0
     ],
-    "text": "§6<超级加倍>",
+    "text": "§e<超级加倍>",
     "text_alignment": "left",
     "type": "label",
     "visible": false
@@ -5582,7 +5672,7 @@
       100.0,
       6.0
     ],
-    "text": "药水哥",
+    "text": "§8药水哥",
     "text_alignment": "left",
     "type": "label",
     "visible": true
@@ -6142,7 +6232,7 @@
     ],
     "offset": [
       -80.0,
-      20.0
+      22.0
     ],
     "size": [
       40.0,
@@ -6440,6 +6530,81 @@
     "type": "button",
     "visible": true
   },
+  "robot": {
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "controls": [
+      {
+        "android@GUI.android": {}
+      }
+    ],
+    "is_new_nine_slice": false,
+    "layer": 4,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "size": [
+      "100.0%+0.0px",
+      "100.0%+0.0px"
+    ],
+    "texture": "textures/ui/robot",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": false
+  },
+  "android": {
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "is_new_nine_slice": false,
+    "layer": 1,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      0.0,
+      1.0
+    ],
+    "size": [
+      10.0,
+      10.0
+    ],
+    "texture": "textures/ui/android",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": true
+  },
   "ricon@common.button": {
     "$default_texture": "textures/ui/Steve",
     "$hover_texture": "textures/ui/Steve",
@@ -6492,6 +6657,9 @@
       },
       {
         "button_label@GUI.button_label": {}
+      },
+      {
+        "robot@GUI.robot": {}
       }
     ],
     "default_control": "default",
@@ -6814,7 +6982,7 @@
       14.0,
       5.0
     ],
-    "text": "§6<加倍>",
+    "text": "§e<加倍>",
     "text_alignment": "left",
     "type": "label",
     "visible": false
@@ -6840,7 +7008,7 @@
       24.0,
       5.0
     ],
-    "text": "§6<超级加倍>",
+    "text": "§e<超级加倍>",
     "text_alignment": "left",
     "type": "label",
     "visible": false
@@ -7067,7 +7235,7 @@
       46.0,
       6.0
     ],
-    "text": "故意只显示七个字",
+    "text": "§8故意只显示七个字",
     "text_alignment": "left",
     "type": "label",
     "visible": true

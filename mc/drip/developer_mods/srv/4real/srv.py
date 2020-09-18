@@ -90,6 +90,8 @@ class Srv(serverApi.GetServerSystemCls()):
         self.ListenForEvent(cfg.MOD_NAMESPACE, cfg.MOD_CLI_NAME, 'G_MATCH', self, self.match)
         self.ListenForEvent(cfg.MOD_NAMESPACE, cfg.MOD_CLI_NAME, 'G_COURT', self, self.rcall)
 
+        self.CreateComponent(serverApi.GetLevelId(), 'Minecraft', 'game').OpenCityProtect()
+
         self.s = set()
         self._mapping = {}
         self._q = Queue()

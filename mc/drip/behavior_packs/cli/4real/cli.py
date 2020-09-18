@@ -6,6 +6,9 @@ import client.extraClientApi as clientApi
 import cfg
 
 POKER = "textures/ui/poker/{}"
+COLOR_CODE_MAPPING = {
+    0: '§8{}'
+}
 M = {
     0: (),
     1: xrange(9, 10),
@@ -137,6 +140,12 @@ class Gambler(object):
             g.SetVisible(g.og, True)
         if bot > 0:
             g.SetVisible(g.auto, True)
+        if times == 2:
+            g.SetVisible(g.msu, True)
+        elif times == 4:
+            g.SetVisible(g.msup, True)
+        if show_hand:
+            g.SetVisible(g.msh, True)
         r = M[len(cards)]
         count = 0
         for i in xrange(20):
@@ -194,8 +203,16 @@ class Gambler(object):
                 g.SetVisible(g.m, False)
             g.SetVisible(g.turn, turn)
             g.SetVisible(g.clock, turn)
-        self.show_hand = show_hand
-        self.times = times
+        if self.show_hand != show_hand:
+            if show_hand:
+                g.SetVisible(g.msh, True)
+            self.show_hand = show_hand
+        if self.times != times:
+            if times == 2:
+                g.SetVisible(g.msu, True)
+            elif times == 4:
+                g.SetVisible(g.msup, True)
+            self.times = times
         if self.og != og:
             g.SetVisible(g.og, og)
             self.og = og
@@ -312,6 +329,8 @@ class L(object):
             g.SetVisible(g.lsup, True)
         if og:
             g.SetVisible(g.lbanker, True)
+        if bot > 0:
+            g.SetVisible(g.lrobot, True)
 
     def catch_up(self, addr, cards, show_hand, role, og, times, bot):
         self.role = role
@@ -330,11 +349,9 @@ class L(object):
                 elif times == 2:
                     g.SetText(g.lchoice, '加倍')
                     g.SetVisible(g.lchoice, True)
-                    g.SetVisible(g.lsu, True)
                 elif times == 4:
                     g.SetText(g.lchoice, '超级加倍')
                     g.SetVisible(g.lchoice, True)
-                    g.SetVisible(g.lsup, True)
         elif phase.name == 'MainPhase':
             turn = phase.turn == addr
             if turn:
@@ -343,8 +360,18 @@ class L(object):
             else:
                 self._main()
             g.SetVisible(g.lclock, turn)
-        self.times = times
-        self.bot = bot
+        if self.times != times:
+            if times == 2:
+                g.SetVisible(g.lsu, True)
+            elif times == 4:
+                g.SetVisible(g.lsup, True)
+            self.times = times
+        if self.bot != bot:
+            if bot > 0:
+                g.SetVisible(g.lrobot, True)
+            else:
+                g.SetVisible(g.lrobot, False)
+            self.bot = bot
         if self.og != og:
             g.SetVisible(g.lbanker, og)
             self.og = og
@@ -447,6 +474,8 @@ class R(object):
             g.SetVisible(g.rsup, True)
         if og:
             g.SetVisible(g.rbanker, True)
+        if bot > 0:
+            g.SetVisible(g.rrobot, True)
 
     def catch_up(self, addr, cards, show_hand, role, og, times, bot):
         self.role = role
@@ -465,11 +494,9 @@ class R(object):
                 elif times == 2:
                     g.SetText(g.rchoice, '加倍')
                     g.SetVisible(g.rchoice, True)
-                    g.SetVisible(g.rsu, True)
                 elif times == 4:
                     g.SetText(g.rchoice, '超级加倍')
                     g.SetVisible(g.rchoice, True)
-                    g.SetVisible(g.rsup, True)
         elif phase.name == 'MainPhase':
             turn = phase.turn == addr
             if turn:
@@ -478,8 +505,18 @@ class R(object):
             else:
                 self._main()
             g.SetVisible(g.rclock, turn)
-        self.times = times
-        self.bot = bot
+        if self.times != times:
+            if times == 2:
+                g.SetVisible(g.rsu, True)
+            elif times == 4:
+                g.SetVisible(g.rsup, True)
+            self.times = times
+        if self.bot != bot:
+            if bot > 0:
+                g.SetVisible(g.rrobot, True)
+            else:
+                g.SetVisible(g.rrobot, False)
+            self.bot = bot
         if self.og != og:
             g.SetVisible(g.rbanker, og)
             self.og = og
@@ -674,6 +711,8 @@ class GUI(clientApi.GetScreenNodeCls()):
         self.AddTouchEventHandler(self.c + '/classical', self.classical)  # flip
         self.AddTouchEventHandler(self.cc + '/rookie', self.rookie)  # flip
         self.AddTouchEventHandler(self.room + '/match', self.match)  # room
+        self.AddTouchEventHandler(self.room + '/bot', self.bot)  # room
+        self.AddTouchEventHandler(self.auto + '/resume', self.resume)  # room
         origins = []
         for i in xrange(20):
             h = self.mh + '/m{}'.format(i)
@@ -693,6 +732,18 @@ class GUI(clientApi.GetScreenNodeCls()):
 
     # <editor-fold desc="widgets">
     # region room
+    @property
+    def msup(self):
+        return self.infobar + '/msup'
+
+    @property
+    def msu(self):
+        return self.infobar + '/msu'
+
+    @property
+    def msh(self):
+        return self.infobar + '/msh'
+
     @property
     def msec(self):
         return self.mclock + '/msec'
@@ -720,6 +771,10 @@ class GUI(clientApi.GetScreenNodeCls()):
     @property
     def auto(self):
         return self.court + '/auto'
+
+    @property
+    def rrobot(self):
+        return self.ricon + '/robot'
 
     @property
     def rchoice(self):
@@ -776,6 +831,10 @@ class GUI(clientApi.GetScreenNodeCls()):
     @property
     def right(self):
         return self.court + '/right'
+
+    @property
+    def lrobot(self):
+        return self.licon + '/robot'
 
     @property
     def lchoice(self):
@@ -949,8 +1008,8 @@ class GUI(clientApi.GetScreenNodeCls()):
     def real(self, info):
         self.SetText(self.balance, info['real'])
         self.SetText(self.top + '/real', info['real'])
-        self.SetText(self.shorty, info['name'])
-        self.SetText(self.top + '/name', info['name'])
+        self.SetText(self.shorty, COLOR_CODE_MAPPING[0].format(info['name']))
+        self.SetText(self.top + '/name', COLOR_CODE_MAPPING[0].format(info['name']))
         self.SetSprite(self.plate, info['rank'])
         self.SetSprite(self.rank, info['rank'])
         self.SetSprite(self.icon, info['icon'])
@@ -976,7 +1035,9 @@ class GUI(clientApi.GetScreenNodeCls()):
             pass
         if self._duel is None:
             self._duel = Duel(self, *args)
+            self.SetVisible(self.room + '/change', False)
             self.SetVisible(self.room + '/match', False)
+            self.SetVisible(self.room + '/bot', True)
             self.SetVisible(self.court, True)
         else:
             self._duel.catch_up(*args)
@@ -1044,6 +1105,22 @@ class GUI(clientApi.GetScreenNodeCls()):
                     else:
                         self.selected.add(i)
                         self.SetPosition(kws['ButtonPath'], (x, y - 14.0))
+
+    def bot(self, kws):
+        if kws["TouchEvent"] == clientApi.GetMinecraftEnum().TouchEvent.TouchUp:
+            self._cli.NotifyToServer('G_COURT', {
+                'pid': clientApi.GetLocalPlayerId(),
+                'name': 'bot',
+                'args': [1]
+            })
+
+    def resume(self, kws):
+        if kws["TouchEvent"] == clientApi.GetMinecraftEnum().TouchEvent.TouchUp:
+            self._cli.NotifyToServer('G_COURT', {
+                'pid': clientApi.GetLocalPlayerId(),
+                'name': 'bot',
+                'args': [0]
+            })
 
     def showhand(self, kws):
         if kws["TouchEvent"] == clientApi.GetMinecraftEnum().TouchEvent.TouchUp:
