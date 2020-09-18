@@ -78,6 +78,8 @@ class Chain(object):
                 g.SetVisible(g.rchoice, False)
         elif name == 'PlusPhase':
             if name != phase.name:
+                g.SetVisible(g.plus, False)
+                g.SetVisible(g.clock, False)
                 g.SetVisible(g.choice, False)
                 g.SetVisible(g.lchoice, False)
                 g.SetVisible(g.rchoice, False)
