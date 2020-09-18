@@ -139,7 +139,7 @@ class GangPhase(Phase):
         else:
             gambler = self._od.pop(self.turn)
             key_list = list(self._od.keys())
-            if gambler.role:
+            if gambler.role or len(key_list) == 1 and self._od[key_list[0]].role:
                 og = self._od[key_list[-1]]
             elif not key_list:
                 self._chain.times = abs(self._chain.times)
