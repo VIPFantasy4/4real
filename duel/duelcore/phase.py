@@ -183,10 +183,11 @@ class PlusPhase(Phase):
         del self._chain.duel.funcs[self.times.__name__]
         if prior:
             task.cancel()
-        _id, status, gamblers = self._chain.duel.view()
-        for gambler in gamblers.values():
-            if not gambler.times:
-                gambler.times = 1
+        else:
+            _id, status, gamblers = self._chain.duel.view()
+            for gambler in gamblers.values():
+                if not gambler.times:
+                    gambler.times = 1
         self._chain.duel.funcs[self._next.show_hand.__name__] = self._next.show_hand
 
     async def times(self, addr, times):

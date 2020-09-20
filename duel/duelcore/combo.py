@@ -396,6 +396,8 @@ class TripleWithSingle(Combo):
                                 return self.whoami()(owner, view, v), {v: cards[v], k: cards[k]}
                             if qty not in fallback:
                                 fallback[qty] = k
+                    if not fallback:
+                        return Pass(owner, None), None
                     k = None
                     if 2 in fallback and fallback[2]:
                         k = fallback[2]
@@ -462,13 +464,15 @@ class TripleWithPair(Combo):
                                     if k:
                                         view.extend(cards[k])
                                         return self.whoami()(owner, view, v), {v: cards[v], k: cards[k]}
-                                elif qty not in fallback:
+                                if qty not in fallback:
                                     fallback[qty] = k
+                    if not fallback:
+                        return Pass(owner, None), None
                     if 3 in fallback:
                         k = fallback[3]
                         iterator = iter(cards[k])
                         s = {next(iterator) for _ in range(2)}
-                        view.append(s)
+                        view.extend(s)
                         return self.whoami()(owner, view, v), {v: cards[v], k: s}
                     if 4 in fallback:
                         k = fallback[4]
@@ -757,6 +761,8 @@ class FakeBomb(Combo):
                     if k != v and k in cards:
                         qty = len(cards[k])
                         if qty == prime:
+                            if not k and prime == 2:
+                                continue
                             fallback[qty].append(k)
                             if len(fallback[qty]) == 2:
                                 break

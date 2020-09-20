@@ -1027,7 +1027,7 @@ class GUI(clientApi.GetScreenNodeCls()):
     def duel(self, args):
         if not self.debut:
             self.debut = True
-        if self._duel is args is None:
+        if self.duel is args is None:
             self.SetVisible(self.mh, False)
             self.SetVisible(self.court, False)
             self.SetVisible(self.room, False)
@@ -1035,14 +1035,14 @@ class GUI(clientApi.GetScreenNodeCls()):
             return
         if self.retreat:
             pass
-        if self._duel is None:
+        if self.duel is None:
             self._duel = Duel(self, *args)
             self.SetVisible(self.room + '/change', False)
             self.SetVisible(self.room + '/match', False)
             self.SetVisible(self.room + '/bot', True)
             self.SetVisible(self.court, True)
         else:
-            self._duel.catch_up(*args)
+            self.duel.catch_up(*args)
 
     def __init__(self, *args):
         super(GUI, self).__init__(*args)
@@ -1056,7 +1056,7 @@ class GUI(clientApi.GetScreenNodeCls()):
             '/root_screen_panel'
         )
         self.selected = set()
-        self.proposals = []
+        self.proposals = None
         self.origins = None
         self._court = None
         self._duel = None
@@ -1183,18 +1183,40 @@ class GUI(clientApi.GetScreenNodeCls()):
 
     def hint(self, kws):
         if kws["TouchEvent"] == clientApi.GetMinecraftEnum().TouchEvent.TouchUp:
-            pass
+            if self.duel and self.duel.chain:
+                phase = self.duel.chain.phase
+                track = self.duel.chain.track
+                if phase.turn == self.duel.uid and phase.name == 'MainPhase':
+                    cards = {}
+                    for card in self.duel.gamblers[self.duel.uid].cards.itervalues():
+                        cards.setdefault(card[0], []).append(card)
+                    duo = track[-2:] + [None for _ in xrange(2 - len(track))]
+                    if duo == [None, None]:
+                        combo = None
+                    else:
+                        try:
+                            duo.remove(None)
+                        except ValueError:
+                            pass
+                        combo = duo[-1]
+                    proposals = Combo.propose(cards, combo)
+                    if proposals:
+                        pass
+                    else:
+                        pass
 
     def play(self, kws):
         if kws["TouchEvent"] == clientApi.GetMinecraftEnum().TouchEvent.TouchUp:
-            if self.selected:
-                cards = {}
-                gambler = self.duel.gamblers[self.duel.uid]
-                for i in self.selected:
-                    card = gambler.cards[i]
-                    cards.setdefault(card[0], []).append(card)
-                self._cli.NotifyToServer('G_COURT', {
-                    'pid': clientApi.GetLocalPlayerId(),
-                    'name': 'play',
-                    'args': [cards]
-                })
+            if self.duel and self.duel.chain:
+                phase = self.duel.chain.phase
+                if self.selected and phase.turn == self.duel.uid and phase.name == 'MainPhase':
+                    cards = {}
+                    gambler = self.duel.gamblers[self.duel.uid]
+                    for i in self.selected:
+                        card = gambler.cards[i]
+                        cards.setdefault(card[0], []).append(card)
+                    self._cli.NotifyToServer('G_COURT', {
+                        'pid': clientApi.GetLocalPlayerId(),
+                        'name': 'play',
+                        'args': [cards]
+                    })

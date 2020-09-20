@@ -8,6 +8,13 @@ class Combo(object):
         return globals()[args[0]](*args[1:])
 
     @staticmethod
+    def propose(cards, combo):
+        if combo:
+            return combo.detect(cards)
+        else:
+            pass
+
+    @staticmethod
     def fromcards(cards, owner):
         if not cards:
             return Pass(owner, None)
@@ -89,7 +96,7 @@ class Combo(object):
                         qty = len(view)
                         if qty > 5:
                             v = view[0][0]
-                            return PairSeq(owner, view, qty, v), {k: cards[k] for k in range(v, v + qty // 2)}
+                            return PairSeq(owner, view, qty, v), {k: cards[k] for k in xrange(v, v + qty // 2)}
                         if 3 in fallback:
                             v = fallback[3]
                             view = sorted(cards[v])
@@ -104,7 +111,7 @@ class Combo(object):
                 view = sorted(cards[v])
                 return Triple(owner, view, v), {v: cards[v]}
             v = fallback[4]
-            view = [(v, j) for j in range(4)]
+            view = [(v, j) for j in xrange(4)]
             return RealBomb(owner, view, v), {v: cards[v]}
         return combo.detect(cards, owner)
 
@@ -150,29 +157,25 @@ class Single(Combo):
                 return True
         return False
 
-    def detect(self, cards, owner):
-        real = None
+    def detect(self, cards):
+        proposals = []
         right = self.card[0] - 1
         if self.card[0]:
             left = min(cards)
-            for v in range(right, left - 1, -1):
+            for v in xrange(right, left - 1, -1):
                 if v in cards:
-                    if len(cards[v]) == 4:
-                        if not real:
-                            real = v
+                    qty = len(cards[v])
+                    if qty == 4:
+                        proposals.append((qty, -v, {v: qty}))
+                        proposals.append((5, -v, {v: 1}))
                         continue
-                    card = next(iter(cards[v]))
-                    return self.whoami()(owner, [card], card), {v: {card}}
+                    proposals.append((qty, -v, {v: 1}))
         elif self.card[1] and 0 in cards:
-            card = (0, 0)
-            return self.whoami()(owner, [card], card), {0: {card}}
-        for v in range(max(cards), right, -1):
+            proposals.append((1, 0, {0: 1}))
+        for v in xrange(max(cards), right, -1):
             if v in cards and len(cards) == 4:
-                real = v
-                break
-        if real:
-            return RealBomb(owner, [(real, j) for j in range(4)], real), {real: cards[real]}
-        return Pass(owner, None), None
+                proposals.append((4, -v, {v: 4}))
+        return sorted(proposals)
 
 
 class Pair(Combo):
@@ -193,37 +196,25 @@ class Pair(Combo):
             return True
         return False
 
-    def detect(self, cards, owner):
-        real = None
+    def detect(self, cards):
+        proposals = []
         right = self.v - 1
         left = min(cards)
-        fallback = {}
-        for v in range(right, max(left - 1, 0), -1):
+        for v in xrange(right, max(left - 1, 0), -1):
             if v in cards:
                 qty = len(cards[v])
                 if qty == 4:
-                    if not real:
-                        real = v
+                    proposals.append((qty, -v, {v: qty}))
+                    proposals.append((5, -v, {v: 2}))
                     continue
                 if qty > 1:
-                    if qty == 2:
-                        return self.whoami()(owner, sorted(cards[v]), v), {v: cards[v]}
-                    if qty not in fallback:
-                        fallback[qty] = v
-        if 3 in fallback:
-            v = fallback[3]
-            iterator = iter(cards[v])
-            s = {next(iterator) for _ in range(2)}
-            return self.whoami()(owner, sorted(s), v), {v: s}
-        for v in range(max(cards), right, -1):
+                    proposals.append((qty, -v, {v: 2}))
+        for v in xrange(max(cards), right, -1):
             if v in cards and len(cards) == 4:
-                real = v
-                break
-        if real:
-            return RealBomb(owner, [(real, j) for j in range(4)], real), {real: cards[real]}
+                proposals.append((4, -v, {v: 4}))
         if 0 in cards and len(cards[0]) == 2:
-            return JokerBomb(owner, [(0, 0), (0, 1)]), {0: cards[0]}
-        return Pass(owner, None), None
+            proposals.append((4, 0, {0: 2}))
+        return sorted(proposals)
 
 
 class Seq(Combo):
@@ -231,7 +222,7 @@ class Seq(Combo):
     def validate(overview, cards):
         if overview['qty'] > 4 and overview['max'] > 1 and 1 in overview['map'] and len(overview['map']) == 1:
             seq = sorted(overview['map'][1])
-            if list(range(overview['max'], overview['min'] + 1)) == seq:
+            if list(xrange(overview['max'], overview['min'] + 1)) == seq:
                 return [next(iter(cards[k])) for k in seq], overview['qty'], overview['max']
 
     def regress(self):
@@ -247,24 +238,27 @@ class Seq(Combo):
             return True
         return False
 
-    def detect(self, cards, owner):
+    def detect(self, cards):
+        proposals = []
         v = self.v - 1
         while v > 1:
-            view = []
-            for i in range(v, v + self.qty):
+            proposal = {}
+            for i in xrange(v, v + self.qty):
                 if i in cards:
-                    view.append(next(iter(cards[i])))
+                    proposal[i] = 1
                     continue
                 break
             else:
-                return self.whoami()(owner, view, self.qty, v), {card[0]: {card} for card in view}
-            v -= self.qty - len(view)
-        for v in range(max(cards), max(min(cards) - 1, 0), -1):
+                proposals.append((0, -i, proposal))
+                v -= 1
+                continue
+            v -= self.qty - len(proposal)
+        for v in xrange(max(cards), max(min(cards) - 1, 0), -1):
             if v in cards and len(cards) == 4:
-                return RealBomb(owner, [(v, j) for j in range(4)], v), {v: cards[v]}
+                proposals.append((4, -v, {v: 4}))
         if 0 in cards and len(cards[0]) == 2:
-            return JokerBomb(owner, [(0, 0), (0, 1)]), {0: cards[0]}
-        return Pass(owner, None), None
+            proposals.append((4, 0, {0: 2}))
+        return sorted(proposals)
 
 
 class PairSeq(Combo):
@@ -272,7 +266,7 @@ class PairSeq(Combo):
     def validate(overview, cards):
         if overview['qty'] > 5 and overview['max'] > 1 and 2 in overview['map'] and len(overview['map']) == 1:
             seq = sorted(overview['map'][2])
-            if list(range(overview['max'], overview['min'] + 1)) == seq:
+            if list(xrange(overview['max'], overview['min'] + 1)) == seq:
                 view = []
                 for k in seq:
                     view.extend(sorted(cards[k]))
@@ -291,26 +285,28 @@ class PairSeq(Combo):
             return True
         return False
 
-    def detect(self, cards, owner):
+    def detect(self, cards):
+        proposals = []
         count = self.qty // 2
         v = self.v - 1
         while v > 1:
-            view = []
-            for i in range(v, v + count):
+            proposal = {}
+            for i in xrange(v, v + count):
                 if i in cards and len(cards[i]) > 1:
-                    iterator = iter(cards[i])
-                    view.extend(next(iterator) for _ in range(2))
+                    proposal[i] = 2
                     continue
                 break
             else:
-                return self.whoami()(owner, view, self.qty, v), {view[i][0]: {view[i], view[i + 1]} for i in range(0, self.qty, 2)}
-            v -= count - len(view)
-        for v in range(max(cards), max(min(cards) - 1, 0), -1):
+                proposals.append((0, -i, proposal))
+                v -= 1
+                continue
+            v -= count - len(proposal)
+        for v in xrange(max(cards), max(min(cards) - 1, 0), -1):
             if v in cards and len(cards) == 4:
-                return RealBomb(owner, [(v, j) for j in range(4)], v), {v: cards[v]}
+                proposals.append((4, -v, {v: 4}))
         if 0 in cards and len(cards[0]) == 2:
-            return JokerBomb(owner, [(0, 0), (0, 1)]), {0: cards[0]}
-        return Pass(owner, None), None
+            proposals.append((4, 0, {0: 2}))
+        return sorted(proposals)
 
 
 class Triple(Combo):
@@ -331,28 +327,25 @@ class Triple(Combo):
             return True
         return False
 
-    def detect(self, cards, owner):
-        real = None
+    def detect(self, cards):
+        proposals = []
         right = self.v - 1
         left = min(cards)
-        for v in range(right, max(left - 1, 0), -1):
+        for v in xrange(right, max(left - 1, 0), -1):
             if v in cards:
                 qty = len(cards[v])
                 if qty == 4:
-                    if not real:
-                        real = v
+                    proposals.append((qty, -v, {v: qty}))
+                    proposals.append((5, -v, {v: 3}))
                     continue
                 if qty == 3:
-                    return self.whoami()(owner, sorted(cards[v]), v), {v: cards[v]}
-        for v in range(max(cards), right, -1):
+                    proposals.append((qty, -v, {v: qty}))
+        for v in xrange(max(cards), right, -1):
             if v in cards and len(cards) == 4:
-                real = v
-                break
-        if real:
-            return RealBomb(owner, [(real, j) for j in range(4)], real), {real: cards[real]}
+                proposals.append((4, -v, {v: 4}))
         if 0 in cards and len(cards[0]) == 2:
-            return JokerBomb(owner, [(0, 0), (0, 1)]), {0: cards[0]}
-        return Pass(owner, None), None
+            proposals.append((4, 0, {0: 2}))
+        return sorted(proposals)
 
 
 class TripleWithSingle(Combo):
@@ -375,50 +368,61 @@ class TripleWithSingle(Combo):
             return True
         return False
 
-    def detect(self, cards, owner):
-        real = None
+    def detect(self, cards):
+        proposals = []
         right = self.v - 1
         left = min(cards)
-        for v in range(right, max(left - 1, 0), -1):
+        single = None
+        for v in xrange(right, max(left - 1, 0), -1):
             if v in cards:
                 qty = len(cards[v])
                 if qty == 4:
-                    if not real:
-                        real = v
+                    proposals.append((qty, -v, {v: qty}))
                     continue
                 if qty == 3:
-                    view = sorted(cards[v])
+                    if single:
+                        proposals.append((0, -v, {v: qty, single: 1}))
+                        continue
                     fallback = {}
-                    for k in range(max(cards), left - 1, -1):
+                    for k in xrange(max(cards), left - 1, -1):
                         if k != v and k in cards:
                             qty = len(cards[k])
                             if qty == 1:
-                                view.extend(cards[k])
-                                return self.whoami()(owner, view, v), {v: cards[v], k: cards[k]}
+                                single = k
+                                proposals.append((0, -v, {v: 3, single: 1}))
+                                break
                             if qty not in fallback:
                                 fallback[qty] = k
-                    k = None
+                    if single:
+                        continue
+                    if not fallback:
+                        return []
                     if 2 in fallback and fallback[2]:
                         k = fallback[2]
+                        single = k
+                        proposals.append((0, -v, {v: 3, single: 1}))
+                        continue
                     elif 3 in fallback:
                         k = fallback[3]
-                    if k:
-                        card = next(iter(cards[k]))
-                        view.append(card)
-                        return self.whoami()(owner, view, v), {v: cards[v], k: {card}}
+                        if k > v:
+                            single = k
+                            proposals.append((0, -v, {v: 3, single: 1}))
+                        else:
+                            single = v
+                            proposals.append((0, -v, {v: 3, k: 1}))
+                        continue
                     if 4 in fallback:
                         k = fallback[4]
-                        return RealBomb(owner, [(k, j) for j in range(4)], k), {k: cards[k]}
-                    return JokerBomb(owner, [(0, 0), (0, 1)]), {0: cards[0]}
-        for v in range(max(cards), right, -1):
+                    else:
+                        k = 0
+                    single = v
+                    proposals.append((0, -v, {v: 3, k: 1}))
+        for v in xrange(max(cards), right, -1):
             if v in cards and len(cards) == 4:
-                real = v
-                break
-        if real:
-            return RealBomb(owner, [(real, j) for j in range(4)], real), {real: cards[real]}
+                proposals.append((4, -v, {v: 4}))
         if 0 in cards and len(cards[0]) == 2:
-            return JokerBomb(owner, [(0, 0), (0, 1)]), {0: cards[0]}
-        return Pass(owner, None), None
+            proposals.append((4, 0, {0: 2}))
+        return sorted(proposals)
 
 
 class TripleWithPair(Combo):
@@ -441,49 +445,58 @@ class TripleWithPair(Combo):
             return True
         return False
 
-    def detect(self, cards, owner):
-        real = None
+    def detect(self, cards):
+        proposals = []
         right = self.v - 1
         left = min(cards)
-        for v in range(right, max(left - 1, 0), -1):
+        pair = None
+        for v in xrange(right, max(left - 1, 0), -1):
             if v in cards:
                 qty = len(cards[v])
                 if qty == 4:
-                    if not real:
-                        real = v
+                    proposals.append((qty, -v, {v: qty}))
                     continue
                 if qty == 3:
-                    view = sorted(cards[v])
+                    if pair:
+                        proposals.append((0, -v, {v: qty, pair: 2}))
+                        continue
                     fallback = {}
-                    for k in range(max(cards), left - 1, -1):
+                    for k in xrange(max(cards), left - 1, -1):
                         if k != v and k in cards:
                             qty = len(cards[k])
                             if qty > 1:
                                 if qty == 2:
                                     if k:
-                                        view.extend(cards[k])
-                                        return self.whoami()(owner, view, v), {v: cards[v], k: cards[k]}
-                                elif qty not in fallback:
+                                        pair = k
+                                        proposals.append((0, -v, {v: 3, pair: 2}))
+                                        break
+                                if qty not in fallback:
                                     fallback[qty] = k
+                    if pair:
+                        continue
+                    if not fallback:
+                        return []
                     if 3 in fallback:
                         k = fallback[3]
-                        iterator = iter(cards[k])
-                        s = {next(iterator) for _ in range(2)}
-                        view.append(s)
-                        return self.whoami()(owner, view, v), {v: cards[v], k: s}
+                        if k > v:
+                            pair = k
+                            proposals.append((0, -v, {v: 3, pair: 2}))
+                        else:
+                            pair = v
+                            proposals.append((0, -v, {v: 3, k: 2}))
+                        continue
                     if 4 in fallback:
                         k = fallback[4]
-                        return RealBomb(owner, [(k, j) for j in range(4)], k), {k: cards[k]}
-                    return JokerBomb(owner, [(0, 0), (0, 1)]), {0: cards[0]}
-        for v in range(max(cards), right, -1):
+                    else:
+                        k = 0
+                    pair = v
+                    proposals.append((0, -v, {v: 3, k: 2}))
+        for v in xrange(max(cards), right, -1):
             if v in cards and len(cards) == 4:
-                real = v
-                break
-        if real:
-            return RealBomb(owner, [(real, j) for j in range(4)], real), {real: cards[real]}
+                proposals.append((4, -v, {v: 4}))
         if 0 in cards and len(cards[0]) == 2:
-            return JokerBomb(owner, [(0, 0), (0, 1)]), {0: cards[0]}
-        return Pass(owner, None), None
+            proposals.append((4, 0, {0: 2}))
+        return sorted(proposals)
 
 
 class Plane(Combo):
@@ -504,19 +517,19 @@ class Plane(Combo):
                         args = 2, 10, seq[0]
                 elif overview['qty'] == 12:
                     seq = sorted(overview['map'][3] + overview['map'][4])
-                    if seq[0] > 1 and len(seq) == 3 and list(range(seq[0], seq[-1] + 1)) == seq:
+                    if seq[0] > 1 and len(seq) == 3 and list(xrange(seq[0], seq[-1] + 1)) == seq:
                         args = 3, 12, seq[0]
                 elif overview['qty'] == 15:
                     seq = sorted(overview['map'][3])
-                    if seq[0] > 1 and len(seq) == 3 and list(range(seq[0], seq[-1] + 1)) == seq and 2 in overview['map']:
+                    if seq[0] > 1 and len(seq) == 3 and list(xrange(seq[0], seq[-1] + 1)) == seq and 2 in overview['map']:
                         args = 3, 15, seq[0]
                 elif overview['qty'] == 16:
                     seq = sorted(overview['map'][3] + overview['map'][4])
                     count = len(seq)
                     if count == 4:
-                        if seq[0] > 1 and list(range(seq[0], seq[-1] + 1)) == seq:
+                        if seq[0] > 1 and list(xrange(seq[0], seq[-1] + 1)) == seq:
                             args = 4, 16, seq[0]
-                    elif count == 5 and list(range(seq[1], seq[-2] + 1)) == seq[1:-1]:
+                    elif count == 5 and list(xrange(seq[1], seq[-2] + 1)) == seq[1:-1]:
                         if seq[0] > 1 and seq[0] + 1 == seq[1]:
                             args = 4, 16, seq[0]
                         elif seq[-1] - 1 == seq[-2]:
@@ -525,7 +538,7 @@ class Plane(Combo):
                     seq = sorted(overview['map'][3] + overview['map'][4])
                     count = len(seq)
                     if count == 5:
-                        if list(range(seq[1], seq[-2] + 1)) == seq[1:-1]:
+                        if list(xrange(seq[1], seq[-2] + 1)) == seq[1:-1]:
                             if seq[0] > 1 and seq[0] + 1 == seq[1]:
                                 if seq[-1] - 1 == seq[-2]:
                                     args = 5, 20, seq[0]
@@ -558,13 +571,13 @@ class Plane(Combo):
                 count = len(seq)
                 if count > 1:
                     if seq[0] == 1:
-                        if count > 3 and list(range(seq[1], seq[-1] + 1)) == seq[1:]:
+                        if count > 3 and list(xrange(seq[1], seq[-1] + 1)) == seq[1:]:
                             if count == 4:
                                 args = count - 1, overview['qty'], seq[1]
                             elif count == 4 + len(overview['map'].get(1, ())) + 2 * len(overview['map'].get(2, ())):
                                 args = count - 1, overview['qty'], seq[1]
                     elif count in (2, 3):
-                        if list(range(seq[0], seq[-1] + 1)) == seq:
+                        if list(xrange(seq[0], seq[-1] + 1)) == seq:
                             if 1 in overview['map']:
                                 if len(overview['map'][1]) + 2 * len(overview['map'].get(2, ())) == count:
                                     args = count, overview['qty'], seq[0]
@@ -573,9 +586,9 @@ class Plane(Combo):
                     elif 1 in overview['map']:
                         least = len(overview['map'][1]) + 2 * len(overview['map'].get(2, ()))
                         if count == least:
-                            if list(range(seq[0], seq[-1] + 1)) == seq:
+                            if list(xrange(seq[0], seq[-1] + 1)) == seq:
                                 args = count, overview['qty'], seq[0]
-                        elif least < 3 and count == least + 4 and list(range(seq[1], seq[-2] + 1)) == seq[1:-1]:
+                        elif least < 3 and count == least + 4 and list(xrange(seq[1], seq[-2] + 1)) == seq[1:-1]:
                             if seq[0] + 1 == seq[1]:
                                 args = count - 1, overview['qty'], seq[0]
                             elif seq[-1] - 1 == seq[-2]:
@@ -583,15 +596,15 @@ class Plane(Combo):
                     elif 2 in overview['map']:
                         least = len(overview['map'][2])
                         if least > 1:
-                            if list(range(seq[0], seq[-1] + 1)) == seq:
+                            if list(xrange(seq[0], seq[-1] + 1)) == seq:
                                 if count in (least, 2 * least):
                                     args = count, overview['qty'], seq[0]
-                        elif count == 6 and list(range(seq[1], seq[-2] + 1)) == seq[1:-1]:
+                        elif count == 6 and list(xrange(seq[1], seq[-2] + 1)) == seq[1:-1]:
                             if seq[0] + 1 == seq[1]:
                                 args = count - 1, overview['qty'], seq[0]
                             elif seq[-1] - 1 == seq[-2]:
                                 args = count - 1, overview['qty'], seq[1]
-                    elif list(range(seq[1], seq[-2] + 1)) == seq[1:-1]:
+                    elif list(xrange(seq[1], seq[-2] + 1)) == seq[1:-1]:
                         if seq[0] + 1 == seq[1]:
                             if seq[-1] - 1 == seq[-2]:
                                 if count == 4:
@@ -604,7 +617,7 @@ class Plane(Combo):
                             args = count - 1, overview['qty'], seq[1]
         elif 4 in overview['map'] and len(overview['map']) == 1 and 1 not in overview['map'][4]:
             seq = sorted(overview['map'][4])
-            if list(range(seq[0], seq[-1] + 1)) == seq:
+            if list(xrange(seq[0], seq[-1] + 1)) == seq:
                 args = len(seq), overview['qty'], seq[0]
 
         if args:
@@ -628,30 +641,36 @@ class Plane(Combo):
             return True
         return False
 
-    def detect(self, cards, owner):
+    def detect(self, cards):
+        proposals = []
         v = self.v - 1
         while v > 1:
             view = []
+            proposal = {}
             right = v + self.count
-            for i in range(v, right):
+            for i in xrange(v, right):
                 if i in cards and len(cards[i]) == 3:
+                    proposal[i] = 3
                     view.extend(cards[i])
                     continue
                 break
             else:
                 count = self.qty - 3 * self.count
                 if not count:
-                    return self.whoami()(owner, view, self.count, self.qty, v), {k: cards[k] for k in range(v, right)}
+                    proposals.append((0, -i, proposal))
+                    v -= 1
+                    continue
                 else:
                     fallback = {}
-                    for k in range(max(cards), right - 1, -1):
+                    for k in xrange(max(cards), right - 1, -1):
                         if k in cards and len(cards[k]) < 3:
                             fallback.setdefault(len(cards[k]), []).append(k)
-                    for k in range(v - 1, min(cards) - 1, -1):
+                    for k in xrange(v - 1, min(cards) - 1, -1):
                         if k in cards and len(cards[k]) < 3:
                             if not k and len(cards[k]) == 2:
                                 continue
                             fallback.setdefault(len(cards[k]), []).append(k)
+                    proper = False
                     if count == self.count:
                         if len(fallback.get(1, ())) + 2 * len(fallback.get(2, ())) >= count:
                             i = 0
@@ -676,26 +695,30 @@ class Plane(Combo):
                                 else:
                                     i += 1
                                     view.append(next(iter(cards[k])))
-                            cards = {k: cards[k] for k in range(v, right)}
-                            for card in view[3 * self.count:]:
-                                cards.setdefault(card[0], set()).add(card)
-                            return self.whoami()(owner, view, self.count, self.qty, v), cards
+                            proper = True
                     else:
                         count //= 2
                         if len(fallback.get(2, ())) >= count:
                             for k in fallback[2][:count]:
                                 view.extend(cards[k])
-                            cards = {k: cards[k] for k in range(v, right)}
-                            for card in view[3 * self.count:]:
-                                cards.setdefault(card[0], set()).add(card)
-                            return self.whoami()(owner, view, self.count, self.qty, v), cards
+                            proper = True
+                    if proper:
+                        for card in view[3 * self.count:]:
+                            k = card[0]
+                            if k in proposal:
+                                proposal[k] += 1
+                            else:
+                                proposal[k] = 1
+                        proposals.append((0, 1 - right, proposal))
+                        v -= 1
+                        continue
             v -= self.count - len(view)
-        for v in range(max(cards), max(min(cards) - 1, 0), -1):
+        for v in xrange(max(cards), max(min(cards) - 1, 0), -1):
             if v in cards and len(cards) == 4:
-                return RealBomb(owner, [(v, j) for j in range(4)], v), {v: cards[v]}
+                proposals.append((4, -v, {v: 4}))
         if 0 in cards and len(cards[0]) == 2:
-            return JokerBomb(owner, [(0, 0), (0, 1)]), {0: cards[0]}
-        return Pass(owner, None), None
+            proposals.append((4, 0, {0: 2}))
+        return sorted(proposals)
 
 
 class FakeBomb(Combo):
@@ -706,19 +729,19 @@ class FakeBomb(Combo):
                 if 1 in overview['map']:
                     if len(overview['map'][1]) == 2:
                         v = overview['map'][4][0]
-                        view = [(v, j) for j in range(4)]
+                        view = [(v, j) for j in xrange(4)]
                         view.extend(sorted(next(iter(cards[k])) for k in overview['map'][1]))
                         return view, overview['qty'], v
                 elif 2 in overview['map'] and len(overview['map'][2]) == 1:
                     v = overview['map'][4][0]
-                    view = [(v, j) for j in range(4)]
+                    view = [(v, j) for j in xrange(4)]
                     view.extend(sorted(cards[overview['map'][2][0]]))
                     return view, overview['qty'], v
             elif overview['qty'] == 8:
                 if 2 in overview['map']:
                     if len(overview['map'][2]) == 2:
                         v = overview['map'][4][0]
-                        view = [(v, j) for j in range(4)]
+                        view = [(v, j) for j in xrange(4)]
                         for k in sorted(overview['map'][2]):
                             view.extend(sorted(cards[k]))
                         return view, overview['qty'], v
@@ -726,8 +749,8 @@ class FakeBomb(Combo):
                     # can be specified
                     v = overview['max']
                     i = overview['min']
-                    view = [(v, j) for j in range(4)]
-                    view.extend((i, j) for j in range(4))
+                    view = [(v, j) for j in xrange(4)]
+                    view.extend((i, j) for j in xrange(4))
                     return view, overview['qty'], v
 
     def regress(self):
@@ -743,21 +766,25 @@ class FakeBomb(Combo):
             return True
         return False
 
-    def detect(self, cards, owner):
+    def detect(self, cards):
+        proposals = []
         right = self.v - 1
         left = min(cards)
-        for v in range(right, max(left - 1, 0), -1):
+        for v in xrange(right, max(left - 1, 0), -1):
             if v in cards and len(cards[v]) == 4:
+                proposal = {v: 4}
                 if self.qty == 6:
                     fallback = {1: []}
                     prime = 1
                 else:
                     fallback = {2: []}
                     prime = 2
-                for k in range(max(cards), left - 1, -1):
+                for k in xrange(max(cards), left - 1, -1):
                     if k != v and k in cards:
                         qty = len(cards[k])
                         if qty == prime:
+                            if not k and prime == 2:
+                                continue
                             fallback[qty].append(k)
                             if len(fallback[qty]) == 2:
                                 break
@@ -765,18 +792,18 @@ class FakeBomb(Combo):
                             fallback[qty] = k
                 count = len(fallback[prime])
                 if count == 2:
-                    view = sorted(cards[v])
-                    for i in range(2):
-                        view.extend(cards[fallback[prime][i]])
-                    fallback[prime].append(v)
-                    return self.whoami()(owner, view, self.qty, v), {k: cards[k] for k in fallback[prime]}
+                    for i in xrange(2):
+                        k = fallback[prime][i]
+                        proposal[k] = prime
+                    proposals.append((0, -v, proposal))
+                    continue
                 if self.qty == 6:
                     if 2 in fallback:
                         if not count or fallback[1][0] < fallback[2]:
-                            view = sorted(cards[v])
                             k = fallback[2]
-                            view.extend(cards[k])
-                            return self.whoami()(owner, view, self.qty, v), {v: cards[v], k: cards[k]}
+                            proposal[k] = 2
+                            proposals.append((0, -v, proposal))
+                            continue
                     if count:
                         k = fallback[1][0]
                         card = None
@@ -785,27 +812,23 @@ class FakeBomb(Combo):
                         elif 3 in fallback:
                             card = next(iter(cards[fallback[3]]))
                         if card:
-                            view = sorted(cards[v])
-                            view.append(card)
-                            view.extend(cards[k])
-                            return self.whoami()(owner, view, self.qty, v), {v: cards[v], k: cards[k], card[0]: {card}}
+                            proposal[k] = 1
+                            proposal[card[0]] = 1
+                            proposals.append((0, -v, proposal))
                 elif count and 3 in fallback:
                     k = fallback[2][0]
-                    view = sorted(cards[v])
-                    view.extend(cards[k])
-                    iterator = iter(cards[fallback[3]])
-                    s = {next(iterator) for _ in range(2)}
-                    view.extend(s)
-                    return self.whoami()(owner, view, self.qty, v), {v: cards[v], k: cards[k], fallback[3]: s}
-                if 4 in fallback:
-                    v = max(fallback[4], v)
-                return RealBomb(owner, [(v, j) for j in range(4)], v), {v: cards[v]}
-        for v in range(max(cards), right, -1):
+                    proposal[k] = 2
+                    proposal[fallback[3]] = 2
+                    proposals.append((0, -v, proposal))
+                if len(proposal) == 1:
+                    proposals.append((4, -v, proposal))
+                continue
+        for v in xrange(max(cards), right, -1):
             if v in cards and len(cards) == 4:
-                return RealBomb(owner, [(v, j) for j in range(4)], v), {v: cards[v]}
+                proposals.append((4, -v, {v: 4}))
         if 0 in cards and len(cards[0]) == 2:
-            return JokerBomb(owner, [(0, 0), (0, 1)]), {0: cards[0]}
-        return Pass(owner, None), None
+            proposals.append((4, 0, {0: 2}))
+        return sorted(proposals)
 
 
 class RealBomb(Combo):
@@ -813,7 +836,7 @@ class RealBomb(Combo):
     def validate(overview, cards):
         if overview['qty'] == 4 and 4 in overview['map']:
             v = overview['max']
-            return [(v, j) for j in range(4)], v
+            return [(v, j) for j in xrange(4)], v
 
     def regress(self):
         return self.__class__.__name__, self.owner.addr, self.view, self.v
@@ -829,15 +852,16 @@ class RealBomb(Combo):
             return False
         return True
 
-    def detect(self, cards, owner):
+    def detect(self, cards):
+        proposals = []
         right = self.v - 1
         left = min(cards)
-        for v in range(right, max(left - 1, 0), -1):
+        for v in xrange(right, max(left - 1, 0), -1):
             if v in cards and len(cards[v]) == 4:
-                return self.whoami()(owner, [(v, j) for j in range(4)], v), {v: cards[v]}
+                proposals.append((4, -v, {v: 4}))
         if 0 in cards and len(cards[0]) == 2:
-            return JokerBomb(owner, [(0, 0), (0, 1)]), {0: cards[0]}
-        return Pass(owner, None), None
+            proposals.append((4, 0, {0: 2}))
+        return sorted(proposals)
 
 
 class JokerBomb(Combo):
@@ -852,8 +876,8 @@ class JokerBomb(Combo):
     def __gt__(self, other):
         return True
 
-    def detect(self, cards, owner):
-        return Pass(owner, None), None
+    def detect(self, cards):
+        return []
 
 
 class Pass(Combo):
