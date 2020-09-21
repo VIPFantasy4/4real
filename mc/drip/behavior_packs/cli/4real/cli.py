@@ -226,6 +226,8 @@ class Gambler(object):
             g.SetVisible(g.room + '/bot', True)
         self.bot = bot
         if len(self.cards) != len(cards):
+            g.selected.clear()
+            g.proposals = None
             self.cards = {}
             r = M[len(cards)]
             count = 0
@@ -240,6 +242,7 @@ class Gambler(object):
                     g.SetSprite(h + '/pressed', sprite)
                     count += 1
                     self.cards[i] = card
+                g.SetPosition(h, g.origins[i])
                 g.SetVisible(h, on)
 
     def _main(self, turn):
@@ -379,8 +382,9 @@ class L(object):
             self.og = og
         qty = cards if isinstance(cards, int) else len(cards)
         if qty != (self.cards if isinstance(self.cards, int) else len(self.cards)):
-            self.cards = cards
+            g.proposals = None
             g.SetText(g.lcount, str(qty))
+            self.cards = cards
             if show_hand:
                 self.show_hand = None
         if self.show_hand != show_hand:
@@ -524,8 +528,9 @@ class R(object):
             self.og = og
         qty = cards if isinstance(cards, int) else len(cards)
         if qty != (self.cards if isinstance(self.cards, int) else len(self.cards)):
-            self.cards = cards
+            g.proposals = None
             g.SetText(g.rcount, str(qty))
+            self.cards = cards
             if show_hand:
                 self.show_hand = None
         if self.show_hand != show_hand:
@@ -1187,23 +1192,39 @@ class GUI(clientApi.GetScreenNodeCls()):
                 phase = self.duel.chain.phase
                 track = self.duel.chain.track
                 if phase.turn == self.duel.uid and phase.name == 'MainPhase':
-                    cards = {}
-                    for card in self.duel.gamblers[self.duel.uid].cards.itervalues():
-                        cards.setdefault(card[0], []).append(card)
-                    duo = track[-2:] + [None for _ in xrange(2 - len(track))]
-                    if duo == [None, None]:
-                        combo = None
-                    else:
-                        try:
-                            duo.remove(None)
-                        except ValueError:
-                            pass
-                        combo = duo[-1]
-                    proposals = Combo.propose(cards, combo)
+                    if self.proposals is None:
+                        cards = {}
+                        for card in self.duel.gamblers[self.duel.uid].cards.itervalues():
+                            cards.setdefault(card[0], []).append(card)
+                        duo = track[-2:] + [None for _ in xrange(2 - len(track))]
+                        if duo == [None, None]:
+                            combo = None
+                        else:
+                            try:
+                                duo.remove(None)
+                            except ValueError:
+                                pass
+                            combo = duo[-1]
+                        self.proposals = Combo.propose(cards, combo)
+                        print(self.proposals)
+                    proposals = self.proposals  # type: list
                     if proposals:
-                        pass
-                    else:
-                        pass
+                        proposals.append(proposals.pop(0))
+                        proposal = proposals[-1][-1].copy()
+                        cards = self.duel.gamblers[self.duel.uid].cards
+                        for i in xrange(max(cards), min(cards) - 1, -1):
+                            x, y = self.origins[i]
+                            h = self.mh + '/m{}'.format(i)
+                            if cards[i][0] in proposal:
+                                k = cards[i][0]
+                                proposal[k] -= 1
+                                if not proposal[k]:
+                                    del proposal[k]
+                                self.selected.add(i)
+                                self.SetPosition(h, (x, y - 14.0))
+                            else:
+                                self.selected.discard(i)
+                                self.SetPosition(h, (x, y))
 
     def play(self, kws):
         if kws["TouchEvent"] == clientApi.GetMinecraftEnum().TouchEvent.TouchUp:
