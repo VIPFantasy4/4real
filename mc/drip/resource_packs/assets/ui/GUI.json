@@ -1135,7 +1135,7 @@
     "is_handle_button_move_event": true,
     "layer": 1,
     "offset": [
-      40.0,
+      44.0,
       0.0
     ],
     "pressed_control": "pressed",
@@ -1508,7 +1508,7 @@
       0
     ],
     "offset": [
-      -44.0,
+      -40.0,
       -134.0
     ],
     "size": [
@@ -2789,7 +2789,7 @@
     "is_handle_button_move_event": true,
     "layer": 1,
     "offset": [
-      -24.0,
+      -20.0,
       0.0
     ],
     "pressed_control": "pressed",
@@ -5772,7 +5772,7 @@
     "is_handle_button_move_event": true,
     "layer": 1,
     "offset": [
-      -64.0,
+      -60.0,
       0.0
     ],
     "pressed_control": "pressed",
@@ -5877,7 +5877,7 @@
     "is_handle_button_move_event": true,
     "layer": 1,
     "offset": [
-      40.0,
+      44.0,
       0.0
     ],
     "pressed_control": "pressed",
@@ -7203,7 +7203,7 @@
     "is_handle_button_move_event": true,
     "layer": 1,
     "offset": [
-      -64.0,
+      -60.0,
       0.0
     ],
     "pressed_control": "pressed",
@@ -7474,7 +7474,7 @@
     "is_handle_button_move_event": true,
     "layer": 1,
     "offset": [
-      -64.0,
+      -60.0,
       0.0
     ],
     "pressed_control": "pressed",
@@ -7544,7 +7544,7 @@
     "is_handle_button_move_event": true,
     "layer": 1,
     "offset": [
-      -24.0,
+      -20.0,
       0.0
     ],
     "pressed_control": "pressed",
