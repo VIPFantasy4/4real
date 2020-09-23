@@ -134,9 +134,12 @@ class Gambler(object):
                 g.SetVisible(g.mclock, True)
         elif phase.name == 'MainPhase':
             turn = phase.turn == addr
-            self._main(turn)
+            slay = self._main(turn)
             if turn:
-                g.SetVisible(g.clock, True)
+                if slay:
+                    g.SetVisible(g.mclock, True)
+                else:
+                    g.SetVisible(g.clock, True)
                 g.SetVisible(g.turn, True)
         if og:
             g.SetVisible(g.og, True)
@@ -167,9 +170,15 @@ class Gambler(object):
     def catch_up(self, addr, cards, show_hand, role, og, times, bot):
         self.role = role
         g = self.duel.g
+        sh = False
+        if self.show_hand != show_hand:
+            sh = True
+            if show_hand:
+                g.SetVisible(g.msh, True)
+            self.show_hand = show_hand
         phase = self.duel.chain.phase
         if phase.name == 'DrawPhase':
-            if self.show_hand != show_hand:
+            if sh:
                 if show_hand:
                     g.SetVisible(g.court + '/showhand', False)
                 else:
@@ -199,16 +208,13 @@ class Gambler(object):
                         g.SetVisible(g.choice, True)
         elif phase.name == 'MainPhase':
             turn = phase.turn == addr
-            self._main(turn)
+            slay = self._main(turn)
             if turn:
                 g.SetVisible(g.choice, False)
                 g.SetVisible(g.m, False)
+            g.SetVisible(g.clock, turn and not slay)
+            g.SetVisible(g.mclock, turn and slay)
             g.SetVisible(g.turn, turn)
-            g.SetVisible(g.clock, turn)
-        if self.show_hand != show_hand:
-            if show_hand:
-                g.SetVisible(g.msh, True)
-            self.show_hand = show_hand
         if self.times != times:
             if times == 2:
                 g.SetVisible(g.msu, True)
@@ -249,15 +255,30 @@ class Gambler(object):
         addr = self.addr
         g = self.duel.g
         track = self.duel.chain.track
+        slay = False
         if turn:
             if not track:
                 g.SetVisible(g.turn + '/pass', False)
+                if self.show_hand:
+                    slay = True
             elif track[-2:] + [None for _ in xrange(2 - len(track))] == [None, None]:
-                g.SetVisible(g.turn + '/pass', False)
+                slay = True
+            if slay:
+                if track:
+                    g.SetVisible(g.turn + '/pass', False)
                 g.SetVisible(g.turn + '/sh', False)
+                g.SetVisible(g.turn + '/propose', False)
+                g.SetVisible(g.turn + '/play', False)
+                g.SetVisible(g.turn + '/hint', True)
+                g.SetVisible(g.turn + '/slay', True)
             else:
-                g.SetVisible(g.turn + '/sh', False)
-                g.SetVisible(g.turn + '/pass', True)
+                if track:
+                    g.SetVisible(g.turn + '/sh', False)
+                    g.SetVisible(g.turn + '/pass', True)
+                g.SetVisible(g.turn + '/hint', False)
+                g.SetVisible(g.turn + '/slay', False)
+                g.SetVisible(g.turn + '/propose', True)
+                g.SetVisible(g.turn + '/play', True)
         else:
             for combo in track[-2:]:
                 if combo.owner == addr:
@@ -277,6 +298,7 @@ class Gambler(object):
                         g.SetText(g.choice, '不出')
                         g.SetVisible(g.choice, True)
                     break
+        return slay
 
 
 class L(object):
@@ -733,9 +755,11 @@ class GUI(clientApi.GetScreenNodeCls()):
         self.AddTouchEventHandler(self.plus + '/sup', self.sup)  # room
         self.AddTouchEventHandler(self.plus + '/calm', self.calm)  # room
         self.AddTouchEventHandler(self.turn + '/pass', self.skip)  # room
-        self.AddTouchEventHandler(self.turn + '/hint', self.hint)  # room
+        self.AddTouchEventHandler(self.turn + '/propose', self.propose)  # room
         self.AddTouchEventHandler(self.turn + '/play', self.play)  # room
         self.AddTouchEventHandler(self.turn + '/sh', self.showhand)  # room
+        self.AddTouchEventHandler(self.turn + '/hint', self.propose)  # room
+        self.AddTouchEventHandler(self.turn + '/slay', self.play)  # room
 
     # <editor-fold desc="widgets">
     # region room
@@ -1186,7 +1210,7 @@ class GUI(clientApi.GetScreenNodeCls()):
                 'args': [{}]
             })
 
-    def hint(self, kws):
+    def propose(self, kws):
         if kws["TouchEvent"] == clientApi.GetMinecraftEnum().TouchEvent.TouchUp:
             if self.duel and self.duel.chain:
                 phase = self.duel.chain.phase

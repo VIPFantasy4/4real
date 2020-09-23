@@ -2720,7 +2720,7 @@
     "layer": 1,
     "offset": [
       4.0,
-      4.0
+      5.0
     ],
     "pressed_control": "pressed",
     "size": [
@@ -2730,7 +2730,7 @@
     "type": "button",
     "visible": true
   },
-  "hint@common.button": {
+  "propose@common.button": {
     "$default_texture": "textures/netease/common/button/default",
     "$hover_texture": "textures/netease/common/button/hover",
     "$is_new_nine_slice": true,
@@ -2859,7 +2859,7 @@
       1,
       1
     ],
-    "font_scale_factor": 0.5899999737739563,
+    "font_scale_factor": 0.6999999880790710,
     "font_size": "normal",
     "font_type": "smooth",
     "layer": 1,
@@ -2869,8 +2869,8 @@
     ],
     "shadow": false,
     "size": [
-      14.0,
-      5.0
+      17.0,
+      6.0
     ],
     "text": "§4<明牌>",
     "text_alignment": "left",
@@ -2885,7 +2885,7 @@
       1,
       1
     ],
-    "font_scale_factor": 0.5899999737739563,
+    "font_scale_factor": 0.6999999880790710,
     "font_size": "normal",
     "font_type": "smooth",
     "layer": 1,
@@ -2895,8 +2895,8 @@
     ],
     "shadow": false,
     "size": [
-      14.0,
-      5.0
+      17.0,
+      6.0
     ],
     "text": "§e<加倍>",
     "text_alignment": "left",
@@ -2911,7 +2911,7 @@
       1,
       1
     ],
-    "font_scale_factor": 0.5899999737739563,
+    "font_scale_factor": 0.6999999880790710,
     "font_size": "normal",
     "font_type": "smooth",
     "layer": 1,
@@ -2921,8 +2921,8 @@
     ],
     "shadow": false,
     "size": [
-      24.0,
-      5.0
+      29.0,
+      6.0
     ],
     "text": "§e<超级加倍>",
     "text_alignment": "left",
@@ -3653,7 +3653,7 @@
       1,
       1
     ],
-    "font_scale_factor": 0.6999999880790710,
+    "font_scale_factor": 0.8199999928474426,
     "font_size": "normal",
     "font_type": "smooth",
     "layer": 1,
@@ -3664,7 +3664,7 @@
     "shadow": false,
     "size": [
       46.0,
-      6.0
+      7.0
     ],
     "text": "故意只显示七个字",
     "text_alignment": "left",
@@ -3766,7 +3766,7 @@
       1,
       1
     ],
-    "font_scale_factor": 0.5899999737739563,
+    "font_scale_factor": 0.6999999880790710,
     "font_size": "normal",
     "font_type": "smooth",
     "layer": 1,
@@ -3776,8 +3776,8 @@
     ],
     "shadow": false,
     "size": [
-      14.0,
-      5.0
+      17.0,
+      6.0
     ],
     "text": "§e<加倍>",
     "text_alignment": "left",
@@ -3792,7 +3792,7 @@
       1,
       1
     ],
-    "font_scale_factor": 0.5899999737739563,
+    "font_scale_factor": 0.6999999880790710,
     "font_size": "normal",
     "font_type": "smooth",
     "layer": 1,
@@ -3802,8 +3802,8 @@
     ],
     "shadow": false,
     "size": [
-      24.0,
-      5.0
+      29.0,
+      6.0
     ],
     "text": "§e<超级加倍>",
     "text_alignment": "left",
@@ -5659,18 +5659,18 @@
       1,
       1
     ],
-    "font_scale_factor": 0.6999999880790710,
+    "font_scale_factor": 0.8199999928474426,
     "font_size": "normal",
     "font_type": "smooth",
     "layer": 1,
     "offset": [
       24.0,
-      5.0
+      4.0
     ],
     "shadow": false,
     "size": [
       100.0,
-      6.0
+      7.0
     ],
     "text": "§8药水哥",
     "text_alignment": "left",
@@ -5800,7 +5800,7 @@
     ],
     "offset": [
       24.0,
-      11.0
+      12.0
     ],
     "size": [
       24.0,
@@ -6094,8 +6094,8 @@
       13.0
     ],
     "size": [
-      21.0,
-      7.0
+      24.0,
+      8.0
     ],
     "texture": "textures/ui/w3h1",
     "type": "image",
@@ -6745,7 +6745,7 @@
       1,
       1
     ],
-    "font_scale_factor": 0.6999999880790710,
+    "font_scale_factor": 0.8199999928474426,
     "font_size": "normal",
     "font_type": "smooth",
     "layer": 1,
@@ -6756,7 +6756,7 @@
     "shadow": false,
     "size": [
       46.0,
-      6.0
+      7.0
     ],
     "text": "故意只显示七个字",
     "text_alignment": "left",
@@ -6969,7 +6969,7 @@
       1,
       1
     ],
-    "font_scale_factor": 0.5899999737739563,
+    "font_scale_factor": 0.6999999880790710,
     "font_size": "normal",
     "font_type": "smooth",
     "layer": 1,
@@ -6979,8 +6979,8 @@
     ],
     "shadow": false,
     "size": [
-      14.0,
-      5.0
+      17.0,
+      6.0
     ],
     "text": "§e<加倍>",
     "text_alignment": "left",
@@ -6995,7 +6995,7 @@
       1,
       1
     ],
-    "font_scale_factor": 0.5899999737739563,
+    "font_scale_factor": 0.6999999880790710,
     "font_size": "normal",
     "font_type": "smooth",
     "layer": 1,
@@ -7005,8 +7005,8 @@
     ],
     "shadow": false,
     "size": [
-      24.0,
-      5.0
+      29.0,
+      6.0
     ],
     "text": "§e<超级加倍>",
     "text_alignment": "left",
@@ -7222,18 +7222,18 @@
       1,
       1
     ],
-    "font_scale_factor": 0.6999999880790710,
+    "font_scale_factor": 0.8199999928474426,
     "font_size": "normal",
     "font_type": "smooth",
     "layer": 1,
     "offset": [
       50.0,
-      11.0
+      12.0
     ],
     "shadow": false,
     "size": [
       46.0,
-      6.0
+      7.0
     ],
     "text": "§8故意只显示七个字",
     "text_alignment": "left",
@@ -7802,6 +7802,146 @@
     ],
     "visible": true
   },
+  "hint@common.button": {
+    "$default_texture": "textures/netease/common/button/default",
+    "$hover_texture": "textures/netease/common/button/hover",
+    "$is_new_nine_slice": true,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 1.169999957084656,
+    "$label_font_size": "normal",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "提示",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/netease/common/button/pressed",
+    "$texture_layer": 2,
+    "anchor_from": "center",
+    "anchor_to": "right_middle",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 1,
+    "offset": [
+      -20.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      60.0,
+      20.0
+    ],
+    "type": "button",
+    "visible": true
+  },
+  "slay@common.button": {
+    "$default_texture": "textures/netease/common/button/default",
+    "$hover_texture": "textures/netease/common/button/hover",
+    "$is_new_nine_slice": true,
+    "$label_color": [
+      1,
+      1,
+      1
+    ],
+    "$label_font_scale_factor": 1.169999957084656,
+    "$label_font_size": "normal",
+    "$label_layer": 3,
+    "$label_offset": [
+      0,
+      0
+    ],
+    "$label_text": "出牌",
+    "$nine_slice_buttom": 0,
+    "$nine_slice_left": 0,
+    "$nine_slice_right": 0,
+    "$nine_slice_top": 0,
+    "$nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "$pressed_button_name": "%GUI.click",
+    "$pressed_texture": "textures/netease/common/button/pressed",
+    "$texture_layer": 2,
+    "anchor_from": "center",
+    "anchor_to": "left_middle",
+    "bindings": [
+      {
+        "binding_collection_name": "",
+        "binding_condition": "always_when_visible",
+        "binding_type": "collection_details"
+      }
+    ],
+    "button_mappings": [],
+    "controls": [
+      {
+        "default@GUI.default": {}
+      },
+      {
+        "hover@GUI.hover": {}
+      },
+      {
+        "pressed@GUI.pressed": {}
+      },
+      {
+        "button_label@GUI.button_label": {}
+      }
+    ],
+    "default_control": "default",
+    "hover_control": "hover",
+    "is_handle_button_move_event": true,
+    "layer": 1,
+    "offset": [
+      20.0,
+      0.0
+    ],
+    "pressed_control": "pressed",
+    "size": [
+      60.0,
+      20.0
+    ],
+    "type": "button",
+    "visible": true
+  },
   "turn": {
     "anchor_from": "bottom_middle",
     "anchor_to": "bottom_middle",
@@ -7810,13 +7950,19 @@
         "pass@GUI.pass": {}
       },
       {
-        "hint@GUI.hint": {}
+        "propose@GUI.propose": {}
       },
       {
         "play@GUI.play": {}
       },
       {
         "sh@GUI.sh": {}
+      },
+      {
+        "hint@GUI.hint": {}
+      },
+      {
+        "slay@GUI.slay": {}
       }
     ],
     "layer": 100,
