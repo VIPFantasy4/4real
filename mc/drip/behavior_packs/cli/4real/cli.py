@@ -92,6 +92,8 @@ class Chain(object):
                     h = g.mh + '/m{}'.format(i)
                     g.SetPosition(h, g.origins[i])
         self.phase = phase
+        if len(self.track) != len(track):
+            g.SetVisible(g.notice, False)
         self.track = track[:-2] + [Combo.fromargs(args) for args in track[-2:]]
 
 
@@ -233,6 +235,7 @@ class Gambler(object):
         self.bot = bot
         if len(self.cards) != len(cards):
             g.selected.clear()
+            g.last_result = None,
             g.proposals = None
             self.cards = {}
             r = M[len(cards)]
@@ -796,6 +799,10 @@ class GUI(clientApi.GetScreenNodeCls()):
         return self.court + '/m'
 
     @property
+    def notice(self):
+        return self.court + '/notice'
+
+    @property
     def choice(self):
         return self.court + '/choice'
 
@@ -1085,7 +1092,9 @@ class GUI(clientApi.GetScreenNodeCls()):
             '/root_screen_panel'
         )
         self.selected = set()
+        self.last_result = None,
         self.proposals = None
+        self.last_proposal = None
         self.origins = None
         self._court = None
         self._duel = None
@@ -1217,6 +1226,7 @@ class GUI(clientApi.GetScreenNodeCls()):
                 track = self.duel.chain.track
                 if phase.turn == self.duel.uid and phase.name == 'MainPhase':
                     if self.proposals is None:
+                        self.last_proposal = None
                         cards = {}
                         for card in self.duel.gamblers[self.duel.uid].cards.itervalues():
                             cards.setdefault(card[0], []).append(card)
@@ -1230,38 +1240,50 @@ class GUI(clientApi.GetScreenNodeCls()):
                                 pass
                             combo = duo[-1]
                         self.proposals = Combo.propose(cards, combo)
-                        print(self.proposals)
+                        if not self.proposals:
+                            self.SetVisible(self.notice, True)
                     proposals = self.proposals  # type: list
                     if proposals:
-                        proposals.append(proposals.pop(0))
-                        proposal = proposals[-1][-1].copy()
-                        cards = self.duel.gamblers[self.duel.uid].cards
-                        for i in xrange(max(cards), min(cards) - 1, -1):
-                            x, y = self.origins[i]
-                            h = self.mh + '/m{}'.format(i)
-                            if cards[i][0] in proposal:
-                                k = cards[i][0]
-                                proposal[k] -= 1
-                                if not proposal[k]:
-                                    del proposal[k]
-                                self.selected.add(i)
-                                self.SetPosition(h, (x, y - 14.0))
-                            else:
-                                self.selected.discard(i)
-                                self.SetPosition(h, (x, y))
+                        if len(proposals) != 1 or self.last_proposal != self.selected:
+                            self.SetVisible(self.notice, False)
+                            proposals.append(proposals.pop(0))
+                            proposal = proposals[-1][-1].copy()
+                            cards = self.duel.gamblers[self.duel.uid].cards
+                            for i in xrange(max(cards), min(cards) - 1, -1):
+                                x, y = self.origins[i]
+                                h = self.mh + '/m{}'.format(i)
+                                if cards[i][0] in proposal:
+                                    k = cards[i][0]
+                                    proposal[k] -= 1
+                                    if not proposal[k]:
+                                        del proposal[k]
+                                    self.selected.add(i)
+                                    self.SetPosition(h, (x, y - 14.0))
+                                else:
+                                    self.selected.discard(i)
+                                    self.SetPosition(h, (x, y))
+                            if not self.last_proposal and len(proposals) == 1:
+                                self.last_proposal = self.selected.copy()
 
     def play(self, kws):
         if kws["TouchEvent"] == clientApi.GetMinecraftEnum().TouchEvent.TouchUp:
             if self.duel and self.duel.chain:
                 phase = self.duel.chain.phase
                 if self.selected and phase.turn == self.duel.uid and phase.name == 'MainPhase':
-                    cards = {}
-                    gambler = self.duel.gamblers[self.duel.uid]
-                    for i in self.selected:
-                        card = gambler.cards[i]
-                        cards.setdefault(card[0], []).append(card)
-                    self._cli.NotifyToServer('G_COURT', {
-                        'pid': clientApi.GetLocalPlayerId(),
-                        'name': 'play',
-                        'args': [cards]
-                    })
+                    if self.last_result[0] != self.selected:
+                        cards = {}
+                        gambler = self.duel.gamblers[self.duel.uid]
+                        for i in self.selected:
+                            card = gambler.cards[i]
+                            cards.setdefault(card[0], []).append(card)
+                        valid = Combo.fromcards(cards, None)
+                        self.last_result = self.selected.copy(), valid and cards
+                        if not valid:
+                            self.SetVisible(self.notice, True)
+                    cards = self.last_result[1]
+                    if cards:
+                        self._cli.NotifyToServer('G_COURT', {
+                            'pid': clientApi.GetLocalPlayerId(),
+                            'name': 'play',
+                            'args': [cards]
+                        })

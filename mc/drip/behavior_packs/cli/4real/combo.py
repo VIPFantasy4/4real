@@ -12,19 +12,29 @@ class Combo(object):
         if combo:
             return combo.detect(cards)
         else:
-            pass
+            combo = Combo.fromcards(cards, None)
+            if combo is None:
+                return Combo.autodetect(cards)
+            proposal = {}
+            for card in combo.view:
+                k = card[0]
+                if k in proposal:
+                    proposal[k] += 1
+                else:
+                    proposal[k] = 1
+            return [(proposal,)]
 
     @staticmethod
     def fromcards(cards, owner):
         if not cards:
-            return Pass(owner, None)
+            return
         overview = {
             'qty': 0,
             'max': None,
             'min': None,
             'map': {}
         }
-        for k, v in cards.items():
+        for k, v in cards.iteritems():
             qty = len(v)
             if qty:
                 if not overview['qty']:
@@ -43,77 +53,71 @@ class Combo(object):
                 return adaptor(owner, *args)
 
     @staticmethod
-    def autodetect(cards, owner, combo=None):
+    def autodetect(cards):
         if not cards:
-            return Pass(owner, None), None
-        if combo is None:
-            fallback = {}
-            for item in sorted(cards.items(), reverse=True):
-                qty = len(item[1])
-                if qty == 1:
+            return []
+        fallback = {}
+        for item in sorted(cards.iteritems(), reverse=True):
+            qty = len(item[1])
+            if qty == 1:
+                view = list(item[1])
+                k = item[0]
+                if k > 5:
+                    c = {2: 0, 3: 0, 4: 0}
+                    while k > 2:
+                        k -= 1
+                        if k in cards:
+                            qty = len(cards[k])
+                            if qty in (3, 4):
+                                if c[qty]:
+                                    break
+                                c[qty] += 1
+                            elif qty == 2:
+                                if c[2] == 2:
+                                    break
+                                c[qty] += 1
+                            view.append(next(iter(cards[k])))
+                            continue
+                        break
+                    view.reverse()
+                qty = len(view)
+                if qty > 4:
+                    return [({card[0]: 1 for card in view},)]
+                if 3 in fallback:
+                    v = fallback[3]
+                    view = sorted(cards[v])
+                    view.extend(item[1])
+                    return [({item[0]: 1, v: 3},)]
+                return [({item[0]: 1},)]
+            if qty == 2:
+                if item[0]:
                     view = list(item[1])
                     k = item[0]
-                    if k > 5:
-                        c = {2: 0, 3: 0, 4: 0}
+                    if k > 3:
                         while k > 2:
                             k -= 1
-                            if k in cards:
-                                qty = len(cards[k])
-                                if qty in (3, 4):
-                                    if c[qty]:
-                                        break
-                                    c[qty] += 1
-                                elif qty == 2:
-                                    if c[2] == 2:
-                                        break
-                                    c[qty] += 1
-                                view.append(next(iter(cards[k])))
+                            if k in cards and len(cards[k]) == 2:
+                                view.extend(cards[k])
                                 continue
                             break
                         view.reverse()
                     qty = len(view)
-                    if qty > 4:
-                        return Seq(owner, view, qty, view[0][0]), {card[0]: {card} for card in view}
+                    if qty > 5:
+                        v = view[0][0]
+                        return [({k: 2 for k in xrange(v, v + qty // 2)},)]
                     if 3 in fallback:
                         v = fallback[3]
                         view = sorted(cards[v])
                         view.extend(item[1])
-                        return TripleWithSingle(owner, view, v), {item[0]: item[1], v: cards[v]}
-                    view = list(item[1])
-                    return Single(owner, view, view[0]), {item[0]: item[1]}
-                if qty == 2:
-                    if item[0]:
-                        view = list(item[1])
-                        k = item[0]
-                        if k > 3:
-                            while k > 2:
-                                k -= 1
-                                if k in cards and len(cards[k]) == 2:
-                                    view.extend(cards[k])
-                                    continue
-                                break
-                            view.reverse()
-                        qty = len(view)
-                        if qty > 5:
-                            v = view[0][0]
-                            return PairSeq(owner, view, qty, v), {k: cards[k] for k in xrange(v, v + qty // 2)}
-                        if 3 in fallback:
-                            v = fallback[3]
-                            view = sorted(cards[v])
-                            view.extend(item[1])
-                            return TripleWithPair(owner, view, v), {item[0]: item[1], v: cards[v]}
-                        view = list(item[1])
-                        return Pair(owner, view, item[0]), {item[0]: item[1]}
-                elif qty not in fallback:
-                    fallback[qty] = item[0]
-            if 3 in fallback:
-                v = fallback[3]
-                view = sorted(cards[v])
-                return Triple(owner, view, v), {v: cards[v]}
-            v = fallback[4]
-            view = [(v, j) for j in xrange(4)]
-            return RealBomb(owner, view, v), {v: cards[v]}
-        return combo.detect(cards, owner)
+                        return [({item[0]: 2, v: 3},)]
+                    return [({item[0]: 2},)]
+            elif qty not in fallback:
+                fallback[qty] = item[0]
+        if 3 in fallback:
+            v = fallback[3]
+            return [({v: 3},)]
+        v = fallback[4]
+        return [({v: 4},)]
 
     def __init__(self, owner, view):
         self._owner = owner
@@ -622,7 +626,7 @@ class Plane(Combo):
 
         if args:
             view = []
-            for s in cards.values():
+            for s in cards.itervalues():
                 view.extend(s)
             count, qty, v = args
             return view, count, qty, v

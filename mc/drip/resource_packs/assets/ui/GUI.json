@@ -98,6 +98,32 @@
     "type": "label",
     "visible": true
   },
+  "bear": {
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "color": [
+      1.0,
+      1.0,
+      1.0
+    ],
+    "font_scale_factor": 0.8199999928474426,
+    "font_size": "normal",
+    "font_type": "smooth",
+    "layer": 1,
+    "offset": [
+      0.0,
+      -2.0
+    ],
+    "shadow": false,
+    "size": [
+      "100.0%+0.0px",
+      7.0
+    ],
+    "text": "聚聚宝倍儿",
+    "text_alignment": "center",
+    "type": "label",
+    "visible": true
+  },
   "bot@common.button": {
     "$default_texture": "textures/ui/bot",
     "$hover_texture": "textures/ui/botc",
@@ -1588,6 +1614,46 @@
     "type": "label",
     "visible": true
   },
+  "notice": {
+    "anchor_from": "bottom_middle",
+    "anchor_to": "bottom_middle",
+    "controls": [
+      {
+        "bear@GUI.bear": {}
+      }
+    ],
+    "is_new_nine_slice": true,
+    "layer": 298,
+    "nine_slice_buttom": 0,
+    "nine_slice_left": 0,
+    "nine_slice_right": 0,
+    "nine_slice_top": 0,
+    "nineslice_size": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "offset": [
+      0.0,
+      -109.0
+    ],
+    "size": [
+      "100.0%+0.0px",
+      9.0
+    ],
+    "texture": "textures/ui/auto",
+    "type": "image",
+    "uv": [
+      0,
+      0
+    ],
+    "uv_size": [
+      0,
+      0
+    ],
+    "visible": false
+  },
   "court": {
     "anchor_from": "center",
     "anchor_to": "center",
@@ -1627,6 +1693,9 @@
       },
       {
         "mclock@GUI.mclock": {}
+      },
+      {
+        "notice@GUI.notice": {}
       }
     ],
     "layer": 1,
