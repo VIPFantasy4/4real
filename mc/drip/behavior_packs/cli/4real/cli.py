@@ -32,6 +32,11 @@ M = {
     19: xrange(19),
     20: xrange(20),
 }
+COUNTDOWN = {
+    'GangPhase': 7,
+    'PlusPhase': 4,
+    'MainPhase': 17
+}
 
 
 class Phase(object):
@@ -52,6 +57,10 @@ class Chain(object):
         if self.three:
             pass
         g.SetText(g.times, str(self.times))
+
+        countdown = COUNTDOWN.get(self.phase.name)
+        if countdown:
+            g.countdown = countdown
 
     def catch_up(self, phase, times, three, track):
         g = self.duel.g
@@ -95,6 +104,10 @@ class Chain(object):
         if len(self.track) != len(track):
             g.SetVisible(g.notice, False)
         self.track = track[:-2] + [Combo.fromargs(args) for args in track[-2:]]
+
+        countdown = COUNTDOWN.get(self.phase.name)
+        if countdown:
+            g.countdown = countdown
 
 
 class Gambler(object):
@@ -737,7 +750,37 @@ class Cli(clientApi.GetClientSystemCls()):
             self._debut = True
 
 
+class Task(object):
+    FRAME = 0
+    TIMES = 0
+
+    def __init__(self, interval, times=None):
+        self.interval = interval
+        self.times = times
+
+
 class GUI(clientApi.GetScreenNodeCls()):
+    def SetVisible(self, widget, on):
+        if widget in self.clocks:
+            if on:
+                sec = self.clocks[widget]
+                if sec is None and self.countdown is not None:
+                    self.clocks[widget] = self.countdown
+                    self.SetText(widget + '/sec', str(self.countdown))
+            elif self.clocks[widget] is not None:
+                self.clocks[widget] = None
+        super(GUI, self).SetVisible(widget, on)
+
+    def Update(self):
+        for clock, sec in self.clocks.iteritems():
+            if sec is not None:
+                if sec:
+                    sec -= 1
+                    self.clocks[clock] = sec
+                    self.SetText(clock + '/sec', str(sec))
+                else:
+                    self.SetVisible(clock, False)
+
     def Create(self):
         self.AddTouchEventHandler(self.homepage + '/classic', self.classic)  # flip
         self.AddTouchEventHandler(self.c + '/classical', self.classical)  # flip
@@ -779,16 +822,8 @@ class GUI(clientApi.GetScreenNodeCls()):
         return self.infobar + '/msh'
 
     @property
-    def msec(self):
-        return self.mclock + '/msec'
-
-    @property
     def mclock(self):
         return self.court + '/mclock'
-
-    @property
-    def sec(self):
-        return self.clock + '/sec'
 
     @property
     def clock(self):
@@ -817,10 +852,6 @@ class GUI(clientApi.GetScreenNodeCls()):
     @property
     def rchoice(self):
         return self.right + '/rchoice'
-
-    @property
-    def rsec(self):
-        return self.rclock + '/rsec'
 
     @property
     def rclock(self):
@@ -877,10 +908,6 @@ class GUI(clientApi.GetScreenNodeCls()):
     @property
     def lchoice(self):
         return self.left + '/lchoice'
-
-    @property
-    def lsec(self):
-        return self.lclock + '/lsec'
 
     @property
     def lclock(self):
@@ -1091,11 +1118,18 @@ class GUI(clientApi.GetScreenNodeCls()):
             '/safezone_screen_panel'
             '/root_screen_panel'
         )
+        self.clocks = {
+            self.clock: None,
+            self.mclock: None,
+            self.rclock: None,
+            self.lclock: None,
+        }
         self.selected = set()
         self.last_result = None,
         self.proposals = None
         self.last_proposal = None
         self.origins = None
+        self.countdown = None
         self._court = None
         self._duel = None
 

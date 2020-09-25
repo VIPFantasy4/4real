@@ -3365,7 +3365,7 @@
     "anchor_to": "center",
     "controls": [
       {
-        "lsec@GUI.lsec": {}
+        "sec@GUI.sec": {}
       }
     ],
     "is_new_nine_slice": false,
@@ -3798,32 +3798,6 @@
     ],
     "text": "3000",
     "text_alignment": "left",
-    "type": "label",
-    "visible": true
-  },
-  "lsec": {
-    "anchor_from": "center",
-    "anchor_to": "center",
-    "color": [
-      1,
-      1,
-      1
-    ],
-    "font_scale_factor": 0.9399999976158142,
-    "font_size": "normal",
-    "font_type": "smooth",
-    "layer": 1,
-    "offset": [
-      1.0,
-      1.0
-    ],
-    "shadow": false,
-    "size": [
-      12.0,
-      8.0
-    ],
-    "text": "20",
-    "text_alignment": "center",
     "type": "label",
     "visible": true
   },
@@ -5512,7 +5486,7 @@
     "anchor_to": "center",
     "controls": [
       {
-        "msec@GUI.msec": {}
+        "sec@GUI.sec": {}
       }
     ],
     "is_new_nine_slice": false,
@@ -5692,32 +5666,6 @@
       85.0
     ],
     "type": "panel",
-    "visible": true
-  },
-  "msec": {
-    "anchor_from": "center",
-    "anchor_to": "center",
-    "color": [
-      1,
-      1,
-      1
-    ],
-    "font_scale_factor": 0.9399999976158142,
-    "font_size": "normal",
-    "font_type": "smooth",
-    "layer": 1,
-    "offset": [
-      1.0,
-      1.0
-    ],
-    "shadow": false,
-    "size": [
-      12.0,
-      8.0
-    ],
-    "text": "20",
-    "text_alignment": "center",
-    "type": "label",
     "visible": true
   },
   "name": {
@@ -6284,7 +6232,7 @@
     "anchor_to": "center",
     "controls": [
       {
-        "rsec@GUI.rsec": {}
+        "sec@GUI.sec": {}
       }
     ],
     "is_new_nine_slice": false,
@@ -7001,32 +6949,6 @@
     ],
     "text": "3000",
     "text_alignment": "left",
-    "type": "label",
-    "visible": true
-  },
-  "rsec": {
-    "anchor_from": "center",
-    "anchor_to": "center",
-    "color": [
-      1,
-      1,
-      1
-    ],
-    "font_scale_factor": 0.9399999976158142,
-    "font_size": "normal",
-    "font_type": "smooth",
-    "layer": 1,
-    "offset": [
-      1.0,
-      1.0
-    ],
-    "shadow": false,
-    "size": [
-      12.0,
-      8.0
-    ],
-    "text": "20",
-    "text_alignment": "center",
     "type": "label",
     "visible": true
   },
