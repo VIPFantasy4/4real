@@ -46,7 +46,7 @@ class Combo(object):
                     overview['min'] = k
                 overview['map'].setdefault(qty, []).append(k)
                 overview['qty'] += qty
-        adaptors = MAPPING.get(overview['qty'])
+        adaptors = MAPPING[overview['qty']]
         for adaptor in adaptors:
             args = adaptor.validate(overview, cards)
             if args is not None:

@@ -6,7 +6,7 @@ class Combo:
         return cls
 
     @staticmethod
-    def fromcards(cards: dict, owner):
+    def fromcards(cards: dict, owner, prime=None):
         if not cards:
             return Pass(owner, None)
         overview = {
@@ -27,7 +27,15 @@ class Combo:
                     overview['min'] = k
                 overview['map'].setdefault(qty, []).append(k)
                 overview['qty'] += qty
-        adaptors = MAPPING.get(overview['qty'])
+        adaptors = MAPPING[overview['qty']]
+        if prime:
+            adaptor = prime.whoami()
+            if adaptor in adaptors:
+                adaptors = list(adaptors)
+                adaptors.remove(adaptor)
+                args = adaptor.validate(overview, cards, prime)
+                if args is not None:
+                    return adaptor(owner, *args)
         for adaptor in adaptors:
             args = adaptor.validate(overview, cards)
             if args is not None:
@@ -128,7 +136,7 @@ class Combo:
 
 class Single(Combo):
     @staticmethod
-    def validate(overview: dict, cards: dict) -> tuple:
+    def validate(overview: dict, cards: dict, prime=None) -> tuple:
         if overview['qty'] == 1:
             card = next(iter(cards[overview['max']]))
             return [card], card
@@ -176,7 +184,7 @@ class Single(Combo):
 
 class Pair(Combo):
     @staticmethod
-    def validate(overview: dict, cards: dict) -> tuple:
+    def validate(overview: dict, cards: dict, prime=None) -> tuple:
         if overview['qty'] == 2 and 2 in overview['map'] and overview['map'][2][0]:
             return sorted(cards[overview['max']]), overview['max']
 
@@ -227,7 +235,7 @@ class Pair(Combo):
 
 class Seq(Combo):
     @staticmethod
-    def validate(overview: dict, cards: dict) -> tuple:
+    def validate(overview: dict, cards: dict, prime=None) -> tuple:
         if overview['qty'] > 4 and overview['max'] > 1 and 1 in overview['map'] and len(overview['map']) == 1:
             seq = sorted(overview['map'][1])
             if list(range(overview['max'], overview['min'] + 1)) == seq:
@@ -268,7 +276,7 @@ class Seq(Combo):
 
 class PairSeq(Combo):
     @staticmethod
-    def validate(overview: dict, cards: dict) -> tuple:
+    def validate(overview: dict, cards: dict, prime=None) -> tuple:
         if overview['qty'] > 5 and overview['max'] > 1 and 2 in overview['map'] and len(overview['map']) == 1:
             seq = sorted(overview['map'][2])
             if list(range(overview['max'], overview['min'] + 1)) == seq:
@@ -314,7 +322,7 @@ class PairSeq(Combo):
 
 class Triple(Combo):
     @staticmethod
-    def validate(overview: dict, cards: dict) -> tuple:
+    def validate(overview: dict, cards: dict, prime=None) -> tuple:
         if overview['qty'] == 3 and 3 in overview['map']:
             return sorted(cards[overview['max']]), overview['max']
 
@@ -356,7 +364,7 @@ class Triple(Combo):
 
 class TripleWithSingle(Combo):
     @staticmethod
-    def validate(overview: dict, cards: dict) -> tuple:
+    def validate(overview: dict, cards: dict, prime=None) -> tuple:
         if overview['qty'] == 4 and 3 in overview['map']:
             view = sorted(cards[overview['map'][3][0]])
             view.extend([next(iter(cards[overview['map'][1][0]]))])
@@ -424,7 +432,7 @@ class TripleWithSingle(Combo):
 
 class TripleWithPair(Combo):
     @staticmethod
-    def validate(overview: dict, cards: dict) -> tuple:
+    def validate(overview: dict, cards: dict, prime=None) -> tuple:
         if overview['qty'] == 5 and 3 in overview['map'] and 2 in overview['map']:
             view = sorted(cards[overview['map'][3][0]])
             view.extend(sorted(cards[overview['map'][2][0]]))
@@ -491,7 +499,7 @@ class TripleWithPair(Combo):
 
 class Plane(Combo):
     @staticmethod
-    def validate(overview: dict, cards: dict) -> tuple:
+    def validate(overview: dict, cards: dict, prime=None) -> tuple:
         args = None
 
         if 3 in overview['map']:
@@ -597,9 +605,9 @@ class Plane(Combo):
                     elif list(range(seq[1], seq[-2] + 1)) == seq[1:-1]:
                         if seq[0] + 1 == seq[1]:
                             if seq[-1] - 1 == seq[-2]:
-                                if count == 4:
+                                if count == 4 and prime and prime.qty == 12 and prime.count == 3:
                                     # can be specified
-                                    pass
+                                    count = 3
                                 args = count, overview['qty'], seq[0]
                             elif count == 4:
                                 args = count - 1, overview['qty'], seq[0]
@@ -703,7 +711,7 @@ class Plane(Combo):
 
 class FakeBomb(Combo):
     @staticmethod
-    def validate(overview: dict, cards: dict) -> tuple:
+    def validate(overview: dict, cards: dict, prime=None) -> tuple:
         if 4 in overview['map']:
             if overview['qty'] == 6:
                 if 1 in overview['map']:
@@ -815,7 +823,7 @@ class FakeBomb(Combo):
 
 class RealBomb(Combo):
     @staticmethod
-    def validate(overview: dict, cards: dict) -> tuple:
+    def validate(overview: dict, cards: dict, prime=None) -> tuple:
         if overview['qty'] == 4 and 4 in overview['map']:
             v = overview['max']
             return [(v, j) for j in range(4)], v
@@ -847,7 +855,7 @@ class RealBomb(Combo):
 
 class JokerBomb(Combo):
     @staticmethod
-    def validate(overview: dict, cards: dict) -> tuple:
+    def validate(overview: dict, cards: dict, prime=None) -> tuple:
         if overview['qty'] == 2 and 2 in overview['map'] and not overview['map'][2][0]:
             return [(0, 0), (0, 1)],
 

@@ -280,7 +280,7 @@ class MainPhase(Phase):
                 gambler.scan(cards)
                 first, second = self._track[-2:] + [None for _ in range(2 - len(self._track))]
                 last = second if second else first
-                combo = Combo.fromcards(cards, gambler)
+                combo = Combo.fromcards(cards, gambler, last)
                 if combo is not None:
                     if (not combo or combo > last) if last else combo:
                         gambler.play(cards)
