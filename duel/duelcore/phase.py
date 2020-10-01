@@ -174,6 +174,11 @@ class PlusPhase(Phase):
         await asyncio.sleep(duelcore.PP_TIMEOUT)
         if not fut.done():
             fut.set_result(None)
+            _id, status, gamblers = self._chain.duel.view()
+            for gambler in gamblers.values():
+                if not gambler.times:
+                    gambler.times = 1
+            await self._chain.duel.heartbeat()
 
     async def till_i_die(self):
         fut = asyncio.get_event_loop().create_future()
@@ -183,11 +188,6 @@ class PlusPhase(Phase):
         del self._chain.duel.funcs[self.times.__name__]
         if prior:
             task.cancel()
-        else:
-            _id, status, gamblers = self._chain.duel.view()
-            for gambler in gamblers.values():
-                if not gambler.times:
-                    gambler.times = 1
         self._chain.duel.funcs[self._next.show_hand.__name__] = self._next.show_hand
 
     async def times(self, addr, times):
