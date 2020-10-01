@@ -754,9 +754,21 @@ class Task(object):
     FRAME = 0
     TIMES = 0
 
-    def __init__(self, interval, times=None):
+    def __init__(self, work, interval=1, times=None, skip=0):
         self.interval = interval
         self.times = times
+        self.work = work
+
+    def done(self):
+        return self.times and self.TIMES >= self.times
+
+    def loop(self):
+        self.FRAME += 1
+        if not self.FRAME % self.interval:
+            self.work()
+            self.FRAME = 0
+            if self.times:
+                self.TIMES += 1
 
 
 class GUI(clientApi.GetScreenNodeCls()):
@@ -772,14 +784,12 @@ class GUI(clientApi.GetScreenNodeCls()):
         super(GUI, self).SetVisible(widget, on)
 
     def Update(self):
-        for clock, sec in self.clocks.iteritems():
-            if sec is not None:
-                if sec:
-                    sec -= 1
-                    self.clocks[clock] = sec
-                    self.SetText(clock + '/sec', str(sec))
-                else:
-                    self.SetVisible(clock, False)
+        if self.tasks:
+            for i in xrange(len(self.tasks) - 1, -1, -1):
+                task = self.tasks[i]
+                task.loop()
+                if task.done():
+                    del self.tasks[i]
 
     def Create(self):
         self.AddTouchEventHandler(self.homepage + '/classic', self.classic)  # flip
@@ -1100,6 +1110,7 @@ class GUI(clientApi.GetScreenNodeCls()):
             pass
         if self.duel is None:
             self._duel = Duel(self, *args)
+            self.tasks.append(Task(self.sec, 30))
             self.SetVisible(self.room + '/change', False)
             self.SetVisible(self.room + '/match', False)
             self.SetVisible(self.room + '/bot', True)
@@ -1124,6 +1135,7 @@ class GUI(clientApi.GetScreenNodeCls()):
             self.rclock: None,
             self.lclock: None,
         }
+        self.tasks = []
         self.selected = set()
         self.last_result = None,
         self.proposals = None
@@ -1132,6 +1144,14 @@ class GUI(clientApi.GetScreenNodeCls()):
         self.countdown = None
         self._court = None
         self._duel = None
+
+    def sec(self):
+        for clock, sec in self.clocks.iteritems():
+            if sec is not None:
+                if sec:
+                    sec -= 1
+                    self.clocks[clock] = sec
+                    self.SetText(clock + '/sec', str(sec))
 
     def standby(self):
         self.SetVisible(self.real, False)
