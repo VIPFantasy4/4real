@@ -29,17 +29,21 @@ def mark(addresses, service_id, duel_id):
 
 
 class Real:
-    def __init__(self, _id, pool):
+    def restore(self):
+        pass
+
+    def __init__(self, _id, topic, pool):
         self._id = _id
+        self._key = f'{topic}:{_id}'
         self._pool = pool
         self._duels = {}
         self._conns = {}
         self._funcs = {}
         self._consumer = kafka.KafkaConsumer(
-            *cfg.KAFKA_TOPICS,
             bootstrap_servers=cfg.KAFKA_SERVERS,
-            consumer_timeout_ms=1000
+            group_id=topic
         )
+        self._consumer.assign([kafka.TopicPartition(topic, _id)])
         self._producer = kafka.KafkaProducer(bootstrap_servers=cfg.KAFKA_SERVERS)
 
         self._od = OrderedDict()
@@ -164,7 +168,7 @@ class Real:
 
 
 if __name__ == '__main__':
-    _id = sys.argv[1]
+    _id, topic = sys.argv[1:]
 
     with concurrent.futures.ThreadPoolExecutor() as pool:
-        asyncio.run(Real(_id, pool).main())
+        asyncio.run(Real(_id, topic, pool).main())
