@@ -2,15 +2,16 @@
 # -*- coding: utf-8 -*-
 
 from collections import OrderedDict
-import log
-import cfg
-import functools
-import concurrent.futures
-import asyncio
-import pickle
+from kafka.consumer.fetcher import ConsumerRecord
 import kafka
 import redis
+import asyncio
+import concurrent.futures
+import functools
+import pickle
 import sys
+import cfg
+import log
 
 import sqlite3
 
@@ -57,20 +58,6 @@ class Real:
     @property
     def funcs(self):
         return self._funcs
-
-    def publish(self, topic, value=None, key=None, headers=None, partition=None, timestamp_ms=None):
-        try:
-            self._producer.send(topic, value, key, headers, partition, timestamp_ms)
-        except Exception as e:
-            log.error('Exception occurred in publish')
-            log.error('%s: %s', e.__class__.__name__, e)
-
-    def fetch(self):
-        try:
-            return next(self._consumer)
-        except StopIteration:
-            if self._consumer._closed:
-                log.error('Met a closed KafkaConsumer while fetching')
 
     async def worker(self):
         while True:
@@ -127,23 +114,17 @@ class Real:
                 log.error("Even if it's unlikely")
                 _id = data[0]
             self._duels[_id] = data
-            loop = asyncio.get_running_loop()
-            await loop.run_in_executor(self._pool, functools.partial(self.publish, 'duel', raw))
+            self._producer.send('duel', raw)
 
     async def consume_forever(self):
         await asyncio.sleep(0)
         while True:
             loop = asyncio.get_running_loop()
-            msg = await loop.run_in_executor(self._pool, self.fetch)
-            if msg.__class__.__name__ == 'ConsumerRecord':
+            msg = await loop.run_in_executor(self._pool, functools.partial(next, self._consumer))
+            if isinstance(msg, ConsumerRecord):
                 data = pickle.loads(msg.value)
                 if isinstance(data, dict) and data.get('name') in self.funcs:
                     func = self.funcs[data['name']]
-                    # try:
-                    #     await func(*data['args'])
-                    # except Exception as e:
-                    #     log.error(f'Exception occurred in {func}')
-                    #     log.error('%s: %s', e.__class__.__name__, e)
                     await self._work_queue.put(func(*data['args']))
 
     async def main(self):
