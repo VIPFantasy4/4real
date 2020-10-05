@@ -9,6 +9,7 @@ import concurrent.futures
 import asyncio
 import pickle
 import kafka
+import redis
 import sys
 
 import sqlite3
@@ -29,7 +30,8 @@ def mark(addresses, service_id, duel_id):
 
 
 class Real:
-    def restore(self):
+    @classmethod
+    def restore(cls, snapshot):
         pass
 
     def __init__(self, _id, topic, pool):
@@ -39,6 +41,8 @@ class Real:
         self._duels = {}
         self._conns = {}
         self._funcs = {}
+        self._redis = redis.StrictRedis(cfg.REDIS_HOST, cfg.REDIS_PORT, cfg.REDIS_DB, cfg.REDIS_PASSWD)
+        self._redis.set(self._key, 0)
         self._consumer = kafka.KafkaConsumer(
             bootstrap_servers=cfg.KAFKA_SERVERS,
             group_id=topic
@@ -171,4 +175,4 @@ if __name__ == '__main__':
     _id, topic = sys.argv[1:]
 
     with concurrent.futures.ThreadPoolExecutor() as pool:
-        asyncio.run(Real(_id, topic, pool).main())
+        asyncio.run(Real(int(_id), topic, pool).main())
