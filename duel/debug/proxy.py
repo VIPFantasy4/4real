@@ -129,7 +129,7 @@ class ConnHandler(asyncore.dispatcher_with_send):
             raw, self.in_buffer = self.in_buffer.split('.')[-2:]
             data = pickle.loads(raw.decode('hex'))
             if 'name' in data and 'args' in data:
-                producer.send('cli', data)
+                producer.send('rookie0', data)
 
     def handle_close(self):
         print('conn from %s lost' % repr(self.addr))

@@ -134,12 +134,13 @@ class Srv(serverApi.GetServerSystemCls()):
                 duel = None
                 for args in data[2]:
                     addr = args[0]
-                    pid = onlineApi.GetPlayerIdByUid(addr)
-                    if pid:
-                        if duel is None:
-                            duel = Duel(*data)
-                        self._mapping[addr] = duel._id
-                        self.NotifyToClient(pid, 'G_COURT', {'args': duel.regress(addr)})
+                    if addr in self.s:
+                        pid = onlineApi.GetPlayerIdByUid(addr)
+                        if pid:
+                            if duel is None:
+                                duel = Duel(*data)
+                            self._mapping[addr] = duel._id
+                            self.NotifyToClient(pid, 'G_COURT', {'args': duel.regress(addr)})
             except Empty:
                 pass
 
@@ -165,7 +166,7 @@ class Srv(serverApi.GetServerSystemCls()):
             return
         print data['court']
         producer = self._producer
-        producer.send('cli', {
+        producer.send('rookie0', {
             'name': 'participate',
             'args': (uid,)
         })
@@ -187,7 +188,7 @@ class Srv(serverApi.GetServerSystemCls()):
                 'args': (uid,) + tuple(data['args'])
             })
             producer = self._producer
-            producer.send('cli', {
+            producer.send('rookie0', {
                 'name': 'rcall',
                 'args': args
             })
