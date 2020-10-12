@@ -99,7 +99,6 @@ class Srv(serverApi.GetServerSystemCls()):
         self._consumer = kafka.KafkaConsumer(
             'duel',
             bootstrap_servers=KAFKA_SERVERS,
-            group_id=str(onlineApi.GetServerId()),
             value_deserializer=pickle.loads
         )
         self._producer = kafka.KafkaProducer(bootstrap_servers=KAFKA_SERVERS, value_serializer=pickle.dumps)
