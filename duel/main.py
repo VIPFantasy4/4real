@@ -82,12 +82,17 @@ class Real:
             self._wait_queue.task_done()
             loop = asyncio.get_running_loop()
             await loop.run_in_executor(self._pool, functools.partial(mark, addresses, self._id, '1'))
-            writer = self._conns['1'][1]
+            writer = await self.arrange()
             writer.write(pickle.dumps({
                 'name': 'participate',
                 'args': (addresses,)
             }).hex().encode() + b'.')
             await writer.drain()
+
+    async def arrange(self):
+        import duel
+        asyncio.create_subprocess_exec(sys.executable, duel.__file__)
+        return writer
 
     async def heartbeat(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter):
         _id = None
