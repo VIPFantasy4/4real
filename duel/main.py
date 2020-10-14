@@ -9,6 +9,8 @@ import asyncio
 import concurrent.futures
 import functools
 import pickle
+import time
+import duel
 import sys
 import cfg
 import log
@@ -90,8 +92,7 @@ class Real:
             await writer.drain()
 
     async def arrange(self):
-        import duel
-        asyncio.create_subprocess_exec(sys.executable, duel.__file__)
+        await asyncio.create_subprocess_exec(sys.executable, duel.__file__, )
         return writer
 
     async def heartbeat(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter):
