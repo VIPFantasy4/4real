@@ -37,6 +37,9 @@ class Real:
     def restore(cls, snapshot):
         pass
 
+    def __next__(self):
+        return '1'
+
     def __init__(self, _id, topic, pool):
         self._id = _id
         self._key = f'{topic}:{_id}'
@@ -54,6 +57,7 @@ class Real:
         self._producer = kafka.KafkaProducer(bootstrap_servers=cfg.KAFKA_SERVERS)
 
         self._od = OrderedDict()
+        self._stock = OrderedDict()
         self._work_queue: asyncio.Queue = None
         self._wait_queue: asyncio.Queue = None
 
@@ -92,8 +96,19 @@ class Real:
             await writer.drain()
 
     async def arrange(self):
-        await asyncio.create_subprocess_exec(sys.executable, duel.__file__, )
+        if self._stock:
+            _id, writer = self._stock.popitem()
+        else:
+            _id = next(self)
+            fut = asyncio.get_event_loop().create_future()
+            self._duels[_id] = fut
+            asyncio.create_task(self.watcher(await asyncio.create_subprocess_exec(
+                sys.executable, duel.__file__, _id, stdout=sys.stdout, stderr=sys.stderr)))
+            writer = await fut
         return writer
+
+    async def watcher(self, subprocess):
+        await subprocess.wait()
 
     async def heartbeat(self, reader: asyncio.StreamReader, writer: asyncio.StreamWriter):
         _id = None
@@ -115,6 +130,9 @@ class Real:
             print(len(raw), data)
             if _id is None:
                 _id = data[0]
+                fut = self._duels.get(_id)
+                if fut is not None:
+                    fut.set_result(writer)
                 self._conns[_id] = (reader, writer)
             elif _id != data[0]:
                 log.error("Even if it's unlikely")
