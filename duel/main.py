@@ -102,8 +102,9 @@ class Real:
             _id = next(self)
             fut = asyncio.get_event_loop().create_future()
             self._duels[_id] = fut
-            asyncio.create_task(self.watcher(await asyncio.create_subprocess_exec(
-                sys.executable, duel.__file__, _id, stdout=sys.stdout, stderr=sys.stderr)))
+            # asyncio.create_task(self.watcher())
+            await asyncio.create_subprocess_exec(
+                sys.executable, duel.__file__, _id, stdout=sys.stdout, stderr=sys.stderr)
             writer = await fut
         return writer
 
@@ -133,12 +134,12 @@ class Real:
                 fut = self._duels.get(_id)
                 if fut is not None:
                     fut.set_result(writer)
-                self._conns[_id] = (reader, writer)
-            elif _id != data[0]:
-                log.error("Even if it's unlikely")
-                _id = data[0]
+                self._conns[_id] = reader, writer
+            elif not data[1]:
+                self._stock[_id] = writer
+            else:
+                self._producer.send('duel', raw)
             self._duels[_id] = data
-            self._producer.send('duel', raw)
 
     async def consume_forever(self):
         await asyncio.sleep(0)

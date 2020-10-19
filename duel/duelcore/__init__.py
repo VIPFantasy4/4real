@@ -4,8 +4,9 @@ from .chain import *
 from .gambler import *
 from .exceptions import *
 
-WAITING = 1
-SERVING = 2
+WAITING = 0
+SERVING = 1
+PENDING = 2
 
 PRIORITY_LEVEL_HIGH = 1
 PRIORITY_LEVEL_LOW = 2
