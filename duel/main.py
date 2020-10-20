@@ -38,9 +38,11 @@ class Real:
         pass
 
     def __next__(self):
-        return '1'
+        self._i += 1
+        return str(self._i)
 
     def __init__(self, _id, topic, pool):
+        self._i = 0
         self._id = _id
         self._key = f'{topic}:{_id}'
         self._pool = pool
