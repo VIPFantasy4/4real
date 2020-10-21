@@ -9,7 +9,6 @@ import asyncio
 import concurrent.futures
 import functools
 import pickle
-import time
 import duel
 import sys
 import cfg
@@ -49,8 +48,8 @@ class Real:
         self._duels = {}
         self._conns = {}
         self._funcs = {}
+        self._topic = topic
         self._redis = redis.StrictRedis(cfg.REDIS_HOST, cfg.REDIS_PORT, cfg.REDIS_DB, cfg.REDIS_PASSWD)
-        self._redis.set(self._key, 0)
         self._consumer = kafka.KafkaConsumer(
             bootstrap_servers=cfg.KAFKA_SERVERS,
             group_id=topic
@@ -153,6 +152,11 @@ class Real:
                 if isinstance(data, dict) and data.get('name') in self.funcs:
                     func = self.funcs[data['name']]
                     await self._work_queue.put(func(*data['args']))
+
+    async def snapshot(self):
+        snapshot = pickle.dumps(self)
+        self._redis.set(self._key, snapshot)
+        self._redis.hset(self._topic, self._id, )
 
     async def main(self):
         self.funcs[self.participate.__name__] = self.participate
