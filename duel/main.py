@@ -32,24 +32,23 @@ def mark(addresses, service_id, duel_id):
 
 
 class Real:
-    @classmethod
-    def restore(cls, snapshot):
-        pass
+    def __reduce__(self):
+        return tuple, (tuple((k, v) for k, v in tuple(self._duels.items()) if not isinstance(v, asyncio.Future)),)
 
     def __next__(self):
         self._i += 1
         return str(self._i)
 
-    def __init__(self, _id, topic, pool):
+    def __init__(self, _id, topic, pool, data, redis_conn):
         self._i = 0
         self._id = _id
         self._key = f'{topic}:{_id}'
         self._pool = pool
-        self._duels = {}
+        self._duels = data
         self._conns = {}
         self._funcs = {}
         self._topic = topic
-        self._redis = redis.StrictRedis(cfg.REDIS_HOST, cfg.REDIS_PORT, cfg.REDIS_DB, cfg.REDIS_PASSWD)
+        self._redis = redis_conn
         self._consumer = kafka.KafkaConsumer(
             bootstrap_servers=cfg.KAFKA_SERVERS,
             group_id=topic
@@ -132,15 +131,18 @@ class Real:
             print(len(raw), data)
             if _id is None:
                 _id = data[0]
-                fut = self._duels.get(_id)
-                if fut is not None:
-                    fut.set_result(writer)
                 self._conns[_id] = reader, writer
-            elif not data[1]:
-                self._stock[_id] = writer
+                fut = self._duels.get(_id)
+                if fut is not None and isinstance(fut, asyncio.Future):
+                    fut.set_result(writer)
+                    continue
+            if not data[1]:
+                self._duels.pop(_id, None)
+                if _id not in self._stock:
+                    self._stock[_id] = writer
             else:
                 self._producer.send('duel', raw)
-            self._duels[_id] = data
+                self._duels[_id] = data
 
     async def consume_forever(self):
         await asyncio.sleep(0)
@@ -156,7 +158,7 @@ class Real:
     async def snapshot(self):
         snapshot = pickle.dumps(self)
         self._redis.set(self._key, snapshot)
-        self._redis.hset(self._topic, self._id, )
+        self._redis.hset(self._topic, self._id, len(self._od) + len(self._duels) * 3)
 
     async def main(self):
         self.funcs[self.participate.__name__] = self.participate
@@ -184,7 +186,17 @@ class Real:
 
 
 if __name__ == '__main__':
-    _id, topic = sys.argv[1:]
+    redis_conn = redis.StrictRedis(cfg.REDIS_HOST, cfg.REDIS_PORT, cfg.REDIS_DB, cfg.REDIS_PASSWD)
+
+    if len(sys.argv) == 3:
+        topic, _id = sys.argv[1:]
+        data = {}
+    else:
+        key = sys.argv[1]
+        topic, _id = key.split(':', 1)
+        cache = redis_conn.get(key)
+        dict_items = pickle.loads(cache)
+        data = {k: v for k, v in dict_items}
 
     with concurrent.futures.ThreadPoolExecutor() as pool:
-        asyncio.run(Real(int(_id), topic, pool).main())
+        asyncio.run(Real(int(_id), topic, pool, data, redis_conn).main())
